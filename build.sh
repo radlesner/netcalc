@@ -1,0 +1,1 @@
+g++ *.cpp *.c -Wall -Wextra -pedantic -o netcalc
