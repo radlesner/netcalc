@@ -1,3 +1,4 @@
 #include <iostream>
+#include <cstring>
 
-void get_network_address(std::string ip4_addr, std::string netmask);
+void get_network_address(std::string bin_ip4_addr, std::string bin_netmask);

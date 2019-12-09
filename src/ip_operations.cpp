@@ -3,40 +3,55 @@
 #include "convert_numbers.h"
 #include "ip_operations.h"
 
-void get_network_address(std::string ip4_addr, std::string netmask)
+void get_network_address(std::string bin_ip4_addr, std::string bin_netmask)
 {
-    int ip4_octets = 4,
-        ip4_octet_buffer = 8,
-        ip_octet[4],
-        netmask_octet[4],
-        network_addr_buffer = 0;
-
-    std::string binary_ip_octet[4],
-                binary_netmask_octet[4],
-                network_addr_octet[4];
-
-    for (size_t i = 0; i < 4; i++)
+    if (bin_ip4_addr.length() != 32 || bin_netmask.length() != 32)
     {
-        ip_octet[i] = stoi( division_on_octet( ip4_addr, i ) );
-        netmask_octet[i] = stoi( division_on_octet( netmask, i ) );
-
-        binary_ip_octet[i] = std::to_string( dec_to_bin( ip_octet[i] ) );
-        binary_netmask_octet[i] = std::to_string( dec_to_bin( netmask_octet[i] ) );
+        std::cout << "Addresses are too short" << std::endl;
+        return;
     }
+    else
+    {
+        int buffer,
+            octet_indicator = 0,
+            dec_network_octet_buffer;
 
-    std::cout << ip4_addr << std::endl;
-    std::cout << ip_octet[0] << std::endl;
-    std::cout << binary_ip_octet[0] << std::endl;
-    std::cout << netmask_octet[0] << std::endl;
-    std::cout << binary_netmask_octet[0] << std::endl;
+        std::string bin_network_addr,
+                    bin_network_octet[4],
+                    bin_addr_buffer,
+                    bin_netmask_buffer,
+                    dec_network_octet[4];
 
+        for (size_t i = 0; i < 32; i++)
+        {
+            bin_addr_buffer = bin_ip4_addr[i];
+            bin_netmask_buffer = bin_netmask[i];
 
-    // for (size_t i = 0; i < ip4_octets; i++)
-    // {
-    //     for (size_t y = 0; y < ip4_octet_buffer; y++)
-    //     {
-    //         network_addr_buffer = stoi(binary_ip_octet[y]) * stoi(binary_netmask_octet[y]);
-    //     }
-    // }
+            buffer = std::stoi(bin_addr_buffer) * std::stoi(bin_netmask_buffer);
 
+            bin_network_addr += std::to_string(buffer);
+        }
+
+        for (size_t i = 0; i < 32; i++)
+        {
+            bin_network_octet[octet_indicator] += bin_network_addr[i];
+
+            if (i == 7 || i == 15 || i == 23)
+            {
+                octet_indicator++;
+            }
+        }
+
+        for (size_t i = 0; i < 4; i++)
+        {
+            dec_network_octet_buffer = convertBinaryToDecimal(std::stoi( bin_network_octet[i] ));
+            dec_network_octet[i] = std::to_string(dec_network_octet_buffer);
+        }
+
+        std::cout << "Network address: "
+                  << dec_network_octet[0] << "."
+                  << dec_network_octet[1] << "."
+                  << dec_network_octet[2] << "."
+                  << dec_network_octet[3] << std::endl;
+    }
 }

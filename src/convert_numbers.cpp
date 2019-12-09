@@ -23,3 +23,16 @@ int dec_to_bin(int dec_input)
 
 	return int_output;
 }
+
+int convertBinaryToDecimal(long long bin_input)
+{
+    int decimalNumber = 0, i = 0, remainder;
+    while (bin_input != 0)
+    {
+        remainder = bin_input % 10;
+        bin_input /= 10;
+        decimalNumber += remainder *pow(2, i);
+        ++i;
+    }
+    return decimalNumber;
+}
