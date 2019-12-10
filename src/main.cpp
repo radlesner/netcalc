@@ -60,6 +60,7 @@ int main(int argc, char **argv)
         binary_netmask = make_netmask(prefix_netmask);
         binary_network = get_network_address(binary_ip_address, binary_netmask);
         get_broadcast_addr(binary_network, binary_netmask);
+        get_number_hosts(binary_ip_address, prefix_netmask);
 	}
     else
     {

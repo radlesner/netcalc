@@ -108,3 +108,26 @@ void get_broadcast_addr(std::string bin_network_addr, std::string bin_netmask)
                   << dec_broadcast_addr[3] << std::endl;
     }
 }
+
+void get_number_hosts(std::string bin_ip4_addr, std::string prefix)
+{
+    int ip_addr_length = bin_ip4_addr.length(),
+        netmask_prefix = std::stoi(prefix),
+        exponentiation_input = ip_addr_length - netmask_prefix,
+        number_hosts;
+
+    number_hosts = exponentiation(2, exponentiation_input);
+    number_hosts -= 2;
+
+    std::cout << "Number of hosts: " << number_hosts << std::endl;
+}
+
+long int exponentiation(long int base_of_power, int index)
+{
+    int result = 1;
+
+    for (int i = 0; i<index; i++)
+        result*=base_of_power;
+
+    return result;
+}
