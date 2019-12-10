@@ -22,21 +22,44 @@ int main(int argc, char **argv)
 
         int ip_octet[4];
 
-        if ((static_cast<int>(prefix_netmask[0]) >= 48 && static_cast<int>(prefix_netmask[0]) <= 57) &&
-            (static_cast<int>(prefix_netmask[1]) >= 48 && static_cast<int>(prefix_netmask[1]) <= 57))
+        if (prefix_netmask.length() == 1)
         {
-            if (std::stoi(prefix_netmask) < 0 || std::stoi(prefix_netmask) > 31)
+            if (static_cast<int>(prefix_netmask[0]) >= 48 && static_cast<int>(prefix_netmask[0]) <= 57)
             {
-                std::cout << "Bad prefix netmask" << std::endl;
+                if (std::stoi(prefix_netmask) < 0 || std::stoi(prefix_netmask) > 31)
+                {
+                    std::cout << "Bad prefix netmask" << std::endl;
+                    return 1;
+                }
+            }
+            else
+            {
+                std::cout << "You must enter a value in numbers" << std::endl;
+                return 1;
+            }
+        }
+        else if (prefix_netmask.length() == 2)
+        {
+            if ((static_cast<int>(prefix_netmask[0]) >= 48 && static_cast<int>(prefix_netmask[0]) <= 57) &&
+                (static_cast<int>(prefix_netmask[1]) >= 48 && static_cast<int>(prefix_netmask[1]) <= 57))
+            {
+                if (std::stoi(prefix_netmask) < 0 || std::stoi(prefix_netmask) > 31)
+                {
+                    std::cout << "Bad prefix netmask" << std::endl;
+                    return 1;
+                }
+            }
+            else
+            {
+                std::cout << "You must enter a value in numbers" << std::endl;
                 return 1;
             }
         }
         else
         {
-            std::cout << "You must enter a value in numbers" << std::endl;
+            std::cout << "Bad prefix netmask" << std::endl;
             return 1;
         }
-
 
 
         if (is_valid_ip(argv[1]) == 1)
