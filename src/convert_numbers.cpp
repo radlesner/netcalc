@@ -1,10 +1,9 @@
 #include "convert_numbers.h"
 
-int dec_to_bin(int dec_input)
+std::string dec_to_bin(int dec_input)
 {
     int i=0,
-		tab[31],
-		int_output;
+		tab[31];
 
 	std::string str_output;
 
@@ -19,9 +18,15 @@ int dec_to_bin(int dec_input)
 		str_output += std::to_string(tab[j]);
 	}
 
-	int_output = atoi(str_output.c_str());
+	if (str_output.length() < 8)
+	{
+		while (str_output.length() != 8)
+		{
+			str_output = "0" + str_output;
+		}
+	}
 
-	return int_output;
+	return str_output;
 }
 
 int convertBinaryToDecimal(long long bin_input)

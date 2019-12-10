@@ -30,10 +30,8 @@ void get_network_address(std::string bin_ip4_addr, std::string bin_netmask)
             buffer = std::stoi(bin_addr_buffer) * std::stoi(bin_netmask_buffer);
 
             bin_network_addr += std::to_string(buffer);
-        }
 
-        for (size_t i = 0; i < 32; i++)
-        {
+
             bin_network_octet[octet_indicator] += bin_network_addr[i];
 
             if (i == 7 || i == 15 || i == 23)
@@ -41,6 +39,16 @@ void get_network_address(std::string bin_ip4_addr, std::string bin_netmask)
                 octet_indicator++;
             }
         }
+
+        // for (size_t i = 0; i < 32; i++)
+        // {
+        //     bin_network_octet[octet_indicator] += bin_network_addr[i];
+
+        //     if (i == 7 || i == 15 || i == 23)
+        //     {
+        //         octet_indicator++;
+        //     }
+        // }
 
         for (size_t i = 0; i < 4; i++)
         {
