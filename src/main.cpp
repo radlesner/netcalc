@@ -45,6 +45,7 @@ int main(int argc, char **argv)
             binary_ip_address += binary_ip_octet[i];
         }
 
+        std::cout << std::endl;
 
         binary_netmask = make_netmask(prefix_netmask);
         get_network_address(binary_ip_address, binary_netmask);
