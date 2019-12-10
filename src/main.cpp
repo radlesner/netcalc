@@ -15,9 +15,9 @@ int main(int argc, char **argv)
                     prefix_netmask = argv[2],
 
                     binary_ip_address,
+                    binary_ip_octet[4],
                     binary_netmask,
-
-                    binary_ip_octet[4];
+                    binary_network;
 
         int ip_octet[4];
 
@@ -58,7 +58,8 @@ int main(int argc, char **argv)
         std::cout << std::endl;
 
         binary_netmask = make_netmask(prefix_netmask);
-        get_network_address(binary_ip_address, binary_netmask);
+        binary_network = get_network_address(binary_ip_address, binary_netmask);
+        get_broadcast_addr(binary_network, binary_netmask);
 	}
     else
     {
