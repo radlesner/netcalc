@@ -46,7 +46,7 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
             dec_network_octet[i] = std::to_string(dec_network_octet_buffer);
         }
 
-        std::cout << "Network address: "
+        std::cout << "Network address:   "
                   << dec_network_octet[0] << "."
                   << dec_network_octet[1] << "."
                   << dec_network_octet[2] << "."
@@ -124,7 +124,7 @@ void get_number_hosts(std::string bin_ip4_addr, std::string prefix)
     number_hosts = exponentiation(2, exponentiation_input);
     number_hosts -= 2;
 
-    std::cout << "Number of hosts: " << number_hosts << std::endl;
+    std::cout << "Number of hosts:   " << number_hosts << std::endl;
 }
 
 void get_first_last_host(std::string bin_network, std::string bin_broadcast)
@@ -139,7 +139,6 @@ void get_first_last_host(std::string bin_network, std::string bin_broadcast)
         int octet_indicator = 0,
             first_host_octet[4],
             last_host_octet[4];
-            //last_host_octet[4];
 
         std::string bin_network_octet[4],
                     bin_broadcast_octet[4];
@@ -167,13 +166,13 @@ void get_first_last_host(std::string bin_network, std::string bin_broadcast)
             }
         }
 
-        std::cout << "First host: "
+        std::cout << "First host:        "
                   << first_host_octet[0] << "."
                   << first_host_octet[1] << "."
                   << first_host_octet[2] << "."
                   << first_host_octet[3] << std::endl;
 
-        std::cout << "Last host: "
+        std::cout << "Last host:         "
                   << last_host_octet[0] << "."
                   << last_host_octet[1] << "."
                   << last_host_octet[2] << "."

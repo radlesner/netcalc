@@ -38,7 +38,7 @@ std::string make_netmask(std::string prefix)
         int_netmask[i] = convertBinaryToDecimal(std::stoi(bin_netmask_octet[i]));
     }
 
-    std::cout << "Netmask: "
+    std::cout << "Netmask:           "
               << int_netmask[0] << "."
               << int_netmask[1] << "."
               << int_netmask[2] << "."

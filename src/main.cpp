@@ -28,13 +28,15 @@ int main(int argc, char **argv)
             {
                 if (std::stoi(prefix_netmask) < 0 || std::stoi(prefix_netmask) > 31)
                 {
-                    std::cout << "Bad prefix netmask" << std::endl;
+                    std::cout << "Bad prefix netmask" << std::endl
+                              << "Example: netcalc 192.168.0.1 24" << std::endl;
                     return 1;
                 }
             }
             else
             {
-                std::cout << "You must enter a value in numbers" << std::endl;
+                std::cout << "You must enter a value in numbers" << std::endl
+                          << "Example: netcalc 192.168.0.1 24" << std::endl;
                 return 1;
             }
         }
@@ -45,30 +47,33 @@ int main(int argc, char **argv)
             {
                 if (std::stoi(prefix_netmask) < 0 || std::stoi(prefix_netmask) > 31)
                 {
-                    std::cout << "Bad prefix netmask" << std::endl;
+                    std::cout << "Bad prefix netmask" << std::endl
+                              << "Example: netcalc 192.168.0.1 24" << std::endl;
                     return 1;
                 }
             }
             else
             {
-                std::cout << "You must enter a value in numbers" << std::endl;
+                std::cout << "You must enter a value in numbers" << std::endl
+                          << "Example: netcalc 192.168.0.1 24" << std::endl;
                 return 1;
             }
         }
         else
         {
-            std::cout << "Bad prefix netmask" << std::endl;
+            std::cout << "Bad prefix netmask" << std::endl
+                      << "Example: netcalc 192.168.0.1 24" << std::endl;
             return 1;
         }
 
 
         if (is_valid_ip(argv[1]) == 1)
         {
-            std::cout << "IP address: " << ip_address << " (OK)" << std::endl;
+            std::cout << "IP address:        " << ip_address << " (OK)" << std::endl;
         }
         else
         {
-            std::cout << "IP address: " << ip_address << " (WRONG)" << std::endl;
+            std::cout << "IP address:        " << ip_address << " (WRONG)" << std::endl;
             return 1;
         }
 
@@ -79,8 +84,6 @@ int main(int argc, char **argv)
             binary_ip_address += binary_ip_octet[i];
         }
 
-        std::cout << std::endl;
-
         binary_netmask = make_netmask(prefix_netmask);
         binary_network = get_network_address(binary_ip_address, binary_netmask);
         binary_broadcast = get_broadcast_addr(binary_network, binary_netmask);
@@ -89,7 +92,7 @@ int main(int argc, char **argv)
 	}
     else
     {
-        std::cout << "help panel" << std::endl;
+        std::cout << "Example: netcalc 192.168.0.1 24" << std::endl;
     }
 
     return 0;
