@@ -17,7 +17,8 @@ int main(int argc, char **argv)
                     binary_ip_address,
                     binary_ip_octet[4],
                     binary_netmask,
-                    binary_network;
+                    binary_network,
+                    binary_broadcast;
 
         int ip_octet[4];
 
@@ -59,8 +60,9 @@ int main(int argc, char **argv)
 
         binary_netmask = make_netmask(prefix_netmask);
         binary_network = get_network_address(binary_ip_address, binary_netmask);
-        get_broadcast_addr(binary_network, binary_netmask);
+        binary_broadcast = get_broadcast_addr(binary_network, binary_netmask);
         get_number_hosts(binary_ip_address, prefix_netmask);
+        get_first_last_host(binary_network, binary_broadcast);
 	}
     else
     {
