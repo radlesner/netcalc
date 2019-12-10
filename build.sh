@@ -1,1 +1,7 @@
-g++ src/*.cpp src/*.c -Wall -Wextra -pedantic -o netcalc
+#/bin/sh
+
+if [ -e netcalc ] ; then
+    make clean
+fi
+
+make
