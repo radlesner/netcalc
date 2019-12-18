@@ -20,7 +20,8 @@ int main(int argc, char **argv)
                     binary_network,
                     binary_broadcast;
 
-        int ip_octet[4];
+        int ip_octet[4],
+            valid_ip;
 
         if (prefix_netmask.length() == 1)
         {
@@ -67,7 +68,8 @@ int main(int argc, char **argv)
         }
 
 
-        if (is_valid_ip(argv[1]) == 1)
+        valid_ip = is_valid_ip(argv[1]);
+        if (valid_ip == 1)
         {
             std::cout << "IP address:        " << ip_address << " (OK)" << std::endl;
         }
