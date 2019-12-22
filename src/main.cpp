@@ -2,6 +2,7 @@
 #include <cstring>
 
 #include "check_ip.h"
+#include "check_prefix.h"
 #include "netmask.h"
 #include "octet.h"
 #include "convert_numbers.h"
@@ -23,50 +24,7 @@ int main(int argc, char **argv)
         int ip_octet[4],
             valid_ip;
 
-        if (prefix_netmask.length() == 1)
-        {
-            if (static_cast<int>(prefix_netmask[0]) >= 48 && static_cast<int>(prefix_netmask[0]) <= 57)
-            {
-                if (std::stoi(prefix_netmask) < 0 || std::stoi(prefix_netmask) > 31)
-                {
-                    std::cout << "Bad prefix netmask" << std::endl
-                              << "Example: netcalc 192.168.0.1 24" << std::endl;
-                    return 1;
-                }
-            }
-            else
-            {
-                std::cout << "You must enter a value in numbers" << std::endl
-                          << "Example: netcalc 192.168.0.1 24" << std::endl;
-                return 1;
-            }
-        }
-        else if (prefix_netmask.length() == 2)
-        {
-            if ((static_cast<int>(prefix_netmask[0]) >= 48 && static_cast<int>(prefix_netmask[0]) <= 57) &&
-                (static_cast<int>(prefix_netmask[1]) >= 48 && static_cast<int>(prefix_netmask[1]) <= 57))
-            {
-                if (std::stoi(prefix_netmask) < 0 || std::stoi(prefix_netmask) > 31)
-                {
-                    std::cout << "Bad prefix netmask" << std::endl
-                              << "Example: netcalc 192.168.0.1 24" << std::endl;
-                    return 1;
-                }
-            }
-            else
-            {
-                std::cout << "You must enter a value in numbers" << std::endl
-                          << "Example: netcalc 192.168.0.1 24" << std::endl;
-                return 1;
-            }
-        }
-        else
-        {
-            std::cout << "Bad prefix netmask" << std::endl
-                      << "Example: netcalc 192.168.0.1 24" << std::endl;
-            return 1;
-        }
-
+        bool valid_prefix;
 
         valid_ip = is_valid_ip(argv[1]);
         if (valid_ip == 1)
@@ -78,6 +36,16 @@ int main(int argc, char **argv)
             std::cout << "IP address:        " << ip_address << " (WRONG)" << std::endl;
             return 1;
         }
+
+        valid_prefix = is_valid_netmask_prefix(prefix_netmask);
+        if (valid_prefix == false)
+        {
+            std::cout << "Bad prefix netmask" << std::endl
+                      << "Example: netcalc 192.168.0.1 24" << std::endl;
+            return 1;
+        }
+
+
 
         for (int i = 0; i < 4; i++)
         {
