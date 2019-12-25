@@ -41,7 +41,7 @@ int main(int argc, char **argv)
         if (valid_prefix == false)
         {
             std::cout << "Bad prefix netmask" << std::endl
-                      << "Example: netcalc 192.168.0.1 24" << std::endl;
+                      << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl;
             return 1;
         }
 
@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 	}
     else
     {
-        std::cout << "Example: netcalc 192.168.0.1 24" << std::endl;
+        std::cout << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl;
     }
 
     return 0;
