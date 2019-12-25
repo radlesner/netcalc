@@ -26,6 +26,14 @@ int main(int argc, char **argv)
 
         bool valid_prefix;
 
+        valid_prefix = is_valid_netmask_prefix(prefix_netmask);
+        if (valid_prefix == false)
+        {
+            std::cout << "Bad prefix netmask" << std::endl
+                      << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl;
+            return 1;
+        }
+
         valid_ip = is_valid_ip(argv[1]);
         if (valid_ip == 1)
         {
@@ -33,14 +41,7 @@ int main(int argc, char **argv)
         }
         else
         {
-            std::cout << "IP address:        " << ip_address << " (WRONG)" << std::endl;
-            return 1;
-        }
-
-        valid_prefix = is_valid_netmask_prefix(prefix_netmask);
-        if (valid_prefix == false)
-        {
-            std::cout << "Bad prefix netmask" << std::endl
+            std::cout << "Bad ip address" << std::endl
                       << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl;
             return 1;
         }
