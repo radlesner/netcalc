@@ -6,3 +6,7 @@ simple network calculator
 $ cmake src/
 $ make
 ```
+Optional
+```sh
+$ make install
+```
