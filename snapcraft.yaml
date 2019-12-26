@@ -2,6 +2,7 @@ name: netcalc
 version: 1.0
 summary: Network calculator
 description: Simple network calculator
+grade: stable
 
 parts:
   netcalc:
