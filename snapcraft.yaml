@@ -1,8 +1,9 @@
 name: network-calculator
 version: 1.0
 summary: Network calculator
-description: |
-  Simple network calculator
+description: Simple network calculator
+build-packages: [libxpm-dev, libxtst-dev, libxext-dev]
+
 parts:
   netcalc:
     plugin: cmake
