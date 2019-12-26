@@ -11,3 +11,5 @@ set(SOURCES main.cpp
             )
 
 add_executable(netcalc ${SOURCES})
+
+install(TARGETS netcalc RUNTIME DESTINATION bin)
