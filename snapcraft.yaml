@@ -1,12 +1,13 @@
-name: netcalc
+name: network-calculator
 version: 1.0
+summary: Network calculator
 description: |
   Simple network calculator
 parts:
   netcalc:
     plugin: cmake
-    source: .
+    source: src
 
 apps:
-  netcalc:
+  network-calculator:
     command: netcalc
