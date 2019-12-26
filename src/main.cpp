@@ -37,7 +37,7 @@ int main(int argc, char **argv)
         valid_ip = is_valid_ip(argv[1]);
         if (valid_ip == 1)
         {
-            std::cout << "IP address:        " << ip_address << " (OK)" << std::endl;
+            std::cout << "IP address:        " << ip_address << " (\033[0m\033[1;32mOK\033[0m)" << std::endl;
         }
         else
         {
