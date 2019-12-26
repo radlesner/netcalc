@@ -3,11 +3,15 @@ version: 1.0
 summary: Network calculator
 description: Simple network calculator
 grade: stable
+base: core18
 
 parts:
   netcalc:
     plugin: cmake
     source: src
+    build-packages:
+      - cmake
+      - make
 
 apps:
   netcalc:
