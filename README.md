@@ -3,6 +3,6 @@ simple network calculator
 
 # Compile
 ```sh
-$ cmake .
+$ cmake src/
 $ make
 ```
