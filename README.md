@@ -10,3 +10,7 @@ Optional
 ```sh
 $ make install
 ```
+# Install from snapstore
+```sh
+$ snap install netcalc
+```
