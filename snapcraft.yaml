@@ -4,6 +4,7 @@ summary: Network calculator
 description: Simple network calculator
 grade: devel
 base: core18
+license: GPL-3.0
 
 parts:
   netcalc:
