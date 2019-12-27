@@ -10,7 +10,16 @@
 
 int main(int argc, char **argv)
 {
-	if(argc > 2)
+    if (argc > 1)
+    {
+        if (!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version"))
+        {
+            // Version of program must be changed in snapcraft.yaml
+            std::cout << "netcalc, version 1.1" << std::endl;
+        }
+
+    }
+	else if(argc > 2)
 	{
         std::string ip_address = argv[1],
                     prefix_netmask = argv[2],
