@@ -10,7 +10,7 @@ Optional
 ```sh
 $ make install
 ```
-# Install from snapstore [![Snap Status](https://build.snapcraft.io/badge/CasinoRoyaleKrupier/netcalc.svg)](https://build.snapcraft.io/user/CasinoRoyaleKrupier/netcalc)
+# Install from snapstore
 ```sh
 $ snap install netcalc
 ```
