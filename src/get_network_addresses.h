@@ -16,3 +16,4 @@
 #include "netmask.h"
 
 void get_network(char *interface_name);
+void show_interfaces();

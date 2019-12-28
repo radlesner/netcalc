@@ -1,6 +1,6 @@
 #include "get_network_addresses.h"
 
-void get_network(char *interface_name)
+void get_network (char *interface_name)
 {
     struct ifaddrs* ifAddrStruct = NULL;
     struct ifaddrs* ifa = NULL;
@@ -61,6 +61,27 @@ void get_network(char *interface_name)
             /*
                 OUTPUT END
             */
+        }
+    }
+    if (ifAddrStruct != NULL) freeifaddrs(ifAddrStruct);
+}
+
+void show_interfaces()
+{
+    struct ifaddrs* ifAddrStruct = NULL;
+    struct ifaddrs* ifa = NULL;
+    void* tmpAddrPtr = NULL;
+
+    getifaddrs(&ifAddrStruct);
+
+    std::cout << "List of active interfaces" << std::endl;
+
+    for(ifa = ifAddrStruct;  ifa != NULL; ifa = ifa->ifa_next)
+    {
+        if (!ifa->ifa_addr) continue;
+        if (ifa->ifa_addr->sa_family == AF_INET)
+        {
+            std::cout << "> " << ifa->ifa_name << std::endl;
         }
     }
     if (ifAddrStruct != NULL) freeifaddrs(ifAddrStruct);

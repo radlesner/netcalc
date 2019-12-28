@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 {
 	if(argc > 2)
 	{
-        if (!strcmp(argv[1], "-n") || !strcmp(argv[1], "--network"))
+        if (!strcmp(argv[1], "-i") || !strcmp(argv[1], "--inteface"))
         {
             get_network(argv[2]);
         }
@@ -72,17 +72,24 @@ int main(int argc, char **argv)
         if (!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version"))
         {
             // Version of program must be changed in snapcraft.yaml file
-            std::cout << "netcalc, version 2.0" << std::endl;
+            std::cout << "netcalc, version 2.1" << std::endl;
         }
         else if (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help"))
         {
             std::cout << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl
+                      << "    -i    --inteface    Calculates values from interface"
                       << "    -v    --version     Show version of program" << std::endl
                       << "    -h    --help        Help panel" << std::endl;
         }
-        else if (!strcmp(argv[1], "-n") || !strcmp(argv[1], "--network"))
+        else if (!strcmp(argv[1], "-i") || !strcmp(argv[1], "--inteface"))
         {
             std::cout << "You must provide an interface name" << std::endl;
+
+            show_interfaces();
+        }
+        else
+        {
+            std::cout << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl;
         }
     }
     else
