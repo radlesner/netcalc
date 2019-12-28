@@ -1,5 +1,5 @@
 name: netcalc
-version: '2.1.1rc1'
+version: '2.1.1rc2'
 summary: Simple network calculator
 description: Simple network calculator
 grade: stable
@@ -10,10 +10,10 @@ parts:
   netcalc:
     plugin: cmake
     source: src
+    socket: network-bind
     build-packages:
       - cmake
       - make
-      - libc6-dev
 
 apps:
   netcalc:
