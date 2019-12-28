@@ -1,5 +1,5 @@
 name: netcalc
-version: '2.1.1'
+version: '2.1.1rc1'
 summary: Simple network calculator
 description: Simple network calculator
 grade: stable
@@ -13,6 +13,7 @@ parts:
     build-packages:
       - cmake
       - make
+      - libc6-dev
 
 apps:
   netcalc:
