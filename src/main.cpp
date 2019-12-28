@@ -72,12 +72,12 @@ int main(int argc, char **argv)
         if (!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version"))
         {
             // Version of program must be changed in snapcraft.yaml file
-            std::cout << "netcalc, version 2.1" << std::endl;
+            std::cout << "netcalc, version 2.1.1" << std::endl;
         }
         else if (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help"))
         {
             std::cout << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl
-                      << "    -i    --inteface    Calculates values from interface"
+                      << "    -i    --inteface    Calculates values from interface" << std::endl
                       << "    -v    --version     Show version of program" << std::endl
                       << "    -h    --help        Help panel" << std::endl;
         }
