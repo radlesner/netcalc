@@ -46,3 +46,18 @@ std::string make_netmask(std::string prefix)
 
     return bin_netmask;
 }
+
+int make_prefix(std::string bin_netmask_input)
+{
+    int prefix = 0;
+
+    for (size_t i = 0; i < 32; i++)
+    {
+        if (bin_netmask_input[i] == '1')
+        {
+            prefix++;
+        }
+    }
+
+    return prefix;
+}
