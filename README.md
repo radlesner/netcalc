@@ -13,7 +13,7 @@ $ make install
 ```
 
 ## Install from snapstore
-Current version on snapstore: [![netcalc](https://snapcraft.io//netcalc/badge.svg)](https://snapcraft.io/netcalc)
+[![netcalc](https://snapcraft.io//netcalc/badge.svg)](https://snapcraft.io/netcalc)
 ```sh
 $ snap install netcalc
 ```
