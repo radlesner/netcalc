@@ -11,7 +11,9 @@ Optional
 $ make install
 ```
 ## Install from snapstore
-[![Snap Status](https://build.snapcraft.io/badge/CasinoRoyaleKrupier/netcalc.svg)](https://build.snapcraft.io/user/CasinoRoyaleKrupier/netcalc)
+<a href="https://build.snapcraft.io/user/CasinoRoyaleKrupier/netcalc">
+    <img alt="netcalc" src="https://build.snapcraft.io/badge/CasinoRoyaleKrupier/netcalc.svg" />
+</a>
 ```sh
 $ snap install netcalc
 ```
