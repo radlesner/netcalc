@@ -14,6 +14,7 @@ $ make install
 <a href="https://build.snapcraft.io/user/CasinoRoyaleKrupier/netcalc">
     <img alt="netcalc" src="https://build.snapcraft.io/badge/CasinoRoyaleKrupier/netcalc.svg" />
 </a>
+<br>
 ```sh
 $ snap install netcalc
 ```
