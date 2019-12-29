@@ -8,6 +8,7 @@
 #include "convert_numbers.h"
 #include "ip_operations.h"
 #include "get_network_addresses.h"
+#include "output.h"
 
 int main(int argc, char **argv)
 {
@@ -36,8 +37,8 @@ int main(int argc, char **argv)
             valid_prefix = is_valid_netmask_prefix(prefix_netmask);
             if (valid_prefix == false)
             {
-                std::cout << "Bad prefix netmask" << std::endl
-                          << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl;
+                error_message();
+                usage_message();
                 return 1;
             }
 
@@ -48,8 +49,8 @@ int main(int argc, char **argv)
             }
             else
             {
-                std::cout << "Bad ip address" << std::endl
-                          << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl;
+                error_message();
+                usage_message();
                 return 1;
             }
 
@@ -71,30 +72,24 @@ int main(int argc, char **argv)
     {
         if (!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version"))
         {
-            // Version of program must be changed in snapcraft.yaml file
-            std::cout << "netcalc, version 2.2" << std::endl;
+            version_program();
         }
         else if (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help"))
         {
-            std::cout << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl
-                      << "    -i    --inteface    Calculates values from interface" << std::endl
-                      << "    -v    --version     Show version of program" << std::endl
-                      << "    -h    --help        Help panel" << std::endl;
+            help_panel();
         }
         else if (!strcmp(argv[1], "-i") || !strcmp(argv[1], "--inteface"))
         {
-            std::cout << "You must provide an interface name" << std::endl;
-
             show_interfaces();
         }
         else
         {
-            std::cout << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl;
+            error_message_argument(argv[1]);
         }
     }
     else
     {
-        std::cout << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl;
+        usage_message();
     }
 
     return 0;

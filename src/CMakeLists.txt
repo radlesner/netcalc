@@ -8,6 +8,7 @@ set(SOURCES main.cpp
             ip_operations.cpp
             netmask.cpp
             octet.cpp
+            output.cpp
             get_network_addresses.cpp
             )
 
