@@ -3,7 +3,7 @@
 void version_program()
 {
     // Version of program must be changed in snapcraft.yaml file
-    std::cout << "netcalc, version 2.2.1" << std::endl;
+    std::cout << "netcalc, version 2.2.2" << std::endl;
 }
 
 void help_panel()
