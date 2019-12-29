@@ -9,7 +9,7 @@ license: GPL-2.0
 parts:
   netcalc:
     plugin: cmake
-    source: src
+    source: .
     build-packages:
       - cmake
       - make
