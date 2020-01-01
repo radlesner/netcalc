@@ -1,6 +1,60 @@
 #include "headers/get_network_addresses.h"
 
-void get_network (char *interface_name)
+void get_network_argument(char *ip_argument, char *prefix_argument)
+{
+    std::string
+        ip_address = ip_argument,
+        prefix_netmask = prefix_argument,
+        binary_ip_address,
+        binary_ip_octet[4],
+        binary_netmask,
+        binary_network,
+        binary_broadcast,
+        valid_ip_color_monit[2] = { "\033[0m\033[1;32m", "\033[0m" };
+
+    int ip_octet[4];
+
+    bool
+        valid_prefix,
+        valid_ip;
+
+    valid_prefix = is_valid_netmask_prefix(prefix_netmask);
+    if (valid_prefix == false)
+    {
+        error_message();
+        usage_message();
+        return;
+    }
+
+    valid_ip = is_valid_ip(ip_argument);
+    if (valid_ip == true)
+    {
+        std::cout
+            << "IP address:        " << ip_address
+            << " (" << valid_ip_color_monit[0] << "OK" << valid_ip_color_monit[1] << ")" << std::endl;
+    }
+    else
+    {
+        error_message();
+        usage_message();
+        return;
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        ip_octet[i] = std::stoi(division_on_octet(ip_address, i));
+        binary_ip_octet[i] = dec_to_bin(ip_octet[i]);
+        binary_ip_address += binary_ip_octet[i];
+    }
+
+    binary_netmask = make_netmask(prefix_netmask);
+    binary_network = get_network_address(binary_ip_address, binary_netmask);
+    binary_broadcast = get_broadcast_addr(binary_network, binary_netmask);
+    get_number_hosts(binary_ip_address, prefix_netmask);
+    get_first_last_host(binary_network, binary_broadcast);
+}
+
+void get_network_inteface(char *interface_name)
 {
     struct ifaddrs* ifAddrStruct = NULL;
     struct ifaddrs* ifa = NULL;
