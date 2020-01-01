@@ -1,14 +1,14 @@
 #include <iostream>
 #include <cstring>
 
-#include "check_ip.h"
-#include "check_prefix.h"
-#include "netmask.h"
-#include "octet.h"
-#include "convert_numbers.h"
-#include "ip_operations.h"
-#include "get_network_addresses.h"
-#include "output.h"
+#include "headers/check_ip.h"
+#include "headers/check_prefix.h"
+#include "headers/netmask.h"
+#include "headers/octet.h"
+#include "headers/convert_numbers.h"
+#include "headers/ip_operations.h"
+#include "headers/get_network_addresses.h"
+#include "headers/output.h"
 
 int main(int argc, char **argv)
 {

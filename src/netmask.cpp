@@ -1,6 +1,6 @@
-#include "netmask.h"
-#include "octet.h"
-#include "convert_numbers.h"
+#include "headers/netmask.h"
+#include "headers/octet.h"
+#include "headers/convert_numbers.h"
 
 std::string make_netmask(std::string prefix)
 {

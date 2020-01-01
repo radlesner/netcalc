@@ -8,6 +8,13 @@ grade: stable
 base: core18
 license: GPL-2.0
 
+apps:
+  netcalc:
+    command: netcalc
+    plugs:
+      - network
+      - network-bind
+
 parts:
   netcalc:
     plugin: cmake
@@ -15,10 +22,3 @@ parts:
     build-packages:
       - cmake
       - make
-
-apps:
-  netcalc:
-    command: netcalc
-    plugs:
-      - network
-      - network-bind

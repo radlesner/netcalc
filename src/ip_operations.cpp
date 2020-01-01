@@ -1,7 +1,7 @@
-#include "check_ip.h"
-#include "octet.h"
-#include "convert_numbers.h"
-#include "ip_operations.h"
+#include "headers/check_ip.h"
+#include "headers/octet.h"
+#include "headers/convert_numbers.h"
+#include "headers/ip_operations.h"
 
 std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmask)
 {
