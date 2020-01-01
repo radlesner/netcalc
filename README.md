@@ -4,12 +4,14 @@ Has the ability to fetch data from the interface.
 
 ## Compile
 ```sh
-$ cmake src/
+$ mkdir build
+$ cd build
+$ cmake ../
 $ make
 ```
 Optional
 ```sh
-$ make install
+$ sudo make install
 ```
 
 ## Install from snapstore
