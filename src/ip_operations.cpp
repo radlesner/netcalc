@@ -16,11 +16,12 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
             octet_indicator = 0,
             dec_network_octet_buffer;
 
-        std::string bin_network_addr,
-                    bin_network_octet[4],
-                    bin_addr_buffer,
-                    bin_netmask_buffer,
-                    dec_network_octet[4];
+        std::string
+            bin_network_addr,
+            bin_network_octet[4],
+            bin_addr_buffer,
+            bin_netmask_buffer,
+            dec_network_octet[4];
 
         for (size_t i = 0; i < 32; i++)
         {
@@ -46,11 +47,12 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
             dec_network_octet[i] = std::to_string(dec_network_octet_buffer);
         }
 
-        std::cout << "Network address:   "
-                  << dec_network_octet[0] << "."
-                  << dec_network_octet[1] << "."
-                  << dec_network_octet[2] << "."
-                  << dec_network_octet[3] << std::endl;
+        std::cout
+            << "Network address:   "
+            << dec_network_octet[0] << "."
+            << dec_network_octet[1] << "."
+            << dec_network_octet[2] << "."
+            << dec_network_octet[3] << std::endl;
 
         return bin_network_addr;
     }
@@ -65,10 +67,11 @@ std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_net
     }
     else
     {
-        std::string bin_netmask_invert = "11111111111111111111111111111111",
-                    bin_netmask_inv_octet[4],
-                    bin_network_octet[4],
-                    bin_broadcast;
+        std::string
+            bin_netmask_invert = "11111111111111111111111111111111",
+            bin_netmask_inv_octet[4],
+            bin_network_octet[4],
+            bin_broadcast;
 
         int octet_indicator = 0,
             dec_netmask_inf_octet[4],
@@ -104,11 +107,12 @@ std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_net
             bin_broadcast += dec_to_bin(dec_broadcast_addr[i]);
         }
 
-        std::cout << "Broadcast address: "
-                  << dec_broadcast_addr[0] << "."
-                  << dec_broadcast_addr[1] << "."
-                  << dec_broadcast_addr[2] << "."
-                  << dec_broadcast_addr[3] << std::endl;
+        std::cout
+            << "Broadcast address: "
+            << dec_broadcast_addr[0] << "."
+            << dec_broadcast_addr[1] << "."
+            << dec_broadcast_addr[2] << "."
+            << dec_broadcast_addr[3] << std::endl;
 
         return bin_broadcast;
     }
@@ -140,8 +144,9 @@ void get_first_last_host(std::string bin_network, std::string bin_broadcast)
             first_host_octet[4],
             last_host_octet[4];
 
-        std::string bin_network_octet[4],
-                    bin_broadcast_octet[4];
+        std::string
+            bin_network_octet[4],
+            bin_broadcast_octet[4];
 
         for (size_t i = 0; i < 32; i++)
         {
@@ -166,17 +171,19 @@ void get_first_last_host(std::string bin_network, std::string bin_broadcast)
             }
         }
 
-        std::cout << "First host:        "
-                  << first_host_octet[0] << "."
-                  << first_host_octet[1] << "."
-                  << first_host_octet[2] << "."
-                  << first_host_octet[3] << std::endl;
+        std::cout
+            << "First host:        "
+            << first_host_octet[0] << "."
+            << first_host_octet[1] << "."
+            << first_host_octet[2] << "."
+            << first_host_octet[3] << std::endl;
 
-        std::cout << "Last host:         "
-                  << last_host_octet[0] << "."
-                  << last_host_octet[1] << "."
-                  << last_host_octet[2] << "."
-                  << last_host_octet[3] << std::endl;
+        std::cout
+            << "Last host:         "
+            << last_host_octet[0] << "."
+            << last_host_octet[1] << "."
+            << last_host_octet[2] << "."
+            << last_host_octet[3] << std::endl;
     }
 }
 

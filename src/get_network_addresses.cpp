@@ -10,10 +10,11 @@ void get_network (char *interface_name)
         netmask_octet[4],
         netmask_prefix;
 
-    std::string bin_ip_address,
-                bin_netmask,
-                bin_network,
-                bin_broadcast;
+    std::string
+        bin_ip_address,
+        bin_netmask,
+        bin_network,
+        bin_broadcast;
 
     getifaddrs(&ifAddrStruct);
 
@@ -48,9 +49,10 @@ void get_network (char *interface_name)
 
                 netmask_prefix = make_prefix(bin_netmask);
 
-                std::cout << "Interface:         " << ifa->ifa_name << std::endl;
-                std::cout << "IP address:        " << address_buffer << std::endl;
-                std::cout << "Netmask:           " << mask_buffer << std::endl;
+                std::cout
+                    << "Interface:         " << ifa->ifa_name << std::endl
+                    << "IP address:        " << address_buffer << std::endl
+                    << "Netmask:           " << mask_buffer << std::endl;
 
                 bin_network = get_network_address(bin_ip_address, bin_netmask);
                 bin_broadcast = get_broadcast_addr(bin_network, bin_netmask);

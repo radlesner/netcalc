@@ -4,9 +4,10 @@
 
 std::string make_netmask(std::string prefix)
 {
-    std::string bin_netmask,
-                bin_netmask_octet[4],
-                dec_netmask;
+    std::string
+        bin_netmask,
+        bin_netmask_octet[4],
+        dec_netmask;
 
     int octet_indicator = 0,
         int_netmask[4];
@@ -38,11 +39,12 @@ std::string make_netmask(std::string prefix)
         int_netmask[i] = convertBinaryToDecimal(std::stoi(bin_netmask_octet[i]));
     }
 
-    std::cout << "Netmask:           "
-              << int_netmask[0] << "."
-              << int_netmask[1] << "."
-              << int_netmask[2] << "."
-              << int_netmask[3] << std::endl;
+    std::cout
+        << "Netmask:           "
+        << int_netmask[0] << "."
+        << int_netmask[1] << "."
+        << int_netmask[2] << "."
+        << int_netmask[3] << std::endl;
 
     return bin_netmask;
 }

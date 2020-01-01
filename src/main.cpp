@@ -20,19 +20,21 @@ int main(int argc, char **argv)
         }
         else
         {
-            std::string ip_address = argv[1],
-                        prefix_netmask = argv[2],
-                        binary_ip_address,
-                        binary_ip_octet[4],
-                        binary_netmask,
-                        binary_network,
-                        binary_broadcast,
-                        valid_ip_color_monit[2] = { "\033[0m\033[1;32m", "\033[0m" };
+            std::string
+                ip_address = argv[1],
+                prefix_netmask = argv[2],
+                binary_ip_address,
+                binary_ip_octet[4],
+                binary_netmask,
+                binary_network,
+                binary_broadcast,
+                valid_ip_color_monit[2] = { "\033[0m\033[1;32m", "\033[0m" };
 
             int ip_octet[4];
 
-            bool valid_prefix,
-                 valid_ip;
+            bool
+                valid_prefix,
+                valid_ip;
 
             valid_prefix = is_valid_netmask_prefix(prefix_netmask);
             if (valid_prefix == false)
@@ -45,8 +47,9 @@ int main(int argc, char **argv)
             valid_ip = is_valid_ip(argv[1]);
             if (valid_ip == true)
             {
-                std::cout << "IP address:        " << ip_address
-                          << " (" << valid_ip_color_monit[0] << "OK" << valid_ip_color_monit[1] << ")" << std::endl;
+                std::cout
+                    << "IP address:        " << ip_address
+                    << " (" << valid_ip_color_monit[0] << "OK" << valid_ip_color_monit[1] << ")" << std::endl;
             }
             else
             {

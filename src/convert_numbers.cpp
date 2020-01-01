@@ -31,7 +31,10 @@ std::string dec_to_bin(int dec_input)
 
 int convertBinaryToDecimal(long long bin_input)
 {
-    int decimalNumber = 0, i = 0, remainder;
+    int decimalNumber = 0,
+		i = 0,
+		remainder;
+
     while (bin_input != 0)
     {
         remainder = bin_input % 10;
