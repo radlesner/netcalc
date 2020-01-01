@@ -4,13 +4,21 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "Build program",
             "type": "shell",
             "command": "mkdir -p build && cd build && cmake ../ && make",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Clean build folder",
+            "type": "shell",
+            "command": "rm -rf build",
             "problemMatcher": [
                 "$gcc"
             ]
