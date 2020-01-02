@@ -16,6 +16,7 @@ $ sudo make install
 
 ## Install from snapstore
 [![netcalc](https://snapcraft.io//netcalc/badge.svg)](https://snapcraft.io/netcalc)
+[![Snap Status](https://build.snapcraft.io/badge/CasinoRoyaleKrupier/netcalc.svg)](https://build.snapcraft.io/user/CasinoRoyaleKrupier/netcalc)
 ```sh
 $ snap install netcalc
 ```
