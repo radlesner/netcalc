@@ -1,7 +1,7 @@
 #include "headers/get_network_addresses.h"
 #include "headers/output.h"
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
 	if(argc > 2)
 	{

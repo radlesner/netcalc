@@ -10,7 +10,7 @@ void get_network_argument(char *ip_argument, char *prefix_argument)
         binary_netmask,
         binary_network,
         binary_broadcast,
-        valid_ip_color_monit[2] = { "\033[0m\033[1;32m", "\033[0m" };
+        valid_ip_color_monit[2] = { "\033[1;32m", "\033[0m" };
 
     int ip_octet[4];
 

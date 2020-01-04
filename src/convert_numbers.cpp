@@ -42,5 +42,6 @@ int convertBinaryToDecimal(long long bin_input)
         decimalNumber += remainder *pow(2, i);
         ++i;
     }
+
     return decimalNumber;
 }

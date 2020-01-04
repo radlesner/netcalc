@@ -34,7 +34,7 @@ bool is_valid_ip(char *ip_str)
         if (!valid_digit(ptr))
             return false;
 
-        num = atoi(ptr);
+        num = std::stoi(ptr);
 
         /* check for valid IP */
         if (num >= 0 && num <= 255) {

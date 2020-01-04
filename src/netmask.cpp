@@ -10,9 +10,10 @@ std::string make_netmask(std::string prefix)
         dec_netmask;
 
     int octet_indicator = 0,
-        int_netmask[4];
+        int_netmask[4],
+        int_prefix = std::stoi(prefix);
 
-    for (int i = 0; i < std::stoi(prefix); i++)
+    for (int i = 0; i < int_prefix; i++)
     {
         bin_netmask += "1";
     }

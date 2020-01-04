@@ -31,8 +31,6 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
             buffer = std::stoi(bin_addr_buffer) * std::stoi(bin_netmask_buffer);
 
             bin_network_addr += std::to_string(buffer);
-
-
             bin_network_octet[octet_indicator] += bin_network_addr[i];
 
             if (i == 7 || i == 15 || i == 23)
