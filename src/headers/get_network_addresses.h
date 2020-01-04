@@ -10,6 +10,7 @@
 #include "check_ip.h"
 #include "check_prefix.h"
 
-void    get_network_argument   (char *ip_argument, char *prefix_argument);
-void    get_network_inteface   (char *interface_name);
-void    show_interfaces        ();
+void        get_network_argument    (char *ip_argument, char *prefix_argument);
+void        get_network_inteface    (char *interface_name);
+void        show_interfaces         ();
+std::string add_color_string        (std::string text_input);

@@ -9,43 +9,27 @@ void get_network_argument(char *ip_argument, char *prefix_argument)
         binary_ip_octet[4],
         binary_netmask,
         binary_network,
-        binary_broadcast,
-        valid_ip_color_monit[2] = { "\033[1;32m", "\033[0m" };
+        binary_broadcast;
 
-    int ip_octet[4];
-
-    bool
-        valid_prefix,
-        valid_ip;
-
-    valid_prefix = is_valid_netmask_prefix(prefix_netmask);
-    if (valid_prefix == false)
+    if (!is_valid_netmask_prefix(prefix_netmask))
     {
         error_message();
         usage_message();
         return;
     }
 
-    valid_ip = is_valid_ip(ip_argument);
-    if (valid_ip == true)
-    {
-        std::cout
-            << "IP address:        " << ip_address
-            << " (" << valid_ip_color_monit[0] << "OK" << valid_ip_color_monit[1] << ")" << std::endl;
-    }
-    else
+    if (!is_valid_ip(ip_argument))
     {
         error_message();
         usage_message();
         return;
     }
 
-    for (int i = 0; i < 4; i++)
-    {
-        ip_octet[i] = std::stoi(division_on_octet(ip_address, i));
-        binary_ip_octet[i] = dec_to_bin(ip_octet[i]);
-        binary_ip_address += binary_ip_octet[i];
-    }
+    std::cout
+        << "IP address:        " << ip_address
+        << " (" << add_color_string("OK") << ")" << std::endl;
+
+    binary_ip_address = make_bin_address(ip_address);
 
     binary_netmask = make_netmask(prefix_netmask);
     binary_network = get_network_address(binary_ip_address, binary_netmask);
@@ -60,9 +44,7 @@ void get_network_inteface(char *interface_name)
     struct ifaddrs* ifa = NULL;
     void* tmpAddrPtr = NULL;
 
-    int ip_octet[4],
-        netmask_octet[4],
-        netmask_prefix;
+    int netmask_prefix;
 
     std::string
         bin_ip_address,
@@ -92,15 +74,8 @@ void get_network_inteface(char *interface_name)
 
             if (static_cast<std::string>(ifa->ifa_name) == interface_name)
             {
-                for (size_t i = 0; i < 4; i++)
-                {
-                    ip_octet[i] = std::stoi(division_on_octet(address_buffer, i));
-                    netmask_octet[i] = std::stoi(division_on_octet(mask_buffer, i));
-
-                    bin_ip_address += dec_to_bin(ip_octet[i]);
-                    bin_netmask += dec_to_bin(netmask_octet[i]);
-                }
-
+                bin_ip_address = make_bin_address(address_buffer);
+                bin_netmask = make_bin_address(mask_buffer);
                 netmask_prefix = make_prefix(bin_netmask);
 
                 std::cout
@@ -140,4 +115,9 @@ void show_interfaces()
         }
     }
     if (ifAddrStruct != NULL) freeifaddrs(ifAddrStruct);
+}
+
+std::string add_color_string(std::string text_input)
+{
+    return "\033[1;32m" + text_input + "\033[0m";
 }

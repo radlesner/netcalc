@@ -3,6 +3,24 @@
 #include "headers/convert_numbers.h"
 #include "headers/ip_operations.h"
 
+std::string make_bin_address(std::string bin_input)
+{
+    int ip_octet[4];
+
+    std::string
+        bin_ip_octet[4],
+        bin_ip_address;
+
+    for (int i = 0; i < 4; i++)
+    {
+        ip_octet[i] = std::stoi(division_on_octet(bin_input, i));
+        bin_ip_octet[i] = dec_to_bin(ip_octet[i]);
+        bin_ip_address += bin_ip_octet[i];
+    }
+
+    return bin_ip_address;
+}
+
 std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmask)
 {
     if (bin_ip4_addr.length() != 32 || bin_netmask.length() != 32)
