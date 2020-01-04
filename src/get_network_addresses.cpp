@@ -126,7 +126,6 @@ void show_interfaces()
 {
     struct ifaddrs* ifAddrStruct = NULL;
     struct ifaddrs* ifa = NULL;
-    void* tmpAddrPtr = NULL;
 
     getifaddrs(&ifAddrStruct);
 
