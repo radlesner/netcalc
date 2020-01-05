@@ -30,7 +30,6 @@ void get_network_argument(char *ip_argument, char *prefix_argument)
         << " (" << add_color_string("OK") << ")" << std::endl;
 
     binary_ip_address = make_bin_address(ip_address);
-
     binary_netmask = make_netmask(prefix_netmask);
     binary_network = get_network_address(binary_ip_address, binary_netmask);
     binary_broadcast = get_broadcast_addr(binary_network, binary_netmask);
