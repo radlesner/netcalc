@@ -22,6 +22,14 @@
             "problemMatcher": [
                 "$gcc"
             ]
+        },
+        {
+            "label": "Create a.out file",
+            "type": "shell",
+            "command": "mkdir -p debug && g++ -g src/*.cpp -o debug/a.out",
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }
