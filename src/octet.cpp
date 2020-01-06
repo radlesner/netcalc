@@ -28,3 +28,31 @@ std::vector<std::string> division_on_octet(std::string ip4_addr)
 
     return ip_octet;
 }
+
+std::vector<std::string> get_bin_octets(std::string bin_addr)
+{
+    std::vector<std::string>
+        bin_octet;
+
+    std::string
+        octet_buffer[4];
+
+    int octet_indicator = 0;
+
+    for (size_t i = 0; i < bin_addr.length(); i++)
+    {
+        octet_buffer[octet_indicator] += bin_addr[i];
+
+        if (i == 7 || i == 15 || i == 23)
+        {
+            octet_indicator++;
+        }
+    }
+
+    for (size_t i = 0; i < 4; i++)
+    {
+        bin_octet.push_back(octet_buffer[i]);
+    }
+
+    return bin_octet;
+}

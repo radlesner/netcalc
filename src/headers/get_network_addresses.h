@@ -13,4 +13,4 @@
 void        get_network_argument    (char *ip_argument, char *prefix_argument);
 void        get_network_inteface    (char *interface_name);
 void        show_interfaces         ();
-std::string add_color_string        (std::string text_input);
+std::string add_valid_color         (std::string text_input);

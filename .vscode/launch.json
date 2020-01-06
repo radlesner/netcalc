@@ -5,11 +5,30 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch",
+            "name": "Debug manual args",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/debug/a.out",
             "args": ["192.168.0.1", "24"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Debug interfaces",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/debug/a.out",
+            "args": ["-i", "lo"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

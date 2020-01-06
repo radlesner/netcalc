@@ -27,7 +27,7 @@ void get_network_argument(char *ip_argument, char *prefix_argument)
 
     std::cout
         << "IP address:        " << ip_address
-        << " (" << add_color_string("OK") << ")" << std::endl;
+        << " (" << add_valid_color("OK") << ")" << std::endl;
 
     binary_ip_address = make_bin_address(ip_address);
     binary_netmask = make_netmask(prefix_netmask);
@@ -116,7 +116,7 @@ void show_interfaces()
     if (ifAddrStruct != NULL) freeifaddrs(ifAddrStruct);
 }
 
-std::string add_color_string(std::string text_input)
+std::string add_valid_color(std::string text_input)
 {
     return "\033[1;32m" + text_input + "\033[0m";
 }

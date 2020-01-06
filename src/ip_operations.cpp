@@ -2,6 +2,7 @@
 #include "headers/octet.h"
 #include "headers/convert_numbers.h"
 #include "headers/ip_operations.h"
+#include "headers/output_messages.h"
 
 std::string make_bin_address(std::string dec_input)
 {
@@ -43,22 +44,24 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
             octet_indicator = 0,
             dec_network_octet_buffer;
 
+        std::vector<std::string>
+            bin_network_octet;
+
+        std::vector<unsigned int>
+            dec_network_octet;
+
         std::string
             bin_network_addr,
-            bin_network_octet[4],
             bin_addr_buffer,
-            bin_netmask_buffer,
-            dec_network_octet[4];
+            bin_netmask_buffer;
 
         for (size_t i = 0; i < 32; i++)
         {
             bin_addr_buffer = bin_ip4_addr[i];
             bin_netmask_buffer = bin_netmask[i];
-
             buffer = std::stoi(bin_addr_buffer) * std::stoi(bin_netmask_buffer);
 
             bin_network_addr += std::to_string(buffer);
-            bin_network_octet[octet_indicator] += bin_network_addr[i];
 
             if (i == 7 || i == 15 || i == 23)
             {
@@ -66,18 +69,15 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
             }
         }
 
+        bin_network_octet = get_bin_octets(bin_network_addr);
+
         for (size_t i = 0; i < 4; i++)
         {
             dec_network_octet_buffer = convertBinaryToDecimal(std::stoi( bin_network_octet[i] ));
-            dec_network_octet[i] = std::to_string(dec_network_octet_buffer);
+            dec_network_octet.push_back( dec_network_octet_buffer );
         }
 
-        std::cout
-            << "Network address:   "
-            << dec_network_octet[0] << "."
-            << dec_network_octet[1] << "."
-            << dec_network_octet[2] << "."
-            << dec_network_octet[3] << std::endl;
+        output_ip_address("Network address:   ", dec_network_octet);
 
         return bin_network_addr;
     }
@@ -92,17 +92,18 @@ std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_net
     }
     else
     {
+        std::vector<std::string>
+            bin_network_octet = get_bin_octets(bin_network_addr),
+            bin_netmask_inv_octet;
+
         std::string
             bin_netmask_invert = "11111111111111111111111111111111",
-            bin_netmask_inv_octet[4],
-            bin_network_octet[4],
             bin_broadcast;
 
-        unsigned int
-            octet_indicator = 0,
-            dec_netmask_inf_octet[4],
-            dec_network_octet[4],
-            dec_broadcast_addr[4];
+        std::vector<unsigned int>
+            dec_netmask_inf_octet,
+            dec_network_octet,
+            dec_broadcast_addr;
 
         for (size_t i = 0; i < 32; i++)
         {
@@ -112,33 +113,18 @@ std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_net
             }
         }
 
-        for (size_t i = 0; i < 32; i++)
-        {
-            bin_netmask_inv_octet[octet_indicator] += bin_netmask_invert[i];
-            bin_network_octet[octet_indicator] += bin_network_addr[i];
-
-            if (i == 7 || i == 15 || i == 23)
-            {
-                octet_indicator++;
-            }
-        }
+        bin_netmask_inv_octet = get_bin_octets(bin_netmask_invert);
 
         for (size_t i = 0; i < 4; i++)
         {
-            dec_netmask_inf_octet[i] = convertBinaryToDecimal(std::stoi(bin_netmask_inv_octet[i]));
-            dec_network_octet[i] = convertBinaryToDecimal(std::stoi(bin_network_octet[i]));
-
-            dec_broadcast_addr[i] = dec_netmask_inf_octet[i] + dec_network_octet[i];
+            dec_netmask_inf_octet.push_back(convertBinaryToDecimal(std::stoi(bin_netmask_inv_octet[i])));
+            dec_network_octet.push_back(convertBinaryToDecimal(std::stoi(bin_network_octet[i])));
+            dec_broadcast_addr.push_back(dec_netmask_inf_octet[i] + dec_network_octet[i]);
 
             bin_broadcast += dec_to_bin(dec_broadcast_addr[i]);
         }
 
-        std::cout
-            << "Broadcast address: "
-            << dec_broadcast_addr[0] << "."
-            << dec_broadcast_addr[1] << "."
-            << dec_broadcast_addr[2] << "."
-            << dec_broadcast_addr[3] << std::endl;
+        output_ip_address("Broadcast address: ", dec_broadcast_addr);
 
         return bin_broadcast;
     }
@@ -165,30 +151,18 @@ void get_first_last_host(std::string bin_network, std::string bin_broadcast)
     }
     else
     {
-        unsigned int
-            octet_indicator = 0,
-            first_host_octet[4],
-            last_host_octet[4];
+        std::vector<unsigned int>
+            first_host_octet,
+            last_host_octet;
 
-        std::string
-            bin_network_octet[4],
-            bin_broadcast_octet[4];
-
-        for (size_t i = 0; i < 32; i++)
-        {
-            bin_network_octet[octet_indicator] += bin_network[i];
-            bin_broadcast_octet[octet_indicator] += bin_broadcast[i];
-
-            if (i == 7 || i == 15 || i == 23)
-            {
-                octet_indicator++;
-            }
-        }
+        std::vector<std::string>
+            bin_network_octet = get_bin_octets(bin_network),
+            bin_broadcast_octet = get_bin_octets(bin_broadcast);
 
         for (size_t i = 0; i < 4; i++)
         {
-            first_host_octet[i] = convertBinaryToDecimal(std::stoi(bin_network_octet[i]));
-            last_host_octet[i] = convertBinaryToDecimal(std::stoi(bin_broadcast_octet[i]));
+            first_host_octet.push_back(convertBinaryToDecimal( std::stoi(bin_network_octet[i]) ));
+            last_host_octet.push_back(convertBinaryToDecimal( std::stoi(bin_broadcast_octet[i]) ));
 
             if (i == 3)
             {
@@ -197,19 +171,8 @@ void get_first_last_host(std::string bin_network, std::string bin_broadcast)
             }
         }
 
-        std::cout
-            << "First host:        "
-            << first_host_octet[0] << "."
-            << first_host_octet[1] << "."
-            << first_host_octet[2] << "."
-            << first_host_octet[3] << std::endl;
-
-        std::cout
-            << "Last host:         "
-            << last_host_octet[0] << "."
-            << last_host_octet[1] << "."
-            << last_host_octet[2] << "."
-            << last_host_octet[3] << std::endl;
+        output_ip_address("First host:        ", first_host_octet);
+        output_ip_address("Last host:         ", last_host_octet);
     }
 }
 

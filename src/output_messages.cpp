@@ -6,6 +6,25 @@ void version_program()
     std::cout << "netcalc, version " << VERSION_PROGRAM << std::endl;
 }
 
+void output_ip_address(std::string label, std::vector<unsigned int> input)
+{
+    std::cout << label;
+
+    for (size_t i = 0; i < input.size(); i++)
+    {
+        std::cout << input[i];
+
+        if (i == input.size() - 1)
+        {
+            std::cout << std::endl;
+        }
+        else
+        {
+            std::cout << ".";
+        }
+    }
+}
+
 void help_panel()
 {
     std::cout

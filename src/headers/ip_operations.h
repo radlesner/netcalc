@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 std::string make_bin_address    (std::string bin_input);
 std::string get_network_address (std::string bin_ip4_addr, std::string bin_netmask);
