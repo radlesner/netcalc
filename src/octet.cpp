@@ -1,9 +1,12 @@
 #include "headers/octet.h"
 
-std::string division_on_octet(std::string ip4_addr, int which_octet)
+std::vector<std::string> division_on_octet(std::string ip4_addr)
 {
+    std::vector<std::string>
+        ip_octet;
+
     std::string
-        ip_octet[4];
+        octet_buffer[4];
 
     int octet_indicator = 0;
 
@@ -15,8 +18,13 @@ std::string division_on_octet(std::string ip4_addr, int which_octet)
             i++;
         }
 
-        ip_octet[octet_indicator] += *i;
+        octet_buffer[octet_indicator] += *i;
     }
 
-    return ip_octet[which_octet];
+    for (size_t i = 0; i < 4; i++)
+    {
+        ip_octet.push_back(octet_buffer[i]);
+    }
+
+    return ip_octet;
 }

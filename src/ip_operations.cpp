@@ -5,15 +5,24 @@
 
 std::string make_bin_address(std::string dec_input)
 {
-    unsigned int ip_octet[4];
+    // unsigned int ip_octet[4];
+    std::vector<std::string>
+        string_octet_remainder = division_on_octet(dec_input);
 
     std::string
         bin_ip_octet[4],
         bin_ip_address;
 
+    int octet_buffer;
+
+    std::vector<int>
+        ip_octet;
+
     for (int i = 0; i < 4; i++)
     {
-        ip_octet[i] = std::stoi(division_on_octet(dec_input, i));
+        octet_buffer = std::stoi(string_octet_remainder[i]);
+        ip_octet.push_back(octet_buffer);
+
         bin_ip_octet[i] = dec_to_bin(ip_octet[i]);
         bin_ip_address += bin_ip_octet[i];
     }

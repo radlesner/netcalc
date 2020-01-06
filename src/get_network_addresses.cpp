@@ -7,7 +7,6 @@ void get_network_argument(char *ip_argument, char *prefix_argument)
     std::string
         ip_address = ip_argument,
         binary_ip_address,
-        binary_ip_octet[4],
         binary_netmask,
         binary_network,
         binary_broadcast;
