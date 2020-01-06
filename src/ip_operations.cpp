@@ -3,7 +3,7 @@
 #include "headers/convert_numbers.h"
 #include "headers/ip_operations.h"
 
-std::string make_bin_address(std::string bin_input)
+std::string make_bin_address(std::string dec_input)
 {
     int ip_octet[4];
 
@@ -13,7 +13,7 @@ std::string make_bin_address(std::string bin_input)
 
     for (int i = 0; i < 4; i++)
     {
-        ip_octet[i] = std::stoi(division_on_octet(bin_input, i));
+        ip_octet[i] = std::stoi(division_on_octet(dec_input, i));
         bin_ip_octet[i] = dec_to_bin(ip_octet[i]);
         bin_ip_address += bin_ip_octet[i];
     }

@@ -3,8 +3,7 @@
 std::string division_on_octet(std::string ip4_addr, int which_octet)
 {
     std::string
-        ip_octet[4],
-        netmask_octet[4];
+        ip_octet[4];
 
     int octet_indicator = 0;
 
