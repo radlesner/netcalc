@@ -5,7 +5,6 @@
 
 std::string make_bin_address(std::string dec_input)
 {
-    // unsigned int ip_octet[4];
     std::vector<std::string>
         string_octet_remainder = division_on_octet(dec_input);
 

@@ -39,9 +39,9 @@ void get_network_argument(char *ip_argument, char *prefix_argument)
 
 void get_network_inteface(char *interface_name)
 {
-    struct ifaddrs* ifAddrStruct = NULL;
-    struct ifaddrs* ifa = NULL;
-    void* tmpAddrPtr = NULL;
+    struct ifaddrs *ifAddrStruct = NULL;
+    struct ifaddrs *ifa = NULL;
+    void *tmpAddrPtr = NULL;
 
     int netmask_prefix;
 

@@ -39,7 +39,7 @@ int convertBinaryToDecimal(long long bin_input)
     {
         remainder = bin_input % 10;
         bin_input /= 10;
-        decimalNumber += remainder *pow(2, i);
+        decimalNumber += remainder *std::pow(2, i);
         ++i;
     }
 
