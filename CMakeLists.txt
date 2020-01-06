@@ -5,7 +5,7 @@ project (netcalc)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "-Wall -Werror -pedantic")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic")
 
 # PROGRAM
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
@@ -17,7 +17,7 @@ set(SOURCES ${SOURCE_DIR}/main.cpp
             ${SOURCE_DIR}/ip_operations.cpp
             ${SOURCE_DIR}/netmask.cpp
             ${SOURCE_DIR}/octet.cpp
-            ${SOURCE_DIR}/output.cpp
+            ${SOURCE_DIR}/output_messages.cpp
             ${SOURCE_DIR}/get_network_addresses.cpp
             )
 

@@ -6,7 +6,7 @@
 #include "convert_numbers.h"
 #include "ip_operations.h"
 #include "netmask.h"
-#include "output.h"
+#include "output_messages.h"
 #include "check_ip.h"
 #include "check_prefix.h"
 

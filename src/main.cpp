@@ -1,5 +1,5 @@
 #include "headers/get_network_addresses.h"
-#include "headers/output.h"
+#include "headers/output_messages.h"
 
 int main(int argc, char *argv[])
 {

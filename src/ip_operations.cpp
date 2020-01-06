@@ -5,7 +5,7 @@
 
 std::string make_bin_address(std::string dec_input)
 {
-    int ip_octet[4];
+    unsigned int ip_octet[4];
 
     std::string
         bin_ip_octet[4],
@@ -30,7 +30,8 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
     }
     else
     {
-        int buffer,
+        unsigned int
+            buffer,
             octet_indicator = 0,
             dec_network_octet_buffer;
 
@@ -89,7 +90,8 @@ std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_net
             bin_network_octet[4],
             bin_broadcast;
 
-        int octet_indicator = 0,
+        unsigned int
+            octet_indicator = 0,
             dec_netmask_inf_octet[4],
             dec_network_octet[4],
             dec_broadcast_addr[4];
@@ -134,11 +136,10 @@ std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_net
     }
 }
 
-void get_number_hosts(std::string bin_ip4_addr, std::string prefix)
+void get_number_hosts(std::string bin_ip4_addr, int prefix)
 {
     int ip_addr_length = bin_ip4_addr.length(),
-        netmask_prefix = std::stoi(prefix),
-        exponentiation_input = ip_addr_length - netmask_prefix,
+        exponentiation_input = ip_addr_length - prefix,
         number_hosts;
 
     number_hosts = exponentiation(2, exponentiation_input);
@@ -156,7 +157,8 @@ void get_first_last_host(std::string bin_network, std::string bin_broadcast)
     }
     else
     {
-        int octet_indicator = 0,
+        unsigned int
+            octet_indicator = 0,
             first_host_octet[4],
             last_host_octet[4];
 

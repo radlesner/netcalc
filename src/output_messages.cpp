@@ -1,9 +1,9 @@
-#include "headers/output.h"
+#include "headers/output_messages.h"
 
 void version_program()
 {
     // Version of program must be changed in snapcraft.yaml file
-    std::cout << "netcalc, version 2.2.5" << std::endl;
+    std::cout << "netcalc, version " << VERSION_PROGRAM << std::endl;
 }
 
 void help_panel()

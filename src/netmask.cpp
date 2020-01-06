@@ -2,7 +2,7 @@
 #include "headers/octet.h"
 #include "headers/convert_numbers.h"
 
-std::string make_netmask(std::string prefix)
+std::string make_netmask(int prefix)
 {
     std::string
         bin_netmask,
@@ -10,10 +10,9 @@ std::string make_netmask(std::string prefix)
         dec_netmask;
 
     int octet_indicator = 0,
-        int_netmask[4],
-        int_prefix = std::stoi(prefix);
+        int_netmask[4];
 
-    for (int i = 0; i < int_prefix; i++)
+    for (int i = 0; i < prefix; i++)
     {
         bin_netmask += "1";
     }

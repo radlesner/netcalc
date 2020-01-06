@@ -2,9 +2,10 @@
 
 void get_network_argument(char *ip_argument, char *prefix_argument)
 {
+    int prefix_netmask = std::stoi(prefix_argument);
+
     std::string
         ip_address = ip_argument,
-        prefix_netmask = prefix_argument,
         binary_ip_address,
         binary_ip_octet[4],
         binary_netmask,
@@ -84,7 +85,7 @@ void get_network_inteface(char *interface_name)
 
                 bin_network = get_network_address(bin_ip_address, bin_netmask);
                 bin_broadcast = get_broadcast_addr(bin_network, bin_netmask);
-                get_number_hosts(bin_ip_address, std::to_string(netmask_prefix));
+                get_number_hosts(bin_ip_address, netmask_prefix);
                 get_first_last_host(bin_network, bin_broadcast);
             }
 

@@ -1,12 +1,14 @@
 #include "headers/check_prefix.h"
 
-bool is_valid_netmask_prefix(std::string netmask_prefix)
+bool is_valid_netmask_prefix(int netmask_prefix)
 {
-    if (netmask_prefix.length() == 1)
+    std::string netmask_string_value = std::to_string(netmask_prefix);
+
+    if (netmask_string_value.length() == 1)
     {
-        if (static_cast<int>(netmask_prefix[0]) >= 48 && static_cast<int>(netmask_prefix[0]) <= 57)
+        if (static_cast<int>(netmask_string_value[0]) >= 48 && static_cast<int>(netmask_string_value[0]) <= 57)
         {
-            if (std::stoi(netmask_prefix) < 0 || std::stoi(netmask_prefix) > 31)
+            if (std::stoi(netmask_string_value) < 0 || std::stoi(netmask_string_value) > 31)
             {
                 return false;
             }
@@ -16,11 +18,11 @@ bool is_valid_netmask_prefix(std::string netmask_prefix)
             return false;
         }
     }
-    if (netmask_prefix.length() == 2)
+    if (netmask_string_value.length() == 2)
     {
-        if (static_cast<int>(netmask_prefix[1]) >= 48 && static_cast<int>(netmask_prefix[1]) <= 57)
+        if (static_cast<int>(netmask_string_value[1]) >= 48 && static_cast<int>(netmask_string_value[1]) <= 57)
         {
-            if (std::stoi(netmask_prefix) < 0 || std::stoi(netmask_prefix) > 31)
+            if (std::stoi(netmask_string_value) < 0 || std::stoi(netmask_string_value) > 31)
             {
                 return false;
             }
