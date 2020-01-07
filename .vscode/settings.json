@@ -69,5 +69,6 @@
     "terminal.integrated.fontFamily": "DejaVu Sans Mono",
     "terminal.integrated.fontSize": 13,
     "editor.cursorBlinking": "expand",
-    "C_Cpp.clang_format_path": "/usr/bin/clang-format"
+    "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+    "editor.formatOnSave": true
 }
