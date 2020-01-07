@@ -32,8 +32,8 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
     else
     {
         unsigned int buffer, octet_indicator = 0, dec_network_octet_buffer;
-        std::vector<std::string> bin_network_octet;
         std::vector<unsigned int> dec_network_octet;
+        std::vector<std::string> bin_network_octet;
         std::string bin_network_addr, bin_addr_buffer, bin_netmask_buffer;
 
         for (size_t i = 0; i < 32; i++)

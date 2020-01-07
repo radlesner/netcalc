@@ -33,6 +33,5 @@ void usage_message() { std::cout << "Usage: netcalc [ip_v4_address] [prefix_netm
 void error_message() { std::cout << "Bad ip address or prefix" << std::endl; }
 void error_message_argument(char *argument_input)
 {
-    std::cout << "Bad argument " << argument_input << std::endl
-              << "Use -h or --help to display help" << std::endl;
+    std::cout << "Bad argument " << argument_input << std::endl << "Use -h or --help to display help" << std::endl;
 }
