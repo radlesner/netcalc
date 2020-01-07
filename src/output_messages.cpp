@@ -14,14 +14,8 @@ void output_ip_address(std::string label, std::vector<unsigned int> input)
     {
         std::cout << input[i];
 
-        if (i == input.size() - 1)
-        {
-            std::cout << std::endl;
-        }
-        else
-        {
-            std::cout << ".";
-        }
+        if (i == input.size() - 1) std::cout << std::endl;
+        else                       std::cout << ".";
     }
 }
 

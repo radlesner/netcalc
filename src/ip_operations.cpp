@@ -6,25 +6,16 @@
 
 std::string make_bin_address(std::string dec_input)
 {
-    std::vector<std::string>
-        string_octet_remainder = division_on_octet(dec_input);
-
-    std::string
-        bin_ip_octet[4],
-        bin_ip_address;
-
+    std::vector<std::string> string_octet_remainder = get_octet(dec_input);
+    std::string bin_ip_address;
+    std::vector<int> ip_octet;
     int octet_buffer;
-
-    std::vector<int>
-        ip_octet;
 
     for (int i = 0; i < 4; i++)
     {
         octet_buffer = std::stoi(string_octet_remainder[i]);
         ip_octet.push_back(octet_buffer);
-
-        bin_ip_octet[i] = dec_to_bin(ip_octet[i]);
-        bin_ip_address += bin_ip_octet[i];
+        bin_ip_address += dec_to_bin(ip_octet[i]);
     }
 
     return bin_ip_address;
@@ -60,7 +51,6 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
             bin_addr_buffer = bin_ip4_addr[i];
             bin_netmask_buffer = bin_netmask[i];
             buffer = std::stoi(bin_addr_buffer) * std::stoi(bin_netmask_buffer);
-
             bin_network_addr += std::to_string(buffer);
 
             if (i == 7 || i == 15 || i == 23)
@@ -120,7 +110,6 @@ std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_net
             dec_netmask_inf_octet.push_back(convertBinaryToDecimal(std::stoi(bin_netmask_inv_octet[i])));
             dec_network_octet.push_back(convertBinaryToDecimal(std::stoi(bin_network_octet[i])));
             dec_broadcast_addr.push_back(dec_netmask_inf_octet[i] + dec_network_octet[i]);
-
             bin_broadcast += dec_to_bin(dec_broadcast_addr[i]);
         }
 

@@ -9,10 +9,7 @@ int main(int argc, char *argv[])
         {
             get_network_inteface(argv[2]);
         }
-        else
-        {
-            get_network_argument(argv[1], argv[2]);
-        }
+        else get_network_argument(argv[1], argv[2]);
 	}
     else if (argc > 1)
     {
@@ -33,10 +30,7 @@ int main(int argc, char *argv[])
             error_message_argument(argv[1]);
         }
     }
-    else
-    {
-        usage_message();
-    }
+    else usage_message();
 
     return 0;
 }

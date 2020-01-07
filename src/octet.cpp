@@ -1,6 +1,6 @@
 #include "headers/octet.h"
 
-std::vector<std::string> division_on_octet(std::string ip4_addr)
+std::vector<std::string> get_octet(std::string ip4_addr)
 {
     std::vector<std::string>
         ip_octet;

@@ -1,32 +1,27 @@
 #include "headers/netmask.h"
 #include "headers/octet.h"
 #include "headers/convert_numbers.h"
+#include "headers/output_messages.h"
 
 std::string make_netmask(int prefix)
 {
     std::string
-        bin_netmask,
-        bin_netmask_octet[4],
-        dec_netmask;
+        bin_netmask = "00000000000000000000000000000000",
+        buffer[4];
 
-    int octet_indicator = 0,
-        int_netmask[4];
+    int octet_indicator = 0;
+
+    std::vector<unsigned int>
+        dec_netmask;
 
     for (int i = 0; i < prefix; i++)
     {
-        bin_netmask += "1";
+        bin_netmask[i] = '1';
     }
-
-    do
-    {
-        bin_netmask += "0";
-    } while (bin_netmask.length() != 32);
-
-
 
     for (size_t i = 0; i < 32; i++)
     {
-        bin_netmask_octet[octet_indicator] += bin_netmask[i];
+        buffer[octet_indicator] += bin_netmask[i];
 
         if (i == 7 || i == 15 || i == 23)
         {
@@ -36,16 +31,10 @@ std::string make_netmask(int prefix)
 
     for (size_t i = 0; i < 4; i++)
     {
-        int_netmask[i] = convertBinaryToDecimal(std::stoi(bin_netmask_octet[i]));
+        dec_netmask.push_back(convertBinaryToDecimal(std::stoi(buffer[i])));
     }
 
-    std::cout
-        << "Netmask:           "
-        << int_netmask[0] << "."
-        << int_netmask[1] << "."
-        << int_netmask[2] << "."
-        << int_netmask[3] << std::endl;
-
+    output_ip_address("Netmask:           ", dec_netmask);
     return bin_netmask;
 }
 
