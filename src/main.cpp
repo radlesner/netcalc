@@ -3,14 +3,15 @@
 
 int main(int argc, char *argv[])
 {
-	if(argc > 2)
-	{
+    if (argc > 2)
+    {
         if (!strcmp(argv[1], "-i") || !strcmp(argv[1], "--inteface"))
         {
             get_network_inteface(argv[2]);
         }
-        else get_network_argument(argv[1], argv[2]);
-	}
+        else
+            get_network_argument(argv[1], argv[2]);
+    }
     else if (argc > 1)
     {
         if (!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version"))
@@ -26,11 +27,10 @@ int main(int argc, char *argv[])
             show_interfaces();
         }
         else
-        {
             error_message_argument(argv[1]);
-        }
     }
-    else usage_message();
+    else
+        usage_message();
 
     return 0;
 }

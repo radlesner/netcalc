@@ -1,0 +1,11 @@
+Language: Cpp
+BasedOnStyle: Google
+
+AccessModifierOffset: -2
+AllowShortIfStatementsOnASingleLine: false
+BreakBeforeBinaryOperators: true
+BreakBeforeBraces: Allman
+BinPackArguments: false
+BinPackParameters: false
+ColumnLimit: 0
+IndentWidth: 4

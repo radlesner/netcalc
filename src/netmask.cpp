@@ -1,18 +1,14 @@
 #include "headers/netmask.h"
-#include "headers/octet.h"
+
 #include "headers/convert_numbers.h"
+#include "headers/octet.h"
 #include "headers/output_messages.h"
 
 std::string make_netmask(int prefix)
 {
-    std::string
-        bin_netmask = "00000000000000000000000000000000",
-        buffer[4];
-
+    std::string bin_netmask = "00000000000000000000000000000000", buffer[4];
     int octet_indicator = 0;
-
-    std::vector<unsigned int>
-        dec_netmask;
+    std::vector<unsigned int> dec_netmask;
 
     for (int i = 0; i < prefix; i++)
     {

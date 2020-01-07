@@ -14,10 +14,9 @@ bool is_valid_netmask_prefix(int netmask_prefix)
             }
         }
         else
-        {
             return false;
-        }
     }
+
     if (netmask_string_value.length() == 2)
     {
         if (static_cast<int>(netmask_string_value[1]) >= 48 && static_cast<int>(netmask_string_value[1]) <= 57)
@@ -28,14 +27,10 @@ bool is_valid_netmask_prefix(int netmask_prefix)
             }
         }
         else
-        {
             return false;
-        }
     }
     else
-    {
         return false;
-    }
 
     return true;
 }
