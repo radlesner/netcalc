@@ -11,7 +11,7 @@
 #include "octet.h"
 #include "output_messages.h"
 
-void get_network_argument(char *ip_argument, char *prefix_argument);
-void get_network_inteface(char *interface_name);
-void show_interfaces();
+void        get_network_argument(char *ip_argument, char *prefix_argument);
+void        get_network_inteface(char *interface_name);
+void        show_interfaces();
 std::string add_valid_color(std::string text_input);

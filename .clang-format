@@ -2,14 +2,18 @@ Language: Cpp
 BasedOnStyle: Google
 
 AccessModifierOffset: -2
-AllowAllArgumentsOnNextLine: false
+AllowAllArgumentsOnNextLine: true
 AlignOperands: true
 AllowShortIfStatementsOnASingleLine: false
 AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
 AlignTrailingComments: true
-BreakBeforeBinaryOperators: true
-BreakBeforeBraces: Allman
 BinPackArguments: false
 BinPackParameters: false
+BreakBeforeBinaryOperators: true
+BreakBeforeBraces: Allman
+BreakStringLiterals: true
 ColumnLimit: 120
 IndentWidth: 4
+UseTab: Never

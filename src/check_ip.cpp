@@ -14,7 +14,7 @@ bool valid_digit(char *ip_str)
 
 bool is_valid_ip(char *ip_str)
 {
-    int num, dots = 0;
+    int   num, dots = 0;
     char *ptr;
 
     if (ip_str == NULL)

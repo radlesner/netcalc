@@ -2,7 +2,7 @@
 
 std::string dec_to_bin(int dec_input)
 {
-    int i = 0, tab[31];
+    int         i = 0, tab[31];
     std::string str_output;
 
     while (dec_input)

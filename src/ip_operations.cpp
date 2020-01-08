@@ -8,9 +8,9 @@
 std::string make_bin_address(std::string dec_input)
 {
     std::vector<std::string> string_octet_remainder = get_octet(dec_input);
-    std::string bin_ip_address;
-    std::vector<int> ip_octet;
-    int octet_buffer;
+    std::string              bin_ip_address;
+    std::vector<int>         ip_octet;
+    int                      octet_buffer;
 
     for (int i = 0; i < 4; i++)
     {
@@ -31,22 +31,20 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
     }
     else
     {
-        unsigned int buffer, octet_indicator = 0, dec_network_octet_buffer;
+        unsigned int              buffer, octet_indicator = 0, dec_network_octet_buffer;
         std::vector<unsigned int> dec_network_octet;
-        std::vector<std::string> bin_network_octet;
-        std::string bin_network_addr, bin_addr_buffer, bin_netmask_buffer;
+        std::vector<std::string>  bin_network_octet;
+        std::string               bin_network_addr, bin_addr_buffer, bin_netmask_buffer;
 
         for (size_t i = 0; i < 32; i++)
         {
-            bin_addr_buffer = bin_ip4_addr[i];
+            bin_addr_buffer    = bin_ip4_addr[i];
             bin_netmask_buffer = bin_netmask[i];
-            buffer = std::stoi(bin_addr_buffer) * std::stoi(bin_netmask_buffer);
+            buffer             = std::stoi(bin_addr_buffer) * std::stoi(bin_netmask_buffer);
             bin_network_addr += std::to_string(buffer);
 
             if (i == 7 || i == 15 || i == 23)
-            {
                 octet_indicator++;
-            }
         }
 
         bin_network_octet = get_bin_octets(bin_network_addr);
@@ -71,16 +69,14 @@ std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_net
     }
     else
     {
-        std::vector<std::string> bin_network_octet = get_bin_octets(bin_network_addr), bin_netmask_inv_octet;
-        std::string bin_netmask_invert = "11111111111111111111111111111111", bin_broadcast;
+        std::vector<std::string>  bin_network_octet  = get_bin_octets(bin_network_addr), bin_netmask_inv_octet;
+        std::string               bin_netmask_invert = "11111111111111111111111111111111", bin_broadcast;
         std::vector<unsigned int> dec_netmask_inf_octet, dec_network_octet, dec_broadcast_addr;
 
         for (size_t i = 0; i < 32; i++)
         {
             if (bin_netmask[i] == '1')
-            {
                 bin_netmask_invert[i] = '0';
-            }
         }
 
         bin_netmask_inv_octet = get_bin_octets(bin_netmask_invert);
@@ -119,7 +115,7 @@ void get_first_last_host(std::string bin_network, std::string bin_broadcast)
     {
         std::vector<unsigned int> first_host_octet, last_host_octet;
 
-        std::vector<std::string> bin_network_octet = get_bin_octets(bin_network),
+        std::vector<std::string> bin_network_octet   = get_bin_octets(bin_network),
                                  bin_broadcast_octet = get_bin_octets(bin_broadcast);
 
         for (size_t i = 0; i < 4; i++)
