@@ -9,9 +9,9 @@ cd build
 cmake ../
 make
 ```
-Optional
+### Optional
 ```sh
-sudo make install
+make install
 ```
 
 ## Install from snapstore

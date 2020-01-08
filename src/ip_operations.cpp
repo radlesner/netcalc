@@ -50,7 +50,7 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
 
     for (size_t i = 0; i < 4; i++)
     {
-        dec_network_octet_buffer = convertBinaryToDecimal(std::stoi(bin_network_octet[i]));
+        dec_network_octet_buffer = bin_to_dec(std::stoi(bin_network_octet[i]));
         dec_network_octet.push_back(dec_network_octet_buffer);
     }
 
@@ -81,8 +81,8 @@ std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_net
 
     for (size_t i = 0; i < 4; i++)
     {
-        dec_netmask_inf_octet.push_back(convertBinaryToDecimal(std::stoi(bin_netmask_inv_octet[i])));
-        dec_network_octet.push_back(convertBinaryToDecimal(std::stoi(bin_network_octet[i])));
+        dec_netmask_inf_octet.push_back(bin_to_dec(std::stoi(bin_netmask_inv_octet[i])));
+        dec_network_octet.push_back(bin_to_dec(std::stoi(bin_network_octet[i])));
         dec_broadcast_addr.push_back(dec_netmask_inf_octet[i] + dec_network_octet[i]);
         bin_broadcast += dec_to_bin(dec_broadcast_addr[i]);
     }
@@ -113,8 +113,8 @@ void get_first_last_host(std::string bin_network, std::string bin_broadcast)
 
     for (size_t i = 0; i < 4; i++)
     {
-        first_host_octet.push_back(convertBinaryToDecimal(std::stoi(bin_network_octet[i])));
-        last_host_octet.push_back(convertBinaryToDecimal(std::stoi(bin_broadcast_octet[i])));
+        first_host_octet.push_back(bin_to_dec(std::stoi(bin_network_octet[i])));
+        last_host_octet.push_back(bin_to_dec(std::stoi(bin_broadcast_octet[i])));
 
         if (i == 3)
         {

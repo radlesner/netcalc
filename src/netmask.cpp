@@ -8,9 +8,8 @@ std::string make_netmask(int prefix)
 {
     std::string
         bin_netmask = "00000000000000000000000000000000",
-        buffer[4];
+        buffer;
     std::vector<unsigned int> dec_netmask;
-    int octet_indicator = 0;
 
     for (int i = 0; i < prefix; i++)
     {
@@ -19,15 +18,13 @@ std::string make_netmask(int prefix)
 
     for (size_t i = 0; i < 32; i++)
     {
-        buffer[octet_indicator] += bin_netmask[i];
+        buffer += bin_netmask[i];
 
-        if (i == 7 || i == 15 || i == 23)
-            octet_indicator++;
-    }
-
-    for (size_t i = 0; i < 4; i++)
-    {
-        dec_netmask.push_back(convertBinaryToDecimal(std::stoi(buffer[i])));
+        if (i == 7 || i == 15 || i == 23 || i == 31)
+        {
+            dec_netmask.push_back(bin_to_dec(std::stoi(buffer)));
+            buffer.clear();
+        }
     }
 
     output_ip_address("Netmask:           ", dec_netmask);
