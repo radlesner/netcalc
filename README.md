@@ -1,6 +1,6 @@
 # netcalc
-Simple program that converts values from an IP address and subnet mask.
-Has the ability to fetch data from the interface.
+Program converts values from the IP address and subnet mask to network values.
+It can retrieve data from the network interface.
 
 ## Compile
 ```sh

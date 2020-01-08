@@ -3,7 +3,12 @@
 void get_network_argument(char *ip_argument, char *prefix_argument)
 {
     int prefix_netmask = std::stoi(prefix_argument);
-    std::string ip_address = ip_argument, binary_ip_address, binary_netmask, binary_network, binary_broadcast;
+    std::string
+        ip_address = ip_argument,
+        binary_ip_address,
+        binary_netmask,
+        binary_network,
+        binary_broadcast;
 
     if (!is_valid_netmask_prefix(prefix_netmask))
     {
@@ -35,7 +40,11 @@ void get_network_inteface(char *interface_name)
     struct ifaddrs *ifa = NULL;
     void *tmpAddrPtr = NULL;
     int netmask_prefix;
-    std::string bin_ip_address, bin_netmask, bin_network, bin_broadcast;
+    std::string
+        bin_ip_address,
+        bin_netmask,
+        bin_network,
+        bin_broadcast;
 
     getifaddrs(&ifAddrStruct);
 
