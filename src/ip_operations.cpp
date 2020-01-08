@@ -7,7 +7,7 @@
 
 std::string make_bin_address(std::string dec_input)
 {
-    std::vector<std::string> string_octet_remainder = get_octet(dec_input);
+    std::vector<std::string> string_octet_remainder = get_dec_octet(dec_input);
     std::string bin_ip_address;
     std::vector<int> ip_octet;
     int octet_buffer;

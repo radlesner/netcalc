@@ -1,15 +1,9 @@
 cmake_minimum_required(VERSION 2.8.9)
 project (netcalc)
 
-# LANGUAGE SET
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+# SETTINGS
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic")
-
-# PROGRAM
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(SOURCES ${SOURCE_DIR}/main.cpp
             ${SOURCE_DIR}/check_ip.cpp
             ${SOURCE_DIR}/check_prefix.cpp
@@ -21,5 +15,30 @@ set(SOURCES ${SOURCE_DIR}/main.cpp
             ${SOURCE_DIR}/get_network_addresses.cpp
             )
 
+if (NOT CMAKE_BUILD_TYPE)
+    message(STATUS "Build type not specified: Use Release by default")
+    set(CMAKE_BUILD_TYPE Release)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/release)
+
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    message(STATUS "Build type: Release")
+    set(CMAKE_BUILD_TYPE Release)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/release)
+
+elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message(STATUS "Build type: Debug")
+    set(CMAKE_BUILD_TYPE Debug)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/debug)
+
+endif()
+
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -g")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS}")
+
+# PROGRAM
 add_executable(netcalc ${SOURCES})
 install(TARGETS netcalc RUNTIME DESTINATION bin)

@@ -1,25 +1,20 @@
 #include "headers/octet.h"
 
-std::vector<std::string> get_octet(std::string ip4_addr)
+std::vector<std::string> get_dec_octet(std::string ip4_addr)
 {
     std::vector<std::string> ip_octet;
-    std::string octet_buffer[4];
-    int octet_indicator = 0;
+    std::string buffer;
 
-    for (std::string::iterator i = ip4_addr.begin(); i != ip4_addr.end(); i++)
+    for (size_t i = 0; i <= ip4_addr.length(); i++)
     {
-        if (*i == '.')
+        if (ip4_addr[i] == '.' || i == ip4_addr.length())
         {
-            octet_indicator++;
+            ip_octet.push_back(buffer);
+            buffer.clear();
             i++;
         }
 
-        octet_buffer[octet_indicator] += *i;
-    }
-
-    for (size_t i = 0; i < 4; i++)
-    {
-        ip_octet.push_back(octet_buffer[i]);
+        buffer += ip4_addr[i];
     }
 
     return ip_octet;
@@ -28,22 +23,17 @@ std::vector<std::string> get_octet(std::string ip4_addr)
 std::vector<std::string> get_bin_octets(std::string bin_addr)
 {
     std::vector<std::string> bin_octet;
-    std::string octet_buffer[4];
-    int octet_indicator = 0;
+    std::string buffer;
 
     for (size_t i = 0; i < bin_addr.length(); i++)
     {
-        octet_buffer[octet_indicator] += bin_addr[i];
+        buffer += bin_addr[i];
 
-        if (i == 7 || i == 15 || i == 23)
+        if (i == 7 || i == 15 || i == 23 || i == 31)
         {
-            octet_indicator++;
+            bin_octet.push_back(buffer);
+            buffer.clear();
         }
-    }
-
-    for (size_t i = 0; i < 4; i++)
-    {
-        bin_octet.push_back(octet_buffer[i]);
     }
 
     return bin_octet;

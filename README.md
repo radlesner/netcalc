@@ -6,12 +6,19 @@ It can retrieve data from the network interface.
 ```sh
 mkdir build
 cd build
-cmake ../
+cmake ../       # Default use release type
 make
 ```
 ### Optional
 ```sh
 make install
+```
+### Cmake build type
+Debug type is a draft version, release is ready to install.
+Default type is release
+```sh
+cmake -DCMAKE_BUILD_TYPE=Release ../
+cmake -DCMAKE_BUILD_TYPE=Debug ../
 ```
 
 ## Install from snapstore

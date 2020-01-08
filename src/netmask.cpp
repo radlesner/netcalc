@@ -6,10 +6,10 @@
 
 std::string make_netmask(int prefix)
 {
+    std::vector<unsigned int> dec_netmask;
     std::string
         bin_netmask = "00000000000000000000000000000000",
         buffer;
-    std::vector<unsigned int> dec_netmask;
 
     for (int i = 0; i < prefix; i++)
     {

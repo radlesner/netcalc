@@ -8,8 +8,11 @@
             "name": "Debug manual args",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/debug/a.out",
-            "args": ["192.168.0.1", "24"],
+            "program": "${workspaceFolder}/debug/netcalc",
+            "args": [
+                "192.168.0.1",
+                "24"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -28,7 +31,10 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/debug/a.out",
-            "args": ["-i", "lo"],
+            "args": [
+                "-i",
+                "lo"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
