@@ -3,8 +3,8 @@
 std::vector<std::string> get_octet(std::string ip4_addr)
 {
     std::vector<std::string> ip_octet;
-    std::string              octet_buffer[4];
-    int                      octet_indicator = 0;
+    std::string octet_buffer[4];
+    int octet_indicator = 0;
 
     for (std::string::iterator i = ip4_addr.begin(); i != ip4_addr.end(); i++)
     {
@@ -28,8 +28,8 @@ std::vector<std::string> get_octet(std::string ip4_addr)
 std::vector<std::string> get_bin_octets(std::string bin_addr)
 {
     std::vector<std::string> bin_octet;
-    std::string              octet_buffer[4];
-    int                      octet_indicator = 0;
+    std::string octet_buffer[4];
+    int octet_indicator = 0;
 
     for (size_t i = 0; i < bin_addr.length(); i++)
     {
