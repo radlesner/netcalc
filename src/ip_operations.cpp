@@ -31,9 +31,9 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
 
     for (size_t i = 0; i < 32; i++)
     {
-        bin_addr_buffer    = bin_ip4_addr[i];
+        bin_addr_buffer = bin_ip4_addr[i];
         bin_netmask_buffer = bin_netmask[i];
-        buffer             = std::stoi(bin_addr_buffer) * std::stoi(bin_netmask_buffer);
+        buffer = std::stoi(bin_addr_buffer) * std::stoi(bin_netmask_buffer);
         bin_network_addr += std::to_string(buffer);
 
         if (i == 7 || i == 15 || i == 23) octet_indicator++;
@@ -54,7 +54,7 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
 std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_netmask)
 {
     std::vector<std::string> bin_network_octet = get_bin_octets(bin_network_addr), bin_netmask_inv_octet;
-    std::string bin_netmask_invert             = "11111111111111111111111111111111", bin_broadcast;
+    std::string bin_netmask_invert = "11111111111111111111111111111111", bin_broadcast;
     std::vector<unsigned int> dec_netmask_inf_octet, dec_network_octet, dec_broadcast_addr;
 
     for (size_t i = 0; i < 32; i++)
@@ -89,7 +89,7 @@ void get_number_hosts(std::string bin_ip4_addr, int prefix)
 void get_first_last_host(std::string bin_network, std::string bin_broadcast)
 {
     std::vector<unsigned int> first_host_octet, last_host_octet;
-    std::vector<std::string> bin_network_octet   = get_bin_octets(bin_network),
+    std::vector<std::string> bin_network_octet = get_bin_octets(bin_network),
                              bin_broadcast_octet = get_bin_octets(bin_broadcast);
 
     for (size_t i = 0; i < 4; i++)
