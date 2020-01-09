@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.8.9)
 project (netcalc)
 
 # SETTINGS
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic")
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
 set(SOURCES ${SOURCE_DIR}/main.cpp
             ${SOURCE_DIR}/check_ip.cpp
@@ -32,12 +31,11 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 
 endif()
 
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -g")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
 
 # PROGRAM
 add_executable(netcalc ${SOURCES})
