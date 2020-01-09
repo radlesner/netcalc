@@ -8,8 +8,7 @@ bool is_valid_netmask_prefix(int netmask_prefix)
     {
         if (static_cast<int>(netmask_string_value[0]) >= 48 && static_cast<int>(netmask_string_value[0]) <= 57)
         {
-            if (std::stoi(netmask_string_value) < 0 || std::stoi(netmask_string_value) > 31)
-                return false;
+            if (std::stoi(netmask_string_value) < 0 || std::stoi(netmask_string_value) > 31) return false;
         }
         else
             return false;
@@ -19,8 +18,7 @@ bool is_valid_netmask_prefix(int netmask_prefix)
     {
         if (static_cast<int>(netmask_string_value[1]) >= 48 && static_cast<int>(netmask_string_value[1]) <= 57)
         {
-            if (std::stoi(netmask_string_value) < 0 || std::stoi(netmask_string_value) > 31)
-                return false;
+            if (std::stoi(netmask_string_value) < 0 || std::stoi(netmask_string_value) > 31) return false;
         }
         else
             return false;

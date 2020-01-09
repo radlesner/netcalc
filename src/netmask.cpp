@@ -7,9 +7,7 @@
 std::string make_netmask(int prefix)
 {
     std::vector<unsigned int> dec_netmask;
-    std::string
-        bin_netmask = "00000000000000000000000000000000",
-        buffer;
+    std::string bin_netmask = "00000000000000000000000000000000", buffer;
 
     for (int i = 0; i < prefix; i++)
     {
@@ -37,8 +35,7 @@ int make_prefix(std::string bin_netmask_input)
 
     for (size_t i = 0; i < 32; i++)
     {
-        if (bin_netmask_input[i] == '1')
-            prefix++;
+        if (bin_netmask_input[i] == '1') prefix++;
     }
 
     return prefix;

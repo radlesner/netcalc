@@ -2,13 +2,8 @@
 
 void get_network_argument(char *ip_argument, char *prefix_argument)
 {
-    int prefix_netmask = std::stoi(prefix_argument);
-    std::string
-        ip_address = ip_argument,
-        binary_ip_address,
-        binary_netmask,
-        binary_network,
-        binary_broadcast;
+    int prefix_netmask     = std::stoi(prefix_argument);
+    std::string ip_address = ip_argument, binary_ip_address, binary_netmask, binary_network, binary_broadcast;
 
     if (!is_valid_netmask_prefix(prefix_netmask))
     {
@@ -27,9 +22,9 @@ void get_network_argument(char *ip_argument, char *prefix_argument)
     std::cout << "IP address:        " << ip_address << " (" << add_valid_color("OK") << ")" << std::endl;
 
     binary_ip_address = make_bin_address(ip_address);
-    binary_netmask = make_netmask(prefix_netmask);
-    binary_network = get_network_address(binary_ip_address, binary_netmask);
-    binary_broadcast = get_broadcast_addr(binary_network, binary_netmask);
+    binary_netmask    = make_netmask(prefix_netmask);
+    binary_network    = get_network_address(binary_ip_address, binary_netmask);
+    binary_broadcast  = get_broadcast_addr(binary_network, binary_netmask);
     get_number_hosts(binary_ip_address, prefix_netmask);
     get_first_last_host(binary_network, binary_broadcast);
 }
@@ -37,21 +32,16 @@ void get_network_argument(char *ip_argument, char *prefix_argument)
 void get_network_inteface(char *interface_name)
 {
     struct ifaddrs *ifAddrStruct = NULL;
-    struct ifaddrs *ifa = NULL;
-    void *tmpAddrPtr = NULL;
+    struct ifaddrs *ifa          = NULL;
+    void *tmpAddrPtr             = NULL;
     int netmask_prefix;
-    std::string
-        bin_ip_address,
-        bin_netmask,
-        bin_network,
-        bin_broadcast;
+    std::string bin_ip_address, bin_netmask, bin_network, bin_broadcast;
 
     getifaddrs(&ifAddrStruct);
 
     for (ifa = ifAddrStruct; ifa != NULL; ifa = ifa->ifa_next)
     {
-        if (!ifa->ifa_addr)
-            continue;
+        if (!ifa->ifa_addr) continue;
         if (ifa->ifa_addr->sa_family == AF_INET)
         {
             char address_buffer[INET_ADDRSTRLEN];
@@ -70,38 +60,35 @@ void get_network_inteface(char *interface_name)
                           << "Netmask:           " << mask_buffer << std::endl;
 
                 bin_ip_address = make_bin_address(address_buffer);
-                bin_netmask = make_bin_address(mask_buffer);
+                bin_netmask    = make_bin_address(mask_buffer);
                 netmask_prefix = make_prefix(bin_netmask);
-                bin_network = get_network_address(bin_ip_address, bin_netmask);
-                bin_broadcast = get_broadcast_addr(bin_network, bin_netmask);
+                bin_network    = get_network_address(bin_ip_address, bin_netmask);
+                bin_broadcast  = get_broadcast_addr(bin_network, bin_netmask);
                 get_number_hosts(bin_ip_address, netmask_prefix);
                 get_first_last_host(bin_network, bin_broadcast);
             }
         }
     }
-    if (ifAddrStruct != NULL)
-        freeifaddrs(ifAddrStruct);
+    if (ifAddrStruct != NULL) freeifaddrs(ifAddrStruct);
 }
 
 void show_interfaces()
 {
     struct ifaddrs *ifAddrStruct = NULL;
-    struct ifaddrs *ifa = NULL;
+    struct ifaddrs *ifa          = NULL;
 
     getifaddrs(&ifAddrStruct);
     std::cout << "List of active interfaces" << std::endl;
 
     for (ifa = ifAddrStruct; ifa != NULL; ifa = ifa->ifa_next)
     {
-        if (!ifa->ifa_addr)
-            continue;
+        if (!ifa->ifa_addr) continue;
         if (ifa->ifa_addr->sa_family == AF_INET)
         {
             std::cout << "> " << ifa->ifa_name << std::endl;
         }
     }
-    if (ifAddrStruct != NULL)
-        freeifaddrs(ifAddrStruct);
+    if (ifAddrStruct != NULL) freeifaddrs(ifAddrStruct);
 }
 
 std::string add_valid_color(std::string text_input) { return "\033[1;32m" + text_input + "\033[0m"; }

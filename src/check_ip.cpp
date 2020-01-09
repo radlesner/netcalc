@@ -17,31 +17,26 @@ bool is_valid_ip(char *ip_str)
     int num, dots = 0;
     char *ptr;
 
-    if (ip_str == NULL)
-        return false;
+    if (ip_str == NULL) return false;
     ptr = strtok(ip_str, DELIM);
 
-    if (ptr == NULL)
-        return false;
+    if (ptr == NULL) return false;
 
     while (ptr)
     {
-        if (!valid_digit(ptr))
-            return false;
+        if (!valid_digit(ptr)) return false;
 
         num = std::stoi(ptr);
 
         if (num >= 0 && num <= 255)
         {
             ptr = strtok(NULL, DELIM);
-            if (ptr != NULL)
-                ++dots;
+            if (ptr != NULL) ++dots;
         }
         else
             return false;
     }
 
-    if (dots != 3)
-        return false;
+    if (dots != 3) return false;
     return true;
 }
