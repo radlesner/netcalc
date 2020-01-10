@@ -2,15 +2,17 @@
 
 void get_network_argument(char *ip_argument, char *prefix_argument)
 {
-    int prefix_netmask = std::stoi(prefix_argument);
     std::string ip_address = ip_argument, binary_ip_address, binary_netmask, binary_network, binary_broadcast;
+    int prefix_netmask;
 
-    if (!is_valid_netmask_prefix(prefix_netmask))
+    if (!is_valid_netmask_prefix(prefix_argument))
     {
         error_message();
         usage_message();
         return;
     }
+    else
+        prefix_netmask = std::stoi(prefix_argument);
 
     if (!is_valid_ip(ip_argument))
     {

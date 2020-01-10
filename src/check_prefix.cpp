@@ -1,30 +1,17 @@
 #include "headers/check_prefix.h"
 
-bool is_valid_netmask_prefix(int netmask_prefix)
+bool is_valid_netmask_prefix(char* netmask_prefix)
 {
-    std::string netmask_string_value = std::to_string(netmask_prefix);
-
-    if (netmask_string_value.length() == 1)
+    std::string str_prefix = netmask_prefix;
+    for (size_t i = 0; i < str_prefix.length(); i++)
     {
-        if (static_cast<int>(netmask_string_value[0]) >= 48 && static_cast<int>(netmask_string_value[0]) <= 57)
-        {
-            if (std::stoi(netmask_string_value) < 0 || std::stoi(netmask_string_value) > 31) return false;
-        }
-        else
-            return false;
+        if (!isdigit(str_prefix[i])) return false;
     }
 
-    if (netmask_string_value.length() == 2)
+    if (str_prefix.length() >= 2)
     {
-        if (static_cast<int>(netmask_string_value[1]) >= 48 && static_cast<int>(netmask_string_value[1]) <= 57)
-        {
-            if (std::stoi(netmask_string_value) < 0 || std::stoi(netmask_string_value) > 31) return false;
-        }
-        else
-            return false;
+        if (std::stoi(str_prefix) < 0 || std::stoi(str_prefix) > 31) return false;
     }
-    else
-        return false;
 
     return true;
 }
