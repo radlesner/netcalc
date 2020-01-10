@@ -1,10 +1,6 @@
 #include "headers/output_messages.h"
 
-void version_program()
-{
-    // Version of program must be changed in snapcraft.yaml file
-    std::cout << "netcalc, version " << VERSION_PROGRAM << std::endl;
-}
+void version_program() { std::cout << "netcalc, version " << VERSION_PROGRAM << std::endl; }
 
 void output_ip_address(std::string label, std::vector<unsigned int> input)
 {
