@@ -12,13 +12,13 @@ bool valid_digit(char *ip_str)
     return true;
 }
 
-bool is_valid_ip(char *ip_str)
+bool is_valid_ip(std::string ip_input)
 {
     int num, dots = 0;
-    char *ptr;
+    char *ptr, *buffer = const_cast<char *>(ip_input.c_str());
 
-    if (ip_str == NULL) return false;
-    ptr = strtok(ip_str, DELIM);
+    if (buffer == NULL) return false;
+    ptr = strtok(buffer, DELIM);
 
     if (ptr == NULL) return false;
 
