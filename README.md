@@ -1,4 +1,4 @@
-# netcalc
+# Netcalc
 Program converts values from the IP address and subnet mask to network values.
 It can retrieve data from the network interface.
 
