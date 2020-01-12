@@ -2,7 +2,7 @@
 
 void get_network_argument(char *ip_argument, char *prefix_argument)
 {
-    std::string ip_address = ip_argument, binary_ip_address, binary_netmask, binary_network, binary_broadcast;
+    std::string binary_ip_address, binary_netmask, binary_network, binary_broadcast;
     int prefix_netmask;
 
     if (!is_valid_netmask_prefix(prefix_argument))
@@ -21,9 +21,8 @@ void get_network_argument(char *ip_argument, char *prefix_argument)
         return;
     }
 
-    std::cout << "IP address:        " << ip_address << " (" << add_valid_color("OK") << ")" << std::endl;
-
-    binary_ip_address = make_bin_address(ip_address);
+    std::cout << "IP address:        " << ip_argument << " (" << add_valid_color("OK") << ")" << std::endl;
+    binary_ip_address = make_bin_address(ip_argument);
     binary_netmask = make_netmask(prefix_netmask);
     binary_network = get_network_address(binary_ip_address, binary_netmask);
     binary_broadcast = get_broadcast_addr(binary_network, binary_netmask);
@@ -85,10 +84,7 @@ void show_interfaces()
     for (ifa = ifAddrStruct; ifa != NULL; ifa = ifa->ifa_next)
     {
         if (!ifa->ifa_addr) continue;
-        if (ifa->ifa_addr->sa_family == AF_INET)
-        {
-            std::cout << "> " << ifa->ifa_name << std::endl;
-        }
+        if (ifa->ifa_addr->sa_family == AF_INET) std::cout << "> " << ifa->ifa_name << std::endl;
     }
     if (ifAddrStruct != NULL) freeifaddrs(ifAddrStruct);
 }
