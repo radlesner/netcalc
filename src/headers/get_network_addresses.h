@@ -1,6 +1,5 @@
 #include <arpa/inet.h>
 #include <ifaddrs.h>
-
 #include <iostream>
 
 #include "check_ip.h"
