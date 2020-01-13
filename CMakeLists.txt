@@ -3,16 +3,7 @@ project (netcalc)
 
 # SETTINGS
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
-set(SOURCES ${SOURCE_DIR}/main.cpp
-            ${SOURCE_DIR}/check_ip.cpp
-            ${SOURCE_DIR}/check_prefix.cpp
-            ${SOURCE_DIR}/convert_numbers.cpp
-            ${SOURCE_DIR}/ip_operations.cpp
-            ${SOURCE_DIR}/netmask.cpp
-            ${SOURCE_DIR}/octet.cpp
-            ${SOURCE_DIR}/output_messages.cpp
-            ${SOURCE_DIR}/get_network_addresses.cpp
-            )
+file(GLOB SOURCES src/*.cpp)
 
 if (NOT CMAKE_BUILD_TYPE)
     message(STATUS "Build type not specified: Use Release by default")

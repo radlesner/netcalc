@@ -4,7 +4,7 @@
 #define VERSION_PROGRAM "2.2.9"
 
 void version_program();
-void output_ip_address(std::string label, std::vector<unsigned int> input);
+void output_ip_address(const std::string &label, std::vector<unsigned int> input);
 void help_panel();
 void usage_message();
 void error_message();

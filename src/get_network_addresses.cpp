@@ -1,6 +1,13 @@
 #include "headers/get_network_addresses.h"
+#include "headers/check_ip.h"
+#include "headers/check_prefix.h"
+#include "headers/convert_numbers.h"
+#include "headers/ip_operations.h"
+#include "headers/netmask.h"
+#include "headers/octet.h"
+#include "headers/output_messages.h"
 
-void get_network_argument(char *ip_argument, char *prefix_argument)
+void get_network_argument(const std::string &ip_argument, const std::string &prefix_argument)
 {
     std::string binary_ip_address, binary_netmask, binary_network, binary_broadcast;
     int prefix_netmask;
@@ -30,11 +37,11 @@ void get_network_argument(char *ip_argument, char *prefix_argument)
     get_first_last_host(binary_network, binary_broadcast);
 }
 
-void get_network_inteface(char *interface_name)
+void get_network_inteface(const std::string &interface_name)
 {
     struct ifaddrs *ifAddrStruct = NULL;
     struct ifaddrs *ifa = NULL;
-    void *tmpAddrPtr = NULL;
+    const void *tmpAddrPtr = nullptr;
     int netmask_prefix;
     std::string bin_ip_address, bin_netmask, bin_network, bin_broadcast;
 

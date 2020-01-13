@@ -5,7 +5,7 @@
 #include "headers/octet.h"
 #include "headers/output_messages.h"
 
-std::string make_bin_address(std::string dec_input)
+std::string make_bin_address(const std::string &dec_input)
 {
     std::vector<std::string> string_octet_remainder = get_dec_octet(dec_input);
     std::string bin_ip_address;
@@ -22,7 +22,7 @@ std::string make_bin_address(std::string dec_input)
     return bin_ip_address;
 }
 
-std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmask)
+std::string get_network_address(const std::string &bin_ip4_addr, const std::string &bin_netmask)
 {
     unsigned int buffer, octet_indicator = 0, dec_network_octet_buffer;
     std::vector<unsigned int> dec_network_octet;
@@ -51,10 +51,10 @@ std::string get_network_address(std::string bin_ip4_addr, std::string bin_netmas
     return bin_network_addr;
 }
 
-std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_netmask)
+std::string get_broadcast_addr(const std::string &bin_network_addr, const std::string &bin_netmask)
 {
     std::vector<std::string> bin_network_octet = get_bin_octets(bin_network_addr), bin_netmask_inv_octet;
-    std::string bin_netmask_invert = "11111111111111111111111111111111", bin_broadcast;
+    std::string bin_netmask_invert(32, '1'), bin_broadcast;
     std::vector<unsigned int> dec_netmask_inf_octet, dec_network_octet, dec_broadcast_addr;
 
     for (size_t i = 0; i < 32; i++)
@@ -76,7 +76,7 @@ std::string get_broadcast_addr(std::string bin_network_addr, std::string bin_net
     return bin_broadcast;
 }
 
-void get_number_hosts(std::string bin_ip4_addr, int prefix)
+void get_number_hosts(const std::string &bin_ip4_addr, const int &prefix)
 {
     int exponentiation_input = bin_ip4_addr.length() - prefix, number_hosts;
 
@@ -86,7 +86,7 @@ void get_number_hosts(std::string bin_ip4_addr, int prefix)
     std::cout << "Number of hosts:   " << number_hosts << std::endl;
 }
 
-void get_first_last_host(std::string bin_network, std::string bin_broadcast)
+void get_first_last_host(const std::string &bin_network, const std::string &bin_broadcast)
 {
     std::vector<unsigned int> first_host_octet, last_host_octet;
     std::vector<std::string> bin_network_octet = get_bin_octets(bin_network),
@@ -108,7 +108,7 @@ void get_first_last_host(std::string bin_network, std::string bin_broadcast)
     output_ip_address("Last host:         ", last_host_octet);
 }
 
-long int exponentiation(long int base_of_power, int index)
+long int exponentiation(const long int &base_of_power, const int &index)
 {
     int result = 1;
 

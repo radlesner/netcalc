@@ -1,6 +1,6 @@
 #include "headers/check_prefix.h"
 
-bool is_valid_netmask_prefix(std::string str_prefix)
+bool is_valid_netmask_prefix(const std::string &str_prefix)
 {
     for (size_t i = 0; i < str_prefix.length(); i++)
     {

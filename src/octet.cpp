@@ -1,6 +1,6 @@
 #include "headers/octet.h"
 
-std::vector<std::string> get_dec_octet(std::string ip4_addr)
+std::vector<std::string> get_dec_octet(const std::string &ip4_addr)
 {
     std::vector<std::string> ip_octet;
     std::string buffer;
@@ -20,7 +20,7 @@ std::vector<std::string> get_dec_octet(std::string ip4_addr)
     return ip_octet;
 }
 
-std::vector<std::string> get_bin_octets(std::string bin_addr)
+std::vector<std::string> get_bin_octets(const std::string &bin_addr)
 {
     std::vector<std::string> bin_octet;
     std::string buffer;

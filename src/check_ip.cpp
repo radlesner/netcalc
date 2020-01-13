@@ -1,42 +1,18 @@
 #include "headers/check_ip.h"
 
-bool valid_digit(char *ip_str)
+bool is_valid_ip(const std::string& ipStr)
 {
-    while (*ip_str)
+    int ip3, ip2, ip1, ip0;
+    if (4 != sscanf(ipStr.c_str(), "%d.%d.%d.%d", &ip3, &ip2, &ip1, &ip0))
     {
-        if (*ip_str >= '0' && *ip_str <= '9')
-            ++ip_str;
-        else
-            return false;
+        return false;
     }
-    return true;
-}
-
-bool is_valid_ip(std::string ip_input)
-{
-    int num, dots = 0;
-    char *ptr, *buffer = const_cast<char *>(ip_input.c_str());
-
-    if (buffer == NULL) return false;
-    ptr = strtok(buffer, DELIM);
-
-    if (ptr == NULL) return false;
-
-    while (ptr)
+    for (auto p : {&ip3, &ip2, &ip1, &ip0})
     {
-        if (!valid_digit(ptr)) return false;
-
-        num = std::stoi(ptr);
-
-        if (num >= 0 && num <= 255)
+        if ((*p > 255) || (*p < 0))
         {
-            ptr = strtok(NULL, DELIM);
-            if (ptr != NULL) ++dots;
-        }
-        else
             return false;
+        }
     }
-
-    if (dots != 3) return false;
     return true;
 }

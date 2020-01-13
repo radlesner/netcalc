@@ -1,7 +1,3 @@
-#include <string.h>
-#include <iostream>
+#include <string>
 
-#define DELIM "."
-
-bool valid_digit(char *ip_str);
-bool is_valid_ip(std::string ip_input);
+bool is_valid_ip(const std::string& ipStr);

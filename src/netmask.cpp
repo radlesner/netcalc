@@ -4,10 +4,10 @@
 #include "headers/octet.h"
 #include "headers/output_messages.h"
 
-std::string make_netmask(int prefix)
+std::string make_netmask(const int &prefix)
 {
     std::vector<unsigned int> dec_netmask;
-    std::string bin_netmask = "00000000000000000000000000000000", buffer;
+    std::string bin_netmask(32, '0'), buffer;
 
     for (int i = 0; i < prefix; i++)
     {
@@ -29,7 +29,7 @@ std::string make_netmask(int prefix)
     return bin_netmask;
 }
 
-int make_prefix(std::string bin_netmask_input)
+int make_prefix(const std::string &bin_netmask_input)
 {
     int prefix = 0;
 
