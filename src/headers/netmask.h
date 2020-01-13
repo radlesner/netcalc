@@ -1,7 +1,6 @@
-#include <bits/stdc++.h>
 #include <iostream>
 #include <string>
+#include <utility>
 
-std::string make_netmask(const int &prefix);
-std::string make_wildcard_mask(const int &prefix);
+std::pair<std::string, std::string> make_netmask_and_wildcard(const int &prefix);
 int make_prefix(const std::string &bin_netmask_input);
