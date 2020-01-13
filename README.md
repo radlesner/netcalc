@@ -22,9 +22,9 @@ cmake -DCMAKE_BUILD_TYPE=Debug ../
 ```
 
 ## Install from snapstore
-[![Snap Status](https://build.snapcraft.io/badge/CasinoRoyaleKrupier/netcalc.svg)](https://build.snapcraft.io/user/CasinoRoyaleKrupier/netcalc)
 [![netcalc](https://snapcraft.io//netcalc/badge.svg)](https://snapcraft.io/netcalc)
 [![netcalc](https://snapcraft.io//netcalc/trending.svg?name=0)](https://snapcraft.io/netcalc)
+[![Snap Status](https://build.snapcraft.io/badge/CasinoRoyaleKrupier/netcalc.svg)](https://build.snapcraft.io/user/CasinoRoyaleKrupier/netcalc)
 
 ```sh
 snap install netcalc
