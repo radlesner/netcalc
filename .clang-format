@@ -1,3 +1,4 @@
+AlignConsecutiveAssignments: true
 AlignTrailingComments: true
 BasedOnStyle: Google
 BinPackArguments: false
