@@ -1,5 +1,4 @@
 #include "headers/ip_operations.h"
-
 #include "headers/check_ip.h"
 #include "headers/convert_numbers.h"
 #include "headers/octet.h"
@@ -51,18 +50,12 @@ std::string get_network_address(const std::string &bin_ip4_addr, const std::stri
     return bin_network_addr;
 }
 
-std::string get_broadcast_addr(const std::string &bin_network_addr, const std::string &bin_netmask)
+std::string get_broadcast_addr(const std::string &bin_network_addr, const std::string &bin_wildcard)
 {
-    std::vector<std::string> bin_network_octet = get_bin_octets(bin_network_addr), bin_netmask_inv_octet;
-    std::string bin_netmask_invert(32, '1'), bin_broadcast;
+    std::vector<std::string> bin_network_octet = get_bin_octets(bin_network_addr),
+                             bin_netmask_inv_octet = get_bin_octets(bin_wildcard);
+    std::string bin_broadcast;
     std::vector<unsigned int> dec_netmask_inf_octet, dec_network_octet, dec_broadcast_addr;
-
-    for (size_t i = 0; i < 32; i++)
-    {
-        if (bin_netmask[i] == '1') bin_netmask_invert[i] = '0';
-    }
-
-    bin_netmask_inv_octet = get_bin_octets(bin_netmask_invert);
 
     for (size_t i = 0; i < 4; i++)
     {

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#define VERSION_PROGRAM "2.2.9"
+#define VERSION_PROGRAM "3.0"
 
 void version_program();
 void output_ip_address(const std::string &label, std::vector<unsigned int> input);

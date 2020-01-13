@@ -9,7 +9,7 @@
 
 void get_network_argument(const std::string &ip_argument, const std::string &prefix_argument)
 {
-    std::string binary_ip_address, binary_netmask, binary_network, binary_broadcast;
+    std::string binary_ip_address, binary_netmask, binary_wildcard, binary_network, binary_broadcast;
     int prefix_netmask;
 
     if (!is_valid_netmask_prefix(prefix_argument))
@@ -31,10 +31,11 @@ void get_network_argument(const std::string &ip_argument, const std::string &pre
     std::cout << "IP address:        " << ip_argument << " (" << add_valid_color("OK") << ")" << std::endl;
     binary_ip_address = make_bin_address(ip_argument);
     binary_netmask = make_netmask(prefix_netmask);
+    binary_wildcard = make_wildcard_mask(prefix_netmask);
     binary_network = get_network_address(binary_ip_address, binary_netmask);
-    binary_broadcast = get_broadcast_addr(binary_network, binary_netmask);
-    get_number_hosts(binary_ip_address, prefix_netmask);
+    binary_broadcast = get_broadcast_addr(binary_network, binary_wildcard);
     get_first_last_host(binary_network, binary_broadcast);
+    get_number_hosts(binary_ip_address, prefix_netmask);
 }
 
 void get_network_inteface(const std::string &interface_name)
@@ -43,7 +44,7 @@ void get_network_inteface(const std::string &interface_name)
     struct ifaddrs *ifa = NULL;
     const void *tmpAddrPtr = nullptr;
     int netmask_prefix;
-    std::string bin_ip_address, bin_netmask, bin_network, bin_broadcast;
+    std::string bin_ip_address, bin_netmask, bin_wildcard, bin_network, bin_broadcast;
 
     getifaddrs(&ifAddrStruct);
 
@@ -63,17 +64,18 @@ void get_network_inteface(const std::string &interface_name)
 
             if (static_cast<std::string>(ifa->ifa_name) == interface_name)
             {
-                std::cout << "Interface:         " << ifa->ifa_name << std::endl
-                          << "IP address:        " << address_buffer << std::endl
-                          << "Netmask:           " << mask_buffer << std::endl;
+                std::cout << "Interface:         " << ifa->ifa_name << "\n"
+                          << "IP address:        " << address_buffer << "\n"
+                          << "Netmask:           " << mask_buffer << "\n";
 
                 bin_ip_address = make_bin_address(address_buffer);
                 bin_netmask = make_bin_address(mask_buffer);
                 netmask_prefix = make_prefix(bin_netmask);
+                bin_wildcard = make_wildcard_mask(netmask_prefix);
                 bin_network = get_network_address(bin_ip_address, bin_netmask);
-                bin_broadcast = get_broadcast_addr(bin_network, bin_netmask);
-                get_number_hosts(bin_ip_address, netmask_prefix);
+                bin_broadcast = get_broadcast_addr(bin_network, bin_wildcard);
                 get_first_last_host(bin_network, bin_broadcast);
+                get_number_hosts(bin_ip_address, netmask_prefix);
             }
         }
     }
