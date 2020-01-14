@@ -1,19 +1,18 @@
 #include "headers/ip_operations.h"
-#include "headers/check_ip.h"
 #include "headers/convert_numbers.h"
 #include "headers/octet.h"
 #include "headers/output_messages.h"
 
-std::string group_number(int input)
+std::string group_long_number(int input_number)
 {
-    std::string str_input = std::to_string(input), output;
+    std::string string_input = std::to_string(input_number), output;
     int buffer = 0;
 
-    reverse(str_input.begin(), str_input.end());
-    for (size_t i = 0; i < str_input.length(); i++)
+    reverse(string_input.begin(), string_input.end());
+    for (size_t i = 0; i < string_input.length(); i++)
     {
         buffer++;
-        output += str_input[i];
+        output += string_input[i];
         if (buffer == 3)
         {
             output += ' ';
@@ -85,13 +84,13 @@ std::string get_network_address(const std::string &bin_ip4_addr, const std::stri
 std::string get_broadcast_addr(const std::string &bin_network_addr, const std::string &bin_wildcard)
 {
     std::vector<std::string> bin_network_octet = get_bin_octets(bin_network_addr),
-                             bin_netmask_inv_octet = get_bin_octets(bin_wildcard);
+                             bin_wildcard_octet = get_bin_octets(bin_wildcard);
     std::string bin_broadcast;
     std::vector<unsigned int> dec_netmask_inf_octet, dec_network_octet, dec_broadcast_addr;
 
     for (size_t i = 0; i < 4; i++)
     {
-        dec_netmask_inf_octet.push_back(bin_to_dec(std::stoi(bin_netmask_inv_octet[i])));
+        dec_netmask_inf_octet.push_back(bin_to_dec(std::stoi(bin_wildcard_octet[i])));
         dec_network_octet.push_back(bin_to_dec(std::stoi(bin_network_octet[i])));
         dec_broadcast_addr.push_back(dec_netmask_inf_octet[i] + dec_network_octet[i]);
         bin_broadcast += dec_to_bin(dec_broadcast_addr[i]);
@@ -108,7 +107,7 @@ void get_number_hosts(const std::string &bin_ip4_addr, const int &prefix)
 
     exponentiation(2, number_hosts);
     number_hosts -= 2;
-    output = group_number(number_hosts);
+    output = group_long_number(number_hosts);
 
     std::cout << "Number of hosts:   " << output << std::endl;
 }
