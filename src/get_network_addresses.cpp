@@ -39,8 +39,8 @@ void get_network_argument(const std::string &ip_argument, const std::string &pre
 
 void get_network_inteface(const std::string &interface_name)
 {
-    struct ifaddrs *ifAddrStruct = NULL;
-    struct ifaddrs *ifa = NULL;
+    ifaddrs *ifAddrStruct = NULL;
+    ifaddrs *ifa = NULL;
     const void *tmpAddrPtr = nullptr;
     int netmask_prefix;
     std::string bin_ip_address, bin_netmask, bin_wildcard, bin_network, bin_broadcast;
@@ -55,10 +55,10 @@ void get_network_inteface(const std::string &interface_name)
             char address_buffer[INET_ADDRSTRLEN];
             char mask_buffer[INET_ADDRSTRLEN];
 
-            tmpAddrPtr = &((struct sockaddr_in *)(ifa->ifa_addr))->sin_addr;
+            tmpAddrPtr = &((sockaddr_in *)(ifa->ifa_addr))->sin_addr;
             inet_ntop(AF_INET, tmpAddrPtr, address_buffer, INET_ADDRSTRLEN);
 
-            tmpAddrPtr = &((struct sockaddr_in *)(ifa->ifa_netmask))->sin_addr;
+            tmpAddrPtr = &((sockaddr_in *)(ifa->ifa_netmask))->sin_addr;
             inet_ntop(AF_INET, tmpAddrPtr, mask_buffer, INET_ADDRSTRLEN);
 
             if (static_cast<std::string>(ifa->ifa_name) == interface_name)
@@ -81,8 +81,8 @@ void get_network_inteface(const std::string &interface_name)
 
 void show_interfaces()
 {
-    struct ifaddrs *ifAddrStruct = NULL;
-    struct ifaddrs *ifa = NULL;
+    ifaddrs *ifAddrStruct = NULL;
+    ifaddrs *ifa = NULL;
 
     getifaddrs(&ifAddrStruct);
     std::cout << "List of active interfaces" << std::endl;
