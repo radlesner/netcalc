@@ -69,14 +69,38 @@ std::string get_broadcast_addr(const std::string &bin_network_addr, const std::s
     return bin_broadcast;
 }
 
+std::string group_number(int input)
+{
+    std::string str_input = std::to_string(input), output;
+    int buffer            = 0;
+
+    reverse(str_input.begin(), str_input.end());
+    for (size_t i = 0; i < str_input.length(); i++)
+    {
+        buffer++;
+        output += str_input[i];
+        if (buffer == 3)
+        {
+            output += ' ';
+            buffer = 0;
+        }
+    }
+    reverse(output.begin(), output.end());
+    if (output[0] == ' ') output.erase(0, 1);
+
+    return output;
+}
+
 void get_number_hosts(const std::string &bin_ip4_addr, const int &prefix)
 {
     int exponentiation_input = bin_ip4_addr.length() - prefix, number_hosts;
+    std::string output;
 
     number_hosts = exponentiation(2, exponentiation_input);
     number_hosts -= 2;
+    output = group_number(number_hosts);
 
-    std::cout << "Number of hosts:   " << number_hosts << std::endl;
+    std::cout << "Number of hosts:   " << output << std::endl;
 }
 
 void get_first_last_host(const std::string &bin_network, const std::string &bin_broadcast)
