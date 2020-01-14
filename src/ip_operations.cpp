@@ -4,6 +4,38 @@
 #include "headers/octet.h"
 #include "headers/output_messages.h"
 
+std::string group_number(int input)
+{
+    std::string str_input = std::to_string(input), output;
+    int buffer = 0;
+
+    reverse(str_input.begin(), str_input.end());
+    for (size_t i = 0; i < str_input.length(); i++)
+    {
+        buffer++;
+        output += str_input[i];
+        if (buffer == 3)
+        {
+            output += ' ';
+            buffer = 0;
+        }
+    }
+    reverse(output.begin(), output.end());
+    if (output[0] == ' ') output.erase(0, 1);
+
+    return output;
+}
+
+void exponentiation(const long int &base_of_power, int &index)
+{
+    int result = 1;
+    for (int i = 0; i < index; i++)
+    {
+        result *= base_of_power;
+    }
+    index = result;
+}
+
 std::string make_bin_address(const std::string &dec_input)
 {
     std::vector<std::string> string_octet_remainder = get_dec_octet(dec_input);
@@ -69,34 +101,12 @@ std::string get_broadcast_addr(const std::string &bin_network_addr, const std::s
     return bin_broadcast;
 }
 
-std::string group_number(int input)
-{
-    std::string str_input = std::to_string(input), output;
-    int buffer = 0;
-
-    reverse(str_input.begin(), str_input.end());
-    for (size_t i = 0; i < str_input.length(); i++)
-    {
-        buffer++;
-        output += str_input[i];
-        if (buffer == 3)
-        {
-            output += ' ';
-            buffer = 0;
-        }
-    }
-    reverse(output.begin(), output.end());
-    if (output[0] == ' ') output.erase(0, 1);
-
-    return output;
-}
-
 void get_number_hosts(const std::string &bin_ip4_addr, const int &prefix)
 {
-    int exponentiation_input = bin_ip4_addr.length() - prefix, number_hosts;
+    int number_hosts = bin_ip4_addr.length() - prefix;
     std::string output;
 
-    number_hosts = exponentiation(2, exponentiation_input);
+    exponentiation(2, number_hosts);
     number_hosts -= 2;
     output = group_number(number_hosts);
 
@@ -123,16 +133,4 @@ void get_first_last_host(const std::string &bin_network, const std::string &bin_
 
     output_ip_address("First host:        ", first_host_octet);
     output_ip_address("Last host:         ", last_host_octet);
-}
-
-long int exponentiation(const long int &base_of_power, const int &index)
-{
-    int result = 1;
-
-    for (int i = 0; i < index; i++)
-    {
-        result *= base_of_power;
-    }
-
-    return result;
 }
