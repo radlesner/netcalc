@@ -10,7 +10,7 @@ std::pair<std::string, std::string> make_netmask_and_wildcard(const int &prefix)
 
     for (int i = 0; i < prefix; i++)
     {
-        bin_netmask[i]  = '1';
+        bin_netmask[i] = '1';
         bin_wildcard[i] = '0';
     }
 
