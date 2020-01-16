@@ -30,7 +30,7 @@
             "name": "Debug interfaces",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/debug/a.out",
+            "program": "${workspaceFolder}/debug/netcalc",
             "args": [
                 "-i",
                 "lo"
