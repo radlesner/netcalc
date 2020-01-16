@@ -20,7 +20,6 @@ void output_ip_address(const std::string &label, std::vector<unsigned int> input
 void help_panel()
 {
     std::cout << "Usage: netcalc [ip_v4_address] [prefix_netmask]" << std::endl
-              << std::endl
               << "Options:" << std::endl
               << "    -i    --inteface    Calculates values from interface" << std::endl
               << "    -v    --version     Version program" << std::endl
