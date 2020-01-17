@@ -19,7 +19,7 @@ std::pair<std::string, std::string> make_netmask_and_wildcard(const int &prefix)
         netmask_buffer += bin_netmask[i];
         wildcard_buffer += bin_wildcard[i];
 
-        if (i == 7 || i == 15 || i == 23 || i == 31)
+        if ((i == 7) || (i == 15) || (i == 23) || (i == 31))
         {
             dec_netmask.push_back(bin_to_dec(std::stoi(netmask_buffer)));
             netmask_buffer.clear();

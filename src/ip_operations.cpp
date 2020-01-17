@@ -66,7 +66,7 @@ std::string get_network_address(const std::string &bin_ip4_addr, const std::stri
         buffer = std::stoi(bin_addr_buffer) * std::stoi(bin_netmask_buffer);
         bin_network_addr += std::to_string(buffer);
 
-        if (i == 7 || i == 15 || i == 23) octet_indicator++;
+        if ((i == 7) || (i == 15) || (i == 23)) octet_indicator++;
     }
 
     bin_network_octet = get_bin_octets(bin_network_addr);

@@ -7,7 +7,7 @@ std::vector<std::string> get_dec_octet(const std::string &ip4_addr)
 
     for (size_t i = 0; i <= ip4_addr.length(); i++)
     {
-        if (ip4_addr[i] == '.' || i == ip4_addr.length())
+        if ((ip4_addr[i] == '.') || (i == ip4_addr.length()))
         {
             ip_octet.push_back(buffer);
             buffer.clear();
@@ -29,7 +29,7 @@ std::vector<std::string> get_bin_octets(const std::string &bin_addr)
     {
         buffer += bin_addr[i];
 
-        if (i == 7 || i == 15 || i == 23 || i == 31)
+        if ((i == 7) || (i == 15) || (i == 23) || (i == 31))
         {
             bin_octet.push_back(buffer);
             buffer.clear();

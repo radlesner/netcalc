@@ -24,7 +24,7 @@ bool is_valid_netmask_prefix(const std::string &str_prefix)
         if (!isdigit(str_prefix[i])) return false;
     }
 
-    if (std::stoi(str_prefix) < 1 || std::stoi(str_prefix) > 31) return false;
+    if ((std::stoi(str_prefix) < 1) || (std::stoi(str_prefix) > 31)) return false;
 
     return true;
 }
