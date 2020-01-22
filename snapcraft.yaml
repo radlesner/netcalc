@@ -12,7 +12,6 @@ apps:
   netcalc:
     command: netcalc
     plugs:
-      - network
       - network-bind
 
 parts:
