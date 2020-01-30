@@ -8,11 +8,10 @@ std::string group_long_number(int input_number)
     std::string string_input = std::to_string(input_number), output;
     int buffer = 0;
 
-    reverse(string_input.begin(), string_input.end());
-    for (size_t i = 0; i < string_input.length(); i++)
+    for (auto i = string_input.rbegin(); i < string_input.rend(); ++i)
     {
         buffer++;
-        output += string_input[i];
+        output += *i;
         if (buffer == 3)
         {
             output += ' ';
