@@ -5,16 +5,16 @@ std::vector<std::string> get_dec_octet(const std::string &ip4_addr)
     std::vector<std::string> ip_octet;
     std::string buffer;
 
-    for (size_t i = 0; i <= ip4_addr.length(); i++)
+    for (auto i = ip4_addr.begin(); i <= ip4_addr.end(); i++)
     {
-        if ((ip4_addr[i] == '.') || (i == ip4_addr.length()))
+        if ((*i == '.') || (i == ip4_addr.end()))
         {
             ip_octet.push_back(buffer);
             buffer.clear();
             i++;
         }
 
-        buffer += ip4_addr[i];
+        buffer += *i;
     }
 
     return ip_octet;
