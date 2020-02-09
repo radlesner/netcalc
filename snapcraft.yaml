@@ -2,8 +2,10 @@ name: netcalc
 version: '3.0'
 summary: Simple network calculator
 description: |
-  Simple program that converts values from an IP address and subnet mask.
-  Has the ability to fetch data from the interface.
+  A program that converts values from the IP address and prefix of the subnet mask.
+  It has the ability to download data from the interface.
+  It calculates values for the subnet mask, network address,
+  broadcast address, first and last address and number of hosts.
 grade: stable
 base: core18
 license: GPL-2.0
