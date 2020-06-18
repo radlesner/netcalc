@@ -1,10 +1,10 @@
 #include <iostream>
 #include <vector>
 
-#define VERSION_PROGRAM "3.0"
+#define VERSION_PROGRAM "3.1"
 
 void version_program();
-void output_ip_address(const std::string &label, std::vector<unsigned int> input);
+void output_ip_address(const std::string &label, std::vector<unsigned int> input, const std::string &extra_label = "");
 void help_panel();
 void usage_message();
 void error_message();

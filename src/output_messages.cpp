@@ -2,7 +2,7 @@
 
 void version_program() { std::cout << "netcalc, version " << VERSION_PROGRAM << std::endl; }
 
-void output_ip_address(const std::string &label, std::vector<unsigned int> input)
+void output_ip_address(const std::string &label, std::vector<unsigned int> input, const std::string &extra_label)
 {
     std::cout << label;
 
@@ -11,7 +11,10 @@ void output_ip_address(const std::string &label, std::vector<unsigned int> input
         std::cout << input[i];
 
         if (i == (input.size() - 1))
+        {
+            if (extra_label != "") std::cout << "/" << extra_label;
             std::cout << std::endl;
+        }
         else
             std::cout << ".";
     }

@@ -51,7 +51,9 @@ std::string make_bin_address(const std::string &dec_input)
     return bin_ip_address;
 }
 
-std::string get_network_address(const std::string &bin_ip4_addr, const std::string &bin_netmask)
+std::string get_network_address(const std::string &bin_ip4_addr,
+                                const std::string &bin_netmask,
+                                const int &netmask_prefix)
 {
     unsigned int buffer, octet_indicator = 0, dec_network_octet_buffer;
     std::vector<unsigned int> dec_network_octet;
@@ -76,7 +78,7 @@ std::string get_network_address(const std::string &bin_ip4_addr, const std::stri
         dec_network_octet.push_back(dec_network_octet_buffer);
     }
 
-    output_ip_address("Network address:   ", dec_network_octet);
+    output_ip_address("  Network address: ", dec_network_octet, std::to_string(netmask_prefix));
     return bin_network_addr;
 }
 
@@ -108,7 +110,7 @@ void get_number_hosts(const std::string &bin_ip4_addr, const int &prefix)
     number_hosts -= 2;
     output = group_long_number(number_hosts);
 
-    std::cout << "Number of hosts:   " << output << std::endl;
+    std::cout << "  Number of hosts: " << output << std::endl;
 }
 
 void get_first_last_host(const std::string &bin_network, const std::string &bin_broadcast)
@@ -129,6 +131,6 @@ void get_first_last_host(const std::string &bin_network, const std::string &bin_
         }
     }
 
-    output_ip_address("First host:        ", first_host_octet);
-    output_ip_address("Last host:         ", last_host_octet);
+    output_ip_address("       First host: ", first_host_octet);
+    output_ip_address("        Last host: ", last_host_octet);
 }
