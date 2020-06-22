@@ -1,8 +1,10 @@
 #include "headers/get_network_addresses.h"
+#include "headers/broadcast.h"
 #include "headers/check_validate_arguments.h"
 #include "headers/convert_numbers.h"
 #include "headers/ip_operations.h"
 #include "headers/netmask.h"
+#include "headers/network.h"
 #include "headers/octet.h"
 #include "headers/output_messages.h"
 

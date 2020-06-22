@@ -51,56 +51,6 @@ std::string make_bin_address(const std::string &dec_input)
     return bin_ip_address;
 }
 
-std::string get_network_address(const std::string &bin_ip4_addr,
-                                const std::string &bin_netmask,
-                                const int &netmask_prefix)
-{
-    unsigned int buffer, octet_indicator = 0, dec_network_octet_buffer;
-    std::vector<unsigned int> dec_network_octet;
-    std::vector<std::string> bin_network_octet;
-    std::string bin_network_addr, bin_addr_buffer, bin_netmask_buffer;
-
-    for (size_t i = 0; i < 32; i++)
-    {
-        bin_addr_buffer = bin_ip4_addr[i];
-        bin_netmask_buffer = bin_netmask[i];
-        buffer = std::stoi(bin_addr_buffer) * std::stoi(bin_netmask_buffer);
-        bin_network_addr += std::to_string(buffer);
-
-        if ((i == 7) || (i == 15) || (i == 23)) octet_indicator++;
-    }
-
-    bin_network_octet = get_bin_octets(bin_network_addr);
-
-    for (size_t i = 0; i < 4; i++)
-    {
-        dec_network_octet_buffer = bin_to_dec(std::stoi(bin_network_octet[i]));
-        dec_network_octet.push_back(dec_network_octet_buffer);
-    }
-
-    output_ip_address("  Network address: ", dec_network_octet, std::to_string(netmask_prefix));
-    return bin_network_addr;
-}
-
-std::string get_broadcast_addr(const std::string &bin_network_addr, const std::string &bin_wildcard)
-{
-    std::vector<std::string> bin_network_octet = get_bin_octets(bin_network_addr),
-                             bin_wildcard_octet = get_bin_octets(bin_wildcard);
-    std::string bin_broadcast;
-    std::vector<unsigned int> dec_netmask_inf_octet, dec_network_octet, dec_broadcast_addr;
-
-    for (size_t i = 0; i < 4; i++)
-    {
-        dec_netmask_inf_octet.push_back(bin_to_dec(std::stoi(bin_wildcard_octet[i])));
-        dec_network_octet.push_back(bin_to_dec(std::stoi(bin_network_octet[i])));
-        dec_broadcast_addr.push_back(dec_netmask_inf_octet[i] + dec_network_octet[i]);
-        bin_broadcast += dec_to_bin(dec_broadcast_addr[i]);
-    }
-
-    output_ip_address("Broadcast address: ", dec_broadcast_addr);
-    return bin_broadcast;
-}
-
 void get_number_hosts(const std::string &bin_ip4_addr, const int &prefix)
 {
     int number_hosts = bin_ip4_addr.length() - prefix;
