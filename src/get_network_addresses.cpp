@@ -31,8 +31,9 @@ void get_network_argument(const std::string &ip_argument, const std::string &pre
 
     binary_ip_address = make_bin_address(ip_argument);
     auto [binary_netmask, binary_wildcard] = make_netmask_and_wildcard(prefix_netmask);
+    binary_network = make_network_address(binary_ip_address, binary_netmask);
 
-    binary_network = get_network_address(binary_ip_address, binary_netmask, prefix_netmask);
+    out_network_address(binary_network, prefix_netmask);
     std::cout << std::endl;
 
     out_netmask_wildcard(binary_netmask, binary_wildcard);
@@ -71,11 +72,12 @@ void get_network_inteface(const std::string &interface_name)
             {
                 bin_ip_address = make_bin_address(address_buffer);
                 bin_netmask = make_bin_address(mask_buffer);
+                bin_network = make_network_address(bin_ip_address, bin_netmask);
                 netmask_prefix = make_prefix(bin_netmask);
                 auto [bin_netmask, bin_wildcard] = make_netmask_and_wildcard(netmask_prefix);
 
                 std::cout << "        Interface: " << add_valid_color(ifa->ifa_name) << "\n";
-                bin_network = get_network_address(bin_ip_address, bin_netmask, netmask_prefix);
+                out_network_address(bin_network, netmask_prefix);
 
                 std::cout << std::endl;
                 out_netmask_wildcard(bin_netmask, bin_wildcard);
