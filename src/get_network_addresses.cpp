@@ -6,6 +6,7 @@
 #include "headers/octet.h"
 #include "headers/output_messages.h"
 
+// -------------------------------------------------------------------------------------
 void get_network_argument(const std::string &ip_argument, const std::string &prefix_argument)
 {
     std::string binary_ip_address, binary_network, binary_broadcast;
@@ -41,6 +42,7 @@ void get_network_argument(const std::string &ip_argument, const std::string &pre
     get_number_hosts(binary_ip_address, prefix_netmask);
 }
 
+// -------------------------------------------------------------------------------------
 void get_network_inteface(const std::string &interface_name)
 {
     ifaddrs *ifAddrStruct = NULL;
@@ -88,6 +90,7 @@ void get_network_inteface(const std::string &interface_name)
     if (ifAddrStruct != NULL) freeifaddrs(ifAddrStruct);
 }
 
+// -------------------------------------------------------------------------------------
 void show_interfaces()
 {
     ifaddrs *ifAddrStruct = NULL;
@@ -104,4 +107,5 @@ void show_interfaces()
     if (ifAddrStruct != NULL) freeifaddrs(ifAddrStruct);
 }
 
+// -------------------------------------------------------------------------------------
 std::string add_valid_color(std::string text_input) { return "\033[1;32m" + text_input + "\033[0m"; }

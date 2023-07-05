@@ -1,5 +1,6 @@
 #include "headers/convert_numbers.h"
 
+// -------------------------------------------------------------------------------------
 std::string dec_to_bin(int dec_input)
 {
     int i = 0, tab[31];
@@ -27,6 +28,7 @@ std::string dec_to_bin(int dec_input)
     return str_output;
 }
 
+// -------------------------------------------------------------------------------------
 int bin_to_dec(long long bin_input)
 {
     int decimalNumber = 0, i = 0, remainder;

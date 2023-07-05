@@ -1,5 +1,6 @@
 #include "headers/check_validate_arguments.h"
 
+// -------------------------------------------------------------------------------------
 bool is_valid_ip(const std::string &ipStr)
 {
     int ip3, ip2, ip1, ip0;
@@ -17,6 +18,7 @@ bool is_valid_ip(const std::string &ipStr)
     return true;
 }
 
+// -------------------------------------------------------------------------------------
 bool is_valid_netmask_prefix(const std::string &str_prefix)
 {
     for (size_t i = 0; i < str_prefix.length(); i++)

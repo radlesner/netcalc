@@ -3,6 +3,7 @@
 #include "headers/octet.h"
 #include "headers/output_messages.h"
 
+// -------------------------------------------------------------------------------------
 std::string group_long_number(int input_number)
 {
     std::string string_input = std::to_string(input_number), output;
@@ -24,6 +25,7 @@ std::string group_long_number(int input_number)
     return output;
 }
 
+// -------------------------------------------------------------------------------------
 void exponentiation(const long int &base_of_power, int &index)
 {
     int result = 1;
@@ -34,6 +36,7 @@ void exponentiation(const long int &base_of_power, int &index)
     index = result;
 }
 
+// -------------------------------------------------------------------------------------
 std::string make_bin_address(const std::string &dec_input)
 {
     std::vector<std::string> string_octet_remainder = get_dec_octet(dec_input);
@@ -51,6 +54,7 @@ std::string make_bin_address(const std::string &dec_input)
     return bin_ip_address;
 }
 
+// -------------------------------------------------------------------------------------
 std::string get_network_address(const std::string &bin_ip4_addr,
                                 const std::string &bin_netmask,
                                 const int &netmask_prefix)
@@ -82,6 +86,7 @@ std::string get_network_address(const std::string &bin_ip4_addr,
     return bin_network_addr;
 }
 
+// -------------------------------------------------------------------------------------
 std::string get_broadcast_addr(const std::string &bin_network_addr, const std::string &bin_wildcard)
 {
     std::vector<std::string> bin_network_octet = get_bin_octets(bin_network_addr),
@@ -101,6 +106,7 @@ std::string get_broadcast_addr(const std::string &bin_network_addr, const std::s
     return bin_broadcast;
 }
 
+// -------------------------------------------------------------------------------------
 void get_number_hosts(const std::string &bin_ip4_addr, const int &prefix)
 {
     int number_hosts = bin_ip4_addr.length() - prefix;
@@ -113,6 +119,7 @@ void get_number_hosts(const std::string &bin_ip4_addr, const int &prefix)
     std::cout << "  Number of hosts: " << output << std::endl;
 }
 
+// -------------------------------------------------------------------------------------
 void get_first_last_host(const std::string &bin_network, const std::string &bin_broadcast)
 {
     std::vector<unsigned int> first_host_octet, last_host_octet;
