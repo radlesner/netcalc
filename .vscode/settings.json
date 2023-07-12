@@ -91,6 +91,12 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "valarray": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "validarguments.h": "c",
+        "inet.h": "c",
+        "stdio.h": "c",
+        "segmentforoctet.h": "c",
+        "outputs.h": "c",
+        "ipoperations.h": "c"
     }
 }

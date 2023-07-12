@@ -3,7 +3,7 @@ project (netcalc)
 
 # SETTINGS
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
-file(GLOB SOURCES src/*.cpp)
+file(GLOB SOURCES src/*.c)
 
 if (NOT CMAKE_BUILD_TYPE)
     message(STATUS "Build type not specified: Use Release by default")
@@ -22,11 +22,11 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 
 endif()
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic")
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_C_FLAGS "-Wall -Wextra -pedantic")
+set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # PROGRAM
