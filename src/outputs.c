@@ -13,6 +13,16 @@ void mainOutput(const char *rawIpAddr, unsigned int rawMaskPrefix)
     unsigned int ipLastHost[4]     = {0, 0, 0, 0};
     unsigned int numHost;
 
+    /*
+        The following void functions perform calculations related to IP addresses
+        and modify the values in the arrays of the parent function.
+
+        NOTE: The void functions in this code change values directly in memory
+        parent function arrays.
+
+        Arrays in the code always have the abbreviation "Tab" at the end of the name
+    */
+
     getOctet(ipAddrTab, rawIpAddr);
     getMask(ipMaskTab, rawMaskPrefix);
     getWildAddr(ipWildTab, ipMaskTab);

@@ -30,8 +30,8 @@ void getInterfaceInfo(char *interfaceName)
     struct ifaddrs *ifaddr, *ifa;
     struct sockaddr_in *addr, *netmask;
 
-    char ip[INET_ADDRSTRLEN];
-    char subnet[INET_ADDRSTRLEN];
+    char ipAddrBuffer[INET_ADDRSTRLEN];
+    char subnetAddrBuffer[INET_ADDRSTRLEN];
 
     unsigned int ipAddr[4] = {0, 0, 0, 0};
     unsigned int ipMask[4] = {0, 0, 0, 0};
@@ -50,20 +50,19 @@ void getInterfaceInfo(char *interfaceName)
         if (ifa->ifa_addr->sa_family == AF_INET)
         {
             addr = (struct sockaddr_in *)ifa->ifa_addr;
-            inet_ntop(AF_INET, &(addr->sin_addr), ip, INET_ADDRSTRLEN);
+            inet_ntop(AF_INET, &(addr->sin_addr), ipAddrBuffer, INET_ADDRSTRLEN);
 
             netmask = (struct sockaddr_in *)ifa->ifa_netmask;
-            inet_ntop(AF_INET, &(netmask->sin_addr), subnet, INET_ADDRSTRLEN);
+            inet_ntop(AF_INET, &(netmask->sin_addr), subnetAddrBuffer, INET_ADDRSTRLEN);
 
-            char *currentInterfaceName = ifa->ifa_name;
-            int result                 = strcmp(interfaceName, currentInterfaceName);
-
-            if (result == 0)
+            if (!strcmp(interfaceName, ifa->ifa_name))
             {
-                getOctet(ipAddr, ip);
-                getOctet(ipMask, subnet);
+                getOctet(ipAddr, ipAddrBuffer);
+                getOctet(ipMask, subnetAddrBuffer);
                 maskPrefix = maskToPrefix(ipMask);
-                mainOutput(ip, maskPrefix);
+                mainOutput(ipAddrBuffer, maskPrefix);
+
+                break;
             }
         }
     }

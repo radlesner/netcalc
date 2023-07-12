@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_OCTETS 4
+#define MAX_OCTETS     4
 #define MAX_OCTET_SIZE 4
 
 void getOctet(unsigned int ipAddrTab[], const char *ipAddr);
