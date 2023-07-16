@@ -20,21 +20,22 @@ int main(int argc, char *argv[])
     {
         printf("Provide the CLI argument\n");
         printf("Usage: netcalc [ip_v4_address] [prefix_netmask] or -h option\n");
+        return 0;
     }
 
     for (int i = 1; i < argc; i++)
     {
         if ((!strcmp(argv[1], "-i")) || (!strcmp(argv[1], "--inteface")))
         {
-            if (argc >= 2)
+            if (argc >= 3)
             {
-                showInterfaces();
-                return 0;
+                getInterfaceInfo(argv[2]);
+                break;
             }
             else
             {
-                getInterfaceInfo(argv[2]);
-                return 0;
+                showInterfaces();
+                break;
             }
         }
         else if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--calculator") == 0)
@@ -55,22 +56,22 @@ int main(int argc, char *argv[])
                 printf("Usage: netcalc [ip_v4_address] [prefix_netmask] or -h option\n");
             }
 
-            return 0;
+            break;
         }
         else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0)
         {
             helpOutput();
-            return 0;
+            break;
         }
         else if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0)
         {
             printf("netcalc, version %s\n", VERSION_PROGRAM);
-            return 0;
+            break;
         }
         else
         {
             printf("Unknown option: %s\n", argv[i]);
-            return 1;
+            break;
         }
     }
 
