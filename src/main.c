@@ -16,38 +16,61 @@
 // --------------------------------------------------- MAIN ---------------------------------------------------
 int main(int argc, char *argv[])
 {
-    if (argc > 2)
+    if (argc == 1)
+    {
+        printf("Provide the CLI argument\n");
+        printf("Usage: netcalc [ip_v4_address] [prefix_netmask] or -h option\n");
+    }
+
+    for (int i = 1; i < argc; i++)
     {
         if ((!strcmp(argv[1], "-i")) || (!strcmp(argv[1], "--inteface")))
         {
-            getInterfaceInfo(argv[2]);
-            return 0;
+            if (argc >= 2)
+            {
+                showInterfaces();
+                return 0;
+            }
+            else
+            {
+                getInterfaceInfo(argv[2]);
+                return 0;
+            }
         }
-        else if (!isIPValid(argv[1]) && !isMaskValid(argv[2]))
+        else if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--calculator") == 0)
         {
-            printf("Bad arguments!\n");
-            printf("Usage: netcalc [ip_v4_address] [prefix_netmask] or -h option\n");
+            if (argc >= 4)
+            {
+                if (isIPValid(argv[2]) && isMaskValid(argv[3]))
+                {
+                    mainOutput(argv[2], atoi(argv[3]));
+                }
+                else
+                {
+                    printf("Not valid IP address or mask prefix\n");
+                }
+            }
+            else
+            {
+                printf("Usage: netcalc [ip_v4_address] [prefix_netmask] or -h option\n");
+            }
+
             return 0;
         }
-
-        mainOutput(argv[1], atoi(argv[2]));
-    }
-    else if (argc > 1)
-    {
-        if ((!strcmp(argv[1], "-h")) || (!strcmp(argv[1], "--help")))
+        else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0)
         {
             helpOutput();
             return 0;
         }
-        else if ((!strcmp(argv[1], "-i")) || (!strcmp(argv[1], "--inteface")))
-        {
-            showInterfaces();
-            return 0;
-        }
-        else if ((!strcmp(argv[1], "-v")) || (!strcmp(argv[1], "--version")))
+        else if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--version") == 0)
         {
             printf("netcalc, version %s\n", VERSION_PROGRAM);
             return 0;
+        }
+        else
+        {
+            printf("Unknown option: %s\n", argv[i]);
+            return 1;
         }
     }
 

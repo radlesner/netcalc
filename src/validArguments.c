@@ -22,12 +22,21 @@ bool isIPValid(const char *ipAddress)
 bool isMaskValid(char *maskPrefixStr)
 {
     int i = 0;
+    int intPrefix;
+
     if (maskPrefixStr[i] == '-') i++;
 
     while (maskPrefixStr[i] != '\0')
     {
         if (!isdigit(maskPrefixStr[i])) return false;
         i++;
+    }
+
+    intPrefix = atoi(maskPrefixStr);
+
+    if (intPrefix < 0 || intPrefix > 31)
+    {
+        return false;
     }
 
     return true;
