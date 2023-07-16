@@ -19,7 +19,7 @@ bool isIPValid(const char *ipAddress)
     return true;
 }
 
-bool isMaskValid(char *maskPrefixStr)
+bool isMaskValid(const char *maskPrefixStr)
 {
     int i = 0;
     int intPrefix;

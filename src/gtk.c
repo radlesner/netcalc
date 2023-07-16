@@ -18,10 +18,10 @@ static void on_window_closed()
     gtk_main_quit();
 }
 
-void calculate_button_clicked(GtkWidget *widget, gpointer data)
+void calculate_button_clicked()
 {
-    char *ip_address             = gtk_entry_get_text(GTK_ENTRY(entry1));
-    char *subnet_mask_prefix_str = gtk_entry_get_text(GTK_ENTRY(entry2));
+    const char *ip_address         = gtk_entry_get_text(GTK_ENTRY(entry1));
+    const char *subnet_mask_prefix = gtk_entry_get_text(GTK_ENTRY(entry2));
 
     unsigned int ipAddrTab[4]      = {0, 0, 0, 0};
     unsigned int ipMaskTab[4]      = {0, 0, 0, 0};
@@ -32,26 +32,17 @@ void calculate_button_clicked(GtkWidget *widget, gpointer data)
     unsigned int ipLastHost[4]     = {0, 0, 0, 0};
     unsigned int numHost;
 
-    char result_text[1024]; // Przykładowa długość tablicy wynikowej
+    char result_text[1024];
 
-    if (!isIPValid(ip_address) && !isMaskValid(subnet_mask_prefix_str))
+    if (isIPValid(ip_address) && isMaskValid(subnet_mask_prefix))
     {
-        printf("IP is not valid\n");
-        return;
-    }
-    else
-    {
-        printf("IP is valid\n");
-
-        int subnet_mask_prefix = atoi(subnet_mask_prefix_str);
-
         getOctet(ipAddrTab, ip_address);
-        getMask(ipMaskTab, subnet_mask_prefix);
+        getMask(ipMaskTab, atoi(subnet_mask_prefix));
         getWildAddr(ipWildTab, ipMaskTab);
         getNetworkAddr(ipNetAddrTab, ipAddrTab, ipMaskTab);
         getBroadAddr(ipBroadAddrTab, ipNetAddrTab, ipMaskTab);
         getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
-        numHost = getHostNumber(subnet_mask_prefix);
+        numHost = getHostNumber(atoi(subnet_mask_prefix));
 
         sprintf(result_text,
                 "    IP address				: %d.%d.%d.%d\n"
@@ -59,7 +50,7 @@ void calculate_button_clicked(GtkWidget *widget, gpointer data)
                 "    Mask address			: %d.%d.%d.%d\n"
                 "    Wildcard address		: %d.%d.%d.%d\n"
                 "\n"
-                "    Network address		: %d.%d.%d.%d/%d\n"
+                "    Network address		: %d.%d.%d.%d/%s\n"
                 "    Broadcast address		: %d.%d.%d.%d\n"
                 "    Firt address				: %d.%d.%d.%d\n"
                 "    Last address			: %d.%d.%d.%d\n"
@@ -104,10 +95,44 @@ void calculate_button_clicked(GtkWidget *widget, gpointer data)
                 // Number of hosts
                 numHost);
 
-        gtk_label_set_text(GTK_LABEL(result_label), result_text);
-        gtk_label_set_xalign(GTK_LABEL(result_label), 0.0);
-        gtk_label_set_text(GTK_LABEL(result_label), result_text);
+        GtkLabel *result_label_widget = GTK_LABEL(result_label);
+        PangoAttrList *attr_list      = pango_attr_list_new();
+        PangoAttribute *attr          = pango_attr_foreground_new(65535, 65535, 65535); // White color
+        attr->start_index             = 20;
+        attr->end_index               = 49;
+        pango_attr_list_insert(attr_list, attr);
+
+        gtk_label_set_attributes(result_label_widget, attr_list);
+        gtk_label_set_markup(result_label_widget, result_text);
     }
+    else
+    {
+        sprintf(result_text,
+                "    IP address				: BAD IP ADDRESS OR MASK PREFIX\n"
+                "\n"
+                "    Mask address			:\n"
+                "    Wildcard address		:\n"
+                "\n"
+                "    Network address		:\n"
+                "    Broadcast address		:\n"
+                "    Firt address				:\n"
+                "    Last address			:\n"
+                "    Number of hosts		:\n");
+
+        GtkLabel *result_label_widget = GTK_LABEL(result_label);
+        PangoAttrList *attr_list      = pango_attr_list_new();
+        PangoAttribute *attr          = pango_attr_foreground_new(65535, 0, 0); // Red color
+        attr->start_index             = 20;
+        attr->end_index               = 49;
+        pango_attr_list_insert(attr_list, attr);
+
+        gtk_label_set_attributes(result_label_widget, attr_list);
+        gtk_label_set_markup(result_label_widget, result_text);
+    }
+
+    gtk_label_set_text(GTK_LABEL(result_label), result_text);
+    gtk_label_set_xalign(GTK_LABEL(result_label), 0.0);
+    gtk_label_set_text(GTK_LABEL(result_label), result_text);
 
     g_print("Calculate button clicked!\n");
 }

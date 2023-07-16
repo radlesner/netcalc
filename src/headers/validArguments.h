@@ -6,4 +6,4 @@
 #include <string.h>
 
 bool isIPValid(const char *ipAddress);
-bool isMaskValid(char *maskPrefixStr);
+bool isMaskValid(const char *maskPrefixStr);
