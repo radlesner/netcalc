@@ -19,8 +19,7 @@ int main(int argc, char *argv[])
 {
     if (argc == 1)
     {
-        printf("Provide the CLI argument\n");
-        printf("Usage: netcalc [ip_v4_address] [prefix_netmask] or -h option\n");
+        gtkWindowInit(argc, argv);
         return 0;
     }
 

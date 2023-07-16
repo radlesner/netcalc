@@ -49,7 +49,6 @@ void helpOutput()
     printf("Usage: netcalc [ip_v4_address] [prefix_netmask]\n");
     printf("Options:\n");
     printf("    -i    --inteface      Calculates values from interface\n");
-    printf("    -c    --calculator    Calculates values from arguments\n");
     printf("    -v    --version       Version program\n");
     printf("    -h    --help          Help panel\n");
 }
