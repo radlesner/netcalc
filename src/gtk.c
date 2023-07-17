@@ -18,6 +18,12 @@ static void on_window_closed()
     gtk_main_quit();
 }
 
+static gboolean on_entry_activate(GtkWidget *widget, gpointer data)
+{
+    calculate_button_clicked(GTK_WIDGET(widget), data);
+    return TRUE;
+}
+
 void calculate_button_clicked()
 {
     const char *ip_address         = gtk_entry_get_text(GTK_ENTRY(entry1));
@@ -181,6 +187,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_entry_set_placeholder_text(GTK_ENTRY(entry1), "Enter IP address");
     gtk_box_pack_start(GTK_BOX(box_fields), entry1, FALSE, FALSE, 0);
     gtk_entry_set_alignment(GTK_ENTRY(entry1), 0.0);
+    g_signal_connect(entry1, "activate", G_CALLBACK(on_entry_activate), NULL);
 
     // Making label "Subnet mask"
     GtkWidget *label2 = gtk_label_new("    Subnet prefix: ");
@@ -193,6 +200,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_entry_set_placeholder_text(GTK_ENTRY(entry2), "Enter subnet mask");
     gtk_box_pack_start(GTK_BOX(box_fields), entry2, FALSE, FALSE, 0);
     gtk_entry_set_alignment(GTK_ENTRY(entry2), 0.0);
+    g_signal_connect(entry2, "activate", G_CALLBACK(on_entry_activate), NULL);
 
     // Making container for a button
     GtkWidget *box_button = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
