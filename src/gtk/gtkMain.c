@@ -271,7 +271,7 @@ void gtkWindowInit(int argc, char *argv[])
 
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(window), "Netcalc");
+    gtk_window_set_title(GTK_WINDOW(window), "Netcalc v3.2");
     g_signal_connect(window, "destroy", G_CALLBACK(on_window_closed), NULL);
     gtk_window_set_default_size(GTK_WINDOW(window), GTK_WINDOW_WIDTH, GTK_WINDOW_LENGTH);
     gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
