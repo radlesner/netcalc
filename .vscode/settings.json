@@ -97,6 +97,9 @@
         "stdio.h": "c",
         "segmentforoctet.h": "c",
         "outputs.h": "c",
-        "ipoperations.h": "c"
+        "ipoperations.h": "c",
+        "netinterfaces.h": "c",
+        "gtknetinterfaces.h": "c",
+        "socket.h": "c"
     }
 }

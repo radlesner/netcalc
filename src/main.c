@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 // Include files
-#include "headers/gtk.h"
+#include "gtk/headers/gtkMain.h"
 #include "headers/ipOperations.h"
 #include "headers/netInterfaces.h"
 #include "headers/outputs.h"

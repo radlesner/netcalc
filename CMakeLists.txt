@@ -3,7 +3,7 @@ project (netcalc)
 
 # SETTINGS
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
-file(GLOB SOURCES src/*.c)
+file(GLOB SOURCES src/*.c src/gtk/*c)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
