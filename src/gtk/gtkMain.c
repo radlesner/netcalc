@@ -5,7 +5,7 @@
 #include "../headers/validArguments.h"
 #include "headers/gtkNetInterfaces.h"
 
-#define GTK_WINDOW_WIDTH  925
+#define GTK_WINDOW_WIDTH  880
 #define GTK_WINDOW_LENGTH 300
 #define BOX_MARGIN        10
 #define BUTTON_MARGIN     5
@@ -52,7 +52,10 @@ static void on_combobox_changed(GtkComboBox *widget)
             "    Broadcast address		: %d.%d.%d.%d\n"
             "    Firt address				: %d.%d.%d.%d\n"
             "    Last address			: %d.%d.%d.%d\n"
-            "    Number of hosts		: %d\n",
+            "    Number of hosts		: %d\n"
+            "\n"
+            "\n"
+            "\n",
             // IP address
             ipAddrTab[0],
             ipAddrTab[1],
@@ -250,7 +253,7 @@ void gtkWindowInit(int argc, char *argv[])
             "    Last address			:\n"
             "    Number of hosts		:\n");
 
-    char blank_result_text_box2[182];
+    char blank_result_text_box2[256];
     sprintf(blank_result_text_box2,
             "    IP address				:\n"
             "\n"
@@ -261,7 +264,10 @@ void gtkWindowInit(int argc, char *argv[])
             "    Broadcast address		:\n"
             "    Firt address				:\n"
             "    Last address			:\n"
-            "    Number of hosts		:\n");
+            "    Number of hosts		:\n"
+            "\n"
+            "\n"
+            "\n");
 
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -337,13 +343,12 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_box_pack_start(GTK_BOX(box2), fixed, TRUE, TRUE, 0);
 
     GtkComboBoxText *combo_box = GTK_COMBO_BOX_TEXT(gtk_combo_box_text_new());
-    gtk_combo_box_set_popup_fixed_width(combo_box, TRUE); // Ustawienie stałej szerokości dla rozwijanej listy
 
     // Ustaw marginesy kontenera fixed
-    gtk_widget_set_margin_top(fixed, 10);    // Górny margines
-    gtk_widget_set_margin_bottom(fixed, 10); // Dolny margines
-    gtk_widget_set_margin_start(fixed, 10);  // Lewy margines
-    gtk_widget_set_margin_end(fixed, 10);    // Prawy margines
+    gtk_widget_set_margin_top(fixed, BOX_MARGIN);
+    gtk_widget_set_margin_bottom(fixed, 0);
+    gtk_widget_set_margin_start(fixed, 0);
+    gtk_widget_set_margin_end(fixed, 250);
 
     gtk_fixed_put(GTK_FIXED(fixed), GTK_WIDGET(combo_box), 0, 0); // Dodanie combo box do kontenera fixed
 
@@ -368,10 +373,7 @@ void gtkWindowInit(int argc, char *argv[])
     result_label_2 = gtk_label_new(blank_result_text_box2);
     gtk_label_set_text(GTK_LABEL(result_label_2), blank_result_text_box2);
     gtk_label_set_xalign(GTK_LABEL(result_label_2), 0.0);
-    GtkWidget *box_result2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    gtk_box_pack_start(GTK_BOX(box2), box_result2, FALSE, FALSE, 0);
-    gtk_container_set_border_width(GTK_CONTAINER(box_result2), BOX_MARGIN);
-    gtk_box_pack_start(GTK_BOX(box_result2), result_label_2, FALSE, FALSE, 0);
+    gtk_box_pack_end(GTK_BOX(box2), result_label_2, TRUE, FALSE, 0);
 
     gtk_widget_show_all(window);
     gtk_main();
