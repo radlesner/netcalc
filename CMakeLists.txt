@@ -4,6 +4,7 @@ project (netcalc)
 # SETTINGS
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
 file(GLOB SOURCES src/*.c src/gtk/*c)
+
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
@@ -34,8 +35,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # PROGRAM
 add_executable(netcalc ${SOURCES})
 
+
 target_include_directories(netcalc PUBLIC ${GTK3_INCLUDE_DIRS})
 target_compile_options(netcalc PUBLIC ${GTK3_CFLAGS_OTHER})
 target_link_libraries(netcalc ${GTK3_LIBRARIES})
+
+set_target_properties(netcalc PROPERTIES OUTPUT_NAME "netcalc")
 
 install(TARGETS netcalc RUNTIME DESTINATION bin)
