@@ -339,18 +339,16 @@ void gtkWindowInit(int argc, char *argv[])
     GtkWidget *box2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, BOX_MARGIN);
     gtk_box_pack_start(GTK_BOX(main_box), box2, TRUE, TRUE, 0);
 
-    GtkWidget *fixed = gtk_fixed_new();
+    GtkWidget *fixed           = gtk_fixed_new();
+    GtkComboBoxText *combo_box = GTK_COMBO_BOX_TEXT(gtk_combo_box_text_new());
     gtk_box_pack_start(GTK_BOX(box2), fixed, TRUE, TRUE, 0);
 
-    GtkComboBoxText *combo_box = GTK_COMBO_BOX_TEXT(gtk_combo_box_text_new());
-
-    // Ustaw marginesy kontenera fixed
     gtk_widget_set_margin_top(fixed, BOX_MARGIN);
     gtk_widget_set_margin_bottom(fixed, 0);
     gtk_widget_set_margin_start(fixed, 0);
     gtk_widget_set_margin_end(fixed, 250);
 
-    gtk_fixed_put(GTK_FIXED(fixed), GTK_WIDGET(combo_box), 0, 0); // Dodanie combo box do kontenera fixed
+    gtk_fixed_put(GTK_FIXED(fixed), GTK_WIDGET(combo_box), 0, 0); // Add a combobox to fixed contener
 
     g_signal_connect(combo_box, "changed", G_CALLBACK(on_combobox_changed), NULL);
 
