@@ -14,7 +14,6 @@ license: GPL-2.0
 apps:
   netcalc:
     command: netcalc
-    extensions: [gnome-3-38]
     plugs:
       - network-bind
 
