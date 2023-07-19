@@ -8,7 +8,6 @@ description: |
   broadcast address, first and last address and number of hosts.
 grade: stable
 base: core20
-confinement: strict
 license: GPL-2.0
 
 apps:
