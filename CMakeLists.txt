@@ -39,6 +39,4 @@ target_include_directories(netcalc PUBLIC ${GTK3_INCLUDE_DIRS})
 target_compile_options(netcalc PUBLIC ${GTK3_CFLAGS_OTHER})
 target_link_libraries(netcalc ${GTK3_LIBRARIES})
 
-set_target_properties(netcalc PROPERTIES OUTPUT_NAME "netcalc")
-
 install(TARGETS netcalc RUNTIME DESTINATION bin)

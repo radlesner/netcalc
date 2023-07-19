@@ -28,5 +28,3 @@ parts:
       - pkg-config
     stage-packages:
       - libgtk-3-dev
-    build-environment:
-      - PKG_CONFIG_PATH: $SNAPCRAFT_STAGE/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pkgconfig
