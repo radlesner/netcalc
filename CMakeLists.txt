@@ -6,7 +6,7 @@ set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
 file(GLOB SOURCES src/*.c src/gtk/*.c)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK3 REQUIRED libgtk-3-dev)
+pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
 if (NOT CMAKE_BUILD_TYPE)
     message(STATUS "Build type not specified: Use Release by default")
