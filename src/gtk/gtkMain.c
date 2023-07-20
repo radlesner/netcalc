@@ -5,7 +5,7 @@
 #include "../headers/validArguments.h"
 #include "headers/gtkNetInterfaces.h"
 
-#define GTK_WINDOW_WIDTH  880
+#define GTK_WINDOW_WIDTH  700
 #define GTK_WINDOW_LENGTH 300
 #define BOX_MARGIN        10
 #define BUTTON_MARGIN     5
@@ -43,16 +43,16 @@ static void on_combobox_changed(GtkComboBox *widget)
     numHost = getHostNumber(maskPrefix);
 
     sprintf(result_text,
-            "    IP address				: %d.%d.%d.%d\n"
+            "IP address				: %d.%d.%d.%d\n"
             "\n"
-            "    Mask address			: %d.%d.%d.%d\n"
-            "    Wildcard address		: %d.%d.%d.%d\n"
+            "Mask address			: %d.%d.%d.%d\n"
+            "Wildcard address		: %d.%d.%d.%d\n"
             "\n"
-            "    Network address		: %d.%d.%d.%d/%d\n"
-            "    Broadcast address		: %d.%d.%d.%d\n"
-            "    Firt address				: %d.%d.%d.%d\n"
-            "    Last address			: %d.%d.%d.%d\n"
-            "    Number of hosts		: %d\n"
+            "Network address		: %d.%d.%d.%d/%d\n"
+            "Broadcast address	: %d.%d.%d.%d\n"
+            "First address			: %d.%d.%d.%d\n"
+            "Last address			: %d.%d.%d.%d\n"
+            "Number of hosts		: %d\n"
             "\n"
             "\n"
             "\n",
@@ -142,16 +142,16 @@ void calculate_button_clicked()
         numHost = getHostNumber(atoi(subnet_mask_prefix));
 
         sprintf(result_text,
-                "    IP address				: %d.%d.%d.%d\n"
+                "    IP address			: %d.%d.%d.%d\n"
                 "\n"
-                "    Mask address			: %d.%d.%d.%d\n"
-                "    Wildcard address		: %d.%d.%d.%d\n"
+                "    Mask address		: %d.%d.%d.%d\n"
+                "    Wildcard address	: %d.%d.%d.%d\n"
                 "\n"
-                "    Network address		: %d.%d.%d.%d/%s\n"
-                "    Broadcast address		: %d.%d.%d.%d\n"
-                "    Firt address				: %d.%d.%d.%d\n"
-                "    Last address			: %d.%d.%d.%d\n"
-                "    Number of hosts		: %d\n",
+                "    Network address	: %d.%d.%d.%d/%s\n"
+                "    Broadcast address	: %d.%d.%d.%d\n"
+                "    First address		: %d.%d.%d.%d\n"
+                "    Last address		: %d.%d.%d.%d\n"
+                "    Number of hosts	: %d\n",
                 // IP address
                 ipAddrTab[0],
                 ipAddrTab[1],
@@ -195,8 +195,8 @@ void calculate_button_clicked()
         GtkLabel *result_label_widget = GTK_LABEL(result_label_1);
         PangoAttrList *attr_list      = pango_attr_list_new();
         PangoAttribute *attr          = pango_attr_foreground_new(65535, 65535, 65535); // White color
-        attr->start_index             = 20;
-        attr->end_index               = 49;
+        attr->start_index             = 19;
+        attr->end_index               = 48;
         pango_attr_list_insert(attr_list, attr);
 
         gtk_label_set_attributes(result_label_widget, attr_list);
@@ -205,22 +205,22 @@ void calculate_button_clicked()
     else
     {
         sprintf(result_text,
-                "    IP address				: BAD IP ADDRESS OR MASK PREFIX\n"
+                "    IP address			: BAD IP ADDRESS OR MASK PREFIX\n"
                 "\n"
-                "    Mask address			:\n"
-                "    Wildcard address		:\n"
+                "    Mask address		:\n"
+                "    Wildcard address	:\n"
                 "\n"
-                "    Network address		:\n"
-                "    Broadcast address		:\n"
-                "    Firt address				:\n"
-                "    Last address			:\n"
-                "    Number of hosts		:\n");
+                "    Network address	:\n"
+                "    Broadcast address	:\n"
+                "    First address		:\n"
+                "    Last address		:\n"
+                "    Number of hosts	:\n");
 
         GtkLabel *result_label_widget = GTK_LABEL(result_label_1);
         PangoAttrList *attr_list      = pango_attr_list_new();
         PangoAttribute *attr          = pango_attr_foreground_new(65535, 0, 0); // Red color
-        attr->start_index             = 20;
-        attr->end_index               = 49;
+        attr->start_index             = 19;
+        attr->end_index               = 48;
         pango_attr_list_insert(attr_list, attr);
 
         gtk_label_set_attributes(result_label_widget, attr_list);
@@ -240,31 +240,31 @@ void gtkWindowInit(int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
 
-    char blank_result_text_box1[182];
+    char blank_result_text_box1[183];
     sprintf(blank_result_text_box1,
-            "    IP address				:\n"
+            "    IP address			:\n"
             "\n"
-            "    Mask address			:\n"
-            "    Wildcard address		:\n"
+            "    Mask address		:\n"
+            "    Wildcard address	:\n"
             "\n"
-            "    Network address		:\n"
-            "    Broadcast address		:\n"
-            "    Firt address				:\n"
-            "    Last address			:\n"
-            "    Number of hosts		:\n");
+            "    Network address	:\n"
+            "    Broadcast address	:\n"
+            "    First address		:\n"
+            "    Last address		:\n"
+            "    Number of hosts	:\n");
 
     char blank_result_text_box2[256];
     sprintf(blank_result_text_box2,
-            "    IP address				:\n"
+            "IP address				:\n"
             "\n"
-            "    Mask address			:\n"
-            "    Wildcard address		:\n"
+            "Mask address			:\n"
+            "Wildcard address		:\n"
             "\n"
-            "    Network address		:\n"
-            "    Broadcast address		:\n"
-            "    Firt address				:\n"
-            "    Last address			:\n"
-            "    Number of hosts		:\n"
+            "Network address		:\n"
+            "Broadcast address	:\n"
+            "First address			:\n"
+            "Last address			:\n"
+            "Number of hosts		:\n"
             "\n"
             "\n"
             "\n");
@@ -304,7 +304,7 @@ void gtkWindowInit(int argc, char *argv[])
     g_signal_connect(entry1, "activate", G_CALLBACK(on_entry_activate), NULL);
 
     // Making label "Subnet mask"
-    GtkWidget *label2 = gtk_label_new("    Subnet prefix: ");
+    GtkWidget *label2 = gtk_label_new("  /  ");
     gtk_box_pack_start(GTK_BOX(box_fields1), label2, FALSE, FALSE, 0);
     gtk_label_set_xalign(GTK_LABEL(label2), 0.0);
     gtk_label_set_yalign(GTK_LABEL(label2), 0.5);
@@ -336,17 +336,34 @@ void gtkWindowInit(int argc, char *argv[])
 
     // ------------------ SECOND BOX ------------------
 
+    // Create a vertical box to hold label and combo_box
     GtkWidget *box2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, BOX_MARGIN);
     gtk_box_pack_start(GTK_BOX(main_box), box2, TRUE, TRUE, 0);
 
+    // Create a horizontal box to hold the label and combo_box
+    GtkWidget *box_label_and_combo = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    gtk_box_pack_start(GTK_BOX(box2), box_label_and_combo, FALSE, FALSE, 0);
+
+    // Create the label for the combo box
+    GtkWidget *combo_label = gtk_label_new("Select an interface: ");
+    gtk_box_pack_start(GTK_BOX(box_label_and_combo), combo_label, FALSE, FALSE, 0);
+    gtk_label_set_xalign(GTK_LABEL(combo_label), 0.0);
+    gtk_label_set_yalign(GTK_LABEL(combo_label), 0.7);
+
+    // Create the combo box
     GtkWidget *fixed           = gtk_fixed_new();
     GtkComboBoxText *combo_box = GTK_COMBO_BOX_TEXT(gtk_combo_box_text_new());
-    gtk_box_pack_start(GTK_BOX(box2), fixed, TRUE, TRUE, 0);
-
+    gtk_box_pack_start(GTK_BOX(box_label_and_combo), fixed, TRUE, TRUE, 0);
     gtk_widget_set_margin_top(fixed, BOX_MARGIN);
     gtk_widget_set_margin_bottom(fixed, 0);
     gtk_widget_set_margin_start(fixed, 0);
     gtk_widget_set_margin_end(fixed, 250);
+    gtk_fixed_put(GTK_FIXED(fixed), GTK_WIDGET(combo_box), 0, 0);
+
+    gtk_widget_set_margin_top(fixed, BOX_MARGIN);
+    gtk_widget_set_margin_bottom(fixed, 0);
+    gtk_widget_set_margin_start(fixed, 0);
+    gtk_widget_set_margin_end(fixed, 50);
 
     gtk_fixed_put(GTK_FIXED(fixed), GTK_WIDGET(combo_box), 0, 0); // Add a combobox to fixed contener
 
