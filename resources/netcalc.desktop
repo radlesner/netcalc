@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Netcalc
+Comment=Network calculator
+Keywords=netcalc
+Exec=/usr/local/bin/netcalc
+#TryExec=
+Terminal=false
+Icon=/usr/share/icons/hicolor/64x64/apps/netcalc-icon.png
+Type=Application
+Categories=Utility
+#MimeType=
+#StartupNotify=false
+#StartupWMClass=
+#OnlyShowIn=
+#Actions=
