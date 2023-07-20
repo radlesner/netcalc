@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ -e /usr/local/bin/netcalc ] ; then
+    rm /usr/local/bin/netcalc
+    echo "Removed netcalc"
+fi
+
+if [ -e /usr/share/applications/netcalc.desktop ] ; then
+    rm /usr/share/applications/netcalc.desktop
+    echo "Removed netcalc.desktop"
+fi
+
+if [ -e /usr/share/icons/hicolor/64x64/apps/netcalc-icon.png ] ; then
+    rm /usr/share/icons/hicolor/64x64/apps/netcalc-icon.png
+    echo "Removed netcalc-icon.png"
+fi
