@@ -9,16 +9,10 @@ description: |
 grade: stable
 base: core18
 license: GPL-2.0
-environment:
-  LC_ALL: en_US.UTF-8
-  LANG: en_US.UTF-8
 
 apps:
   netcalc:
     command: netcalc
-    environment:
-      LC_ALL: $LC_ALL
-      LANG: $LANG
     plugs:
       - network-bind
 
@@ -71,3 +65,12 @@ parts:
       - libxkbcommon0
       - libxrandr2
       - libxrender1
+    after:
+      - desktop-gtk3
+
+parts:
+  desktop-gtk3:
+    plugin: nil
+    stage-packages:
+      - fonts-liberation
+      - fonts-dejavu
