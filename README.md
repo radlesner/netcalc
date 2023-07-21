@@ -4,8 +4,11 @@ It can retrieve data from the network interface.
 
 ## Required dependencies
   - pkg-config
-  - libgtk-3-dev (for debian)
-  - gtk3-devel (for fedora)
+  - GTK 3 Libray
+    - libgtk-3-dev (for Debian)
+    - gtk3-devel (for Fedora, openSUSE)
+    - gtk3 (for ArchLinux)
+    - gtk+ (for Slackware)
 
 ## Compile
 ```sh
