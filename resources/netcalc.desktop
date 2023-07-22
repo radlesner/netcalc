@@ -4,6 +4,6 @@ Comment=Network calculator
 Keywords=netcalc;network;calc;calculator;net
 Exec=/usr/local/bin/netcalc
 Terminal=false
-Icon=/usr/share/icons/hicolor/64x64/apps/netcalc-icon.png
+Icon=/usr/share/icons/hicolor/128x128/apps/netcalc-128x128.png
 Type=Application
 Categories=Network;Utility

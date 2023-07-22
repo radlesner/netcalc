@@ -357,13 +357,9 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_top(fixed, BOX_MARGIN);
     gtk_widget_set_margin_bottom(fixed, 0);
     gtk_widget_set_margin_start(fixed, 0);
-    gtk_widget_set_margin_end(fixed, 250);
+    gtk_widget_set_margin_end(fixed, BOX_MARGIN);
     gtk_fixed_put(GTK_FIXED(fixed), GTK_WIDGET(combo_box), 0, 0);
-
-    gtk_widget_set_margin_top(fixed, BOX_MARGIN);
-    gtk_widget_set_margin_bottom(fixed, 0);
-    gtk_widget_set_margin_start(fixed, 0);
-    gtk_widget_set_margin_end(fixed, 80);
+    gtk_widget_set_size_request(GTK_WIDGET(combo_box), 175, -1);
 
     gtk_fixed_put(GTK_FIXED(fixed), GTK_WIDGET(combo_box), 0, 0); // Add a combobox to fixed contener
 

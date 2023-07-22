@@ -7,10 +7,10 @@ fi
 
 if [ -e /usr/share/applications/netcalc.desktop ] ; then
     rm /usr/share/applications/netcalc.desktop
-    echo "Removed netcalc.desktop"
+    echo "Removed netcalc.desktop file"
 fi
 
-if [ -e /usr/share/icons/hicolor/64x64/apps/netcalc-icon.png ] ; then
-    rm /usr/share/icons/hicolor/64x64/apps/netcalc-icon.png
-    echo "Removed netcalc-icon.png"
+if [ -e /usr/share/icons/hicolor/128x128/apps/netcalc-128x128.png ] ; then
+    rm /usr/share/icons/hicolor/128x128/apps/netcalc-128x128.png
+    echo "Removed netcalc-128x128.png file"
 fi
