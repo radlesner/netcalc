@@ -52,10 +52,7 @@ static void on_combobox_changed(GtkComboBox *widget)
             "Broadcast address	: %d.%d.%d.%d\n"
             "First address			: %d.%d.%d.%d\n"
             "Last address			: %d.%d.%d.%d\n"
-            "Number of hosts		: %d\n"
-            "\n"
-            "\n"
-            "\n",
+            "Number of hosts		: %d\n\n\n",
             // IP address
             ipAddrTab[0],
             ipAddrTab[1],
@@ -142,16 +139,16 @@ void calculate_button_clicked()
         numHost = getHostNumber(atoi(subnet_mask_prefix));
 
         sprintf(result_text,
-                "    IP address			: %d.%d.%d.%d\n"
+                "IP address				: %d.%d.%d.%d\n"
                 "\n"
-                "    Mask address		: %d.%d.%d.%d\n"
-                "    Wildcard address	: %d.%d.%d.%d\n"
+                "Mask address			: %d.%d.%d.%d\n"
+                "Wildcard address		: %d.%d.%d.%d\n"
                 "\n"
-                "    Network address	: %d.%d.%d.%d/%s\n"
-                "    Broadcast address	: %d.%d.%d.%d\n"
-                "    First address		: %d.%d.%d.%d\n"
-                "    Last address		: %d.%d.%d.%d\n"
-                "    Number of hosts	: %d\n",
+                "Network address		: %d.%d.%d.%d/%s\n"
+                "Broadcast address	: %d.%d.%d.%d\n"
+                "First address			: %d.%d.%d.%d\n"
+                "Last address			: %d.%d.%d.%d\n"
+                "Number of hosts		: %d\n",
                 // IP address
                 ipAddrTab[0],
                 ipAddrTab[1],
@@ -205,22 +202,22 @@ void calculate_button_clicked()
     else
     {
         sprintf(result_text,
-                "    IP address			: BAD IP ADDRESS OR MASK PREFIX\n"
+                "IP address				: BAD IP ADDRESS OR MASK PREFIX\n"
                 "\n"
-                "    Mask address		:\n"
-                "    Wildcard address	:\n"
+                "Mask address			:\n"
+                "Wildcard address		:\n"
                 "\n"
-                "    Network address	:\n"
-                "    Broadcast address	:\n"
-                "    First address		:\n"
-                "    Last address		:\n"
-                "    Number of hosts	:\n");
+                "Network address		:\n"
+                "Broadcast address	:\n"
+                "First address			:\n"
+                "Last address			:\n"
+                "Number of hosts		:\n");
 
         GtkLabel *result_label_widget = GTK_LABEL(result_label_1);
         PangoAttrList *attr_list      = pango_attr_list_new();
         PangoAttribute *attr          = pango_attr_foreground_new(65535, 0, 0); // Red color
-        attr->start_index             = 19;
-        attr->end_index               = 48;
+        attr->start_index             = 15;
+        attr->end_index               = 46;
         pango_attr_list_insert(attr_list, attr);
 
         gtk_label_set_attributes(result_label_widget, attr_list);
@@ -240,21 +237,8 @@ void gtkWindowInit(int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
 
-    char blank_result_text_box1[183];
-    sprintf(blank_result_text_box1,
-            "    IP address			:\n"
-            "\n"
-            "    Mask address		:\n"
-            "    Wildcard address	:\n"
-            "\n"
-            "    Network address	:\n"
-            "    Broadcast address	:\n"
-            "    First address		:\n"
-            "    Last address		:\n"
-            "    Number of hosts	:\n");
-
-    char blank_result_text_box2[256];
-    sprintf(blank_result_text_box2,
+    char blank_result_text[256];
+    sprintf(blank_result_text,
             "IP address				:\n"
             "\n"
             "Mask address			:\n"
@@ -264,10 +248,7 @@ void gtkWindowInit(int argc, char *argv[])
             "Broadcast address	:\n"
             "First address			:\n"
             "Last address			:\n"
-            "Number of hosts		:\n"
-            "\n"
-            "\n"
-            "\n");
+            "Number of hosts		:\n");
 
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -329,10 +310,12 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_box_pack_start(GTK_BOX(box_button1), calculate_button1, FALSE, FALSE, 0);
 
     // Making result label
-    result_label_1 = gtk_label_new(blank_result_text_box1);
-    gtk_label_set_text(GTK_LABEL(result_label_1), blank_result_text_box1);
+    result_label_1 = gtk_label_new(blank_result_text);
+    gtk_label_set_text(GTK_LABEL(result_label_1), blank_result_text);
     gtk_label_set_xalign(GTK_LABEL(result_label_1), 0.0);
     gtk_box_pack_end(GTK_BOX(box1), result_label_1, TRUE, FALSE, 0);
+    gtk_widget_set_margin_start(result_label_1, BOX_MARGIN);
+    gtk_widget_set_margin_top(result_label_1, 13);
 
     // ------------------ SECOND BOX ------------------
 
@@ -378,8 +361,9 @@ void gtkWindowInit(int argc, char *argv[])
     if (ifaddr != NULL) freeifaddrs(ifaddr);
 
     // Making result label
-    result_label_2 = gtk_label_new(blank_result_text_box2);
-    gtk_label_set_text(GTK_LABEL(result_label_2), blank_result_text_box2);
+    strcat(blank_result_text, "\n\n");
+    result_label_2 = gtk_label_new((blank_result_text));
+    gtk_label_set_text(GTK_LABEL(result_label_2), blank_result_text);
     gtk_label_set_xalign(GTK_LABEL(result_label_2), 0.0);
     gtk_box_pack_end(GTK_BOX(box2), result_label_2, TRUE, FALSE, 0);
 
