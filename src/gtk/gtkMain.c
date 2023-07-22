@@ -236,6 +236,7 @@ void calculate_button_clicked()
 void gtkWindowInit(int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
+    setlocale(LC_ALL, "");
 
     char blank_result_text[256];
     sprintf(blank_result_text,
