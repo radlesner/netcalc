@@ -1,0 +1,15 @@
+if (EXISTS "${CMAKE_CURRENT_BINARY_DIR}/install_manifest.txt")
+    file(READ "${CMAKE_CURRENT_BINARY_DIR}/install_manifest.txt" files)
+    string(REGEX REPLACE "\n" ";" files "${files}")
+
+    message(STATUS "Uninstalling files...")
+
+    foreach (file IN LISTS files)
+        message(STATUS "    Removing: ${file}")
+        file(REMOVE "${file}")
+    endforeach ()
+
+    message(STATUS "Uninstallation complete.")
+else ()
+    message(STATUS "Install manifest not found. Nothing to uninstall.")
+endif ()
