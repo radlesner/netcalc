@@ -14,12 +14,16 @@ It can retrieve data from the network interface.
 ```sh
 mkdir build
 cd build
-cmake ../       # Default use release type
+cmake ..
 make
 ```
-### Optional
+### Install
 ```sh
-make install
+sudo make install
+```
+### Uninstall
+```sh
+sudo make uninstall
 ```
 ### Cmake build type
 Debug type is a draft version, release is ready to install.
