@@ -37,7 +37,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug ../
 snap install netcalc
 ```
 ### Images
-<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-1.png" width="31%" align="left">
-<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-2.png" width="31%" align="left">
-<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-3.png" width="31%" align="left">
-<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-4.png" width="31%" align="left">
+<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-1.png" width="30%" align="left">
+<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-2.png" width="30%" align="left">
+<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-3.png" width="30%" align="left">
+<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-4.png" width="30%" align="left">
