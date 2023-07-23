@@ -12,9 +12,12 @@
 
 GtkWidget *entry1;
 GtkWidget *entry2;
-GtkWidget *entry3;
-GtkWidget *result_label_1;
-GtkWidget *result_label_2;
+
+GtkWidget *labelIpAddressBox1;
+GtkWidget *labelIpNetworkBox1;
+
+GtkWidget *labelIpAddressBox2;
+GtkWidget *labelIpNetworkBox2;
 
 static void on_combobox_changed(GtkComboBox *widget)
 {
@@ -43,17 +46,9 @@ static void on_combobox_changed(GtkComboBox *widget)
     numHost = getHostNumber(maskPrefix);
 
     sprintf(result_text,
-            "IP address				: %d.%d.%d.%d\n"
-            "\n"
-            "Mask address			: %d.%d.%d.%d\n"
-            "Wildcard address		: %d.%d.%d.%d\n"
-            "\n"
-            "Network address		: %d.%d.%d.%d/%d\n"
-            "Broadcast address	: %d.%d.%d.%d\n"
-            "First address			: %d.%d.%d.%d\n"
-            "Last address			: %d.%d.%d.%d\n"
-            "Number of hosts		: %d\n\n\n",
-            // IP address
+            "    IP address			: %d.%d.%d.%d\n"
+            "    Mask address		: %d.%d.%d.%d\n"
+            "    Wildcard address	: %d.%d.%d.%d",
             ipAddrTab[0],
             ipAddrTab[1],
             ipAddrTab[2],
@@ -67,7 +62,15 @@ static void on_combobox_changed(GtkComboBox *widget)
             ipWildTab[0],
             ipWildTab[1],
             ipWildTab[2],
-            ipWildTab[3],
+            ipWildTab[3]);
+    gtk_label_set_text(GTK_LABEL(labelIpAddressBox2), result_text);
+
+    sprintf(result_text,
+            "    Network address	: %d.%d.%d.%d/%d\n"
+            "    Broadcast address	: %d.%d.%d.%d\n"
+            "    First address		: %d.%d.%d.%d\n"
+            "    Last address		: %d.%d.%d.%d\n"
+            "    Number of hosts	: %d",
             // Network address
             ipNetAddrTab[0],
             ipNetAddrTab[1],
@@ -92,12 +95,7 @@ static void on_combobox_changed(GtkComboBox *widget)
             ipLastHost[3],
             // Number of hosts
             numHost);
-
-    gtk_label_set_text(GTK_LABEL(result_label_2), result_text);
-    gtk_label_set_xalign(GTK_LABEL(result_label_2), 0.0);
-    gtk_label_set_text(GTK_LABEL(result_label_2), result_text);
-
-    g_free(selected_text);
+    gtk_label_set_text(GTK_LABEL(labelIpNetworkBox2), result_text);
 }
 
 static void on_window_closed()
@@ -106,16 +104,10 @@ static void on_window_closed()
     gtk_main_quit();
 }
 
-static gboolean on_entry_activate()
-{
-    calculate_button_clicked();
-    return TRUE;
-}
-
 void calculate_button_clicked()
 {
-    const char *ip_address         = gtk_entry_get_text(GTK_ENTRY(entry1));
-    const char *subnet_mask_prefix = gtk_entry_get_text(GTK_ENTRY(entry2));
+    const char *ip_address = gtk_entry_get_text(GTK_ENTRY(entry1));
+    const char *maskPrefix = gtk_entry_get_text(GTK_ENTRY(entry2));
 
     unsigned int ipAddrTab[4]      = {0, 0, 0, 0};
     unsigned int ipMaskTab[4]      = {0, 0, 0, 0};
@@ -128,28 +120,20 @@ void calculate_button_clicked()
 
     char result_text[1024];
 
-    if (isIPValid(ip_address) && isMaskValid(subnet_mask_prefix))
+    if (isIPValid(ip_address) && isMaskValid(maskPrefix))
     {
         getOctet(ipAddrTab, ip_address);
-        getMask(ipMaskTab, atoi(subnet_mask_prefix));
+        getMask(ipMaskTab, atoi(maskPrefix));
         getWildAddr(ipWildTab, ipMaskTab);
         getNetworkAddr(ipNetAddrTab, ipAddrTab, ipMaskTab);
         getBroadAddr(ipBroadAddrTab, ipNetAddrTab, ipMaskTab);
         getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
-        numHost = getHostNumber(atoi(subnet_mask_prefix));
+        numHost = getHostNumber(atoi(maskPrefix));
 
         sprintf(result_text,
-                "IP address				: %d.%d.%d.%d\n"
-                "\n"
-                "Mask address			: %d.%d.%d.%d\n"
-                "Wildcard address		: %d.%d.%d.%d\n"
-                "\n"
-                "Network address		: %d.%d.%d.%d/%s\n"
-                "Broadcast address	: %d.%d.%d.%d\n"
-                "First address			: %d.%d.%d.%d\n"
-                "Last address			: %d.%d.%d.%d\n"
-                "Number of hosts		: %d\n",
-                // IP address
+                "    IP address			: %d.%d.%d.%d\n"
+                "    Mask address		: %d.%d.%d.%d\n"
+                "    Wildcard address	: %d.%d.%d.%d",
                 ipAddrTab[0],
                 ipAddrTab[1],
                 ipAddrTab[2],
@@ -163,14 +147,22 @@ void calculate_button_clicked()
                 ipWildTab[0],
                 ipWildTab[1],
                 ipWildTab[2],
-                ipWildTab[3],
+                ipWildTab[3]);
+        gtk_label_set_text(GTK_LABEL(labelIpAddressBox1), result_text);
+
+        sprintf(result_text,
+                "    Network address	: %d.%d.%d.%d/%s\n"
+                "    Broadcast address	: %d.%d.%d.%d\n"
+                "    First address		: %d.%d.%d.%d\n"
+                "    Last address		: %d.%d.%d.%d\n"
+                "    Number of hosts	: %d",
                 // Network address
                 ipNetAddrTab[0],
                 ipNetAddrTab[1],
                 ipNetAddrTab[2],
                 ipNetAddrTab[3],
                 // Prefix
-                subnet_mask_prefix,
+                maskPrefix,
                 // Broadcast address
                 ipBroadAddrTab[0],
                 ipBroadAddrTab[1],
@@ -188,45 +180,24 @@ void calculate_button_clicked()
                 ipLastHost[3],
                 // Number of hosts
                 numHost);
-
-        GtkLabel *result_label_widget = GTK_LABEL(result_label_1);
-        PangoAttrList *attr_list      = pango_attr_list_new();
-        PangoAttribute *attr          = pango_attr_foreground_new(65535, 65535, 65535); // White color
-        attr->start_index             = 19;
-        attr->end_index               = 48;
-        pango_attr_list_insert(attr_list, attr);
-
-        gtk_label_set_attributes(result_label_widget, attr_list);
-        gtk_label_set_markup(result_label_widget, result_text);
+        gtk_label_set_text(GTK_LABEL(labelIpNetworkBox1), result_text);
     }
     else
     {
         sprintf(result_text,
-                "IP address				: BAD IP ADDRESS OR MASK PREFIX\n"
-                "\n"
-                "Mask address			:\n"
-                "Wildcard address		:\n"
-                "\n"
-                "Network address		:\n"
-                "Broadcast address	:\n"
-                "First address			:\n"
-                "Last address			:\n"
-                "Number of hosts		:\n");
+                "    IP address			: BAD IP ADDRESS OR MASK PREFIX\n"
+                "    Mask address		:\n"
+                "    Wildcard address	:");
+        gtk_label_set_text(GTK_LABEL(labelIpAddressBox1), result_text);
 
-        GtkLabel *result_label_widget = GTK_LABEL(result_label_1);
-        PangoAttrList *attr_list      = pango_attr_list_new();
-        PangoAttribute *attr          = pango_attr_foreground_new(65535, 0, 0); // Red color
-        attr->start_index             = 15;
-        attr->end_index               = 46;
-        pango_attr_list_insert(attr_list, attr);
-
-        gtk_label_set_attributes(result_label_widget, attr_list);
-        gtk_label_set_markup(result_label_widget, result_text);
+        sprintf(result_text,
+                "    Network address	:\n"
+                "    Broadcast address	:\n"
+                "    First address		:\n"
+                "    Last address		:\n"
+                "    Number of hosts	:");
+        gtk_label_set_text(GTK_LABEL(labelIpNetworkBox1), result_text);
     }
-
-    gtk_label_set_text(GTK_LABEL(result_label_1), result_text);
-    gtk_label_set_xalign(GTK_LABEL(result_label_1), 0.0);
-    gtk_label_set_text(GTK_LABEL(result_label_1), result_text);
 
     g_print("Calculate button clicked!\n");
 }
@@ -237,19 +208,6 @@ void gtkWindowInit(int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
     setlocale(LC_ALL, "");
-
-    char blank_result_text[256];
-    sprintf(blank_result_text,
-            "IP address				:\n"
-            "\n"
-            "Mask address			:\n"
-            "Wildcard address		:\n"
-            "\n"
-            "Network address		:\n"
-            "Broadcast address	:\n"
-            "First address			:\n"
-            "Last address			:\n"
-            "Number of hosts		:\n");
 
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -283,7 +241,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_entry_set_placeholder_text(GTK_ENTRY(entry1), "Enter IP address");
     gtk_box_pack_start(GTK_BOX(box_fields1), entry1, FALSE, FALSE, 0);
     gtk_entry_set_alignment(GTK_ENTRY(entry1), 0.0);
-    g_signal_connect(entry1, "activate", G_CALLBACK(on_entry_activate), NULL);
+    g_signal_connect(entry1, "activate", G_CALLBACK(calculate_button_clicked), NULL);
 
     // Making label "Subnet mask"
     GtkWidget *label2 = gtk_label_new("  /  ");
@@ -296,27 +254,38 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_entry_set_placeholder_text(GTK_ENTRY(entry2), "Enter mask prefix");
     gtk_box_pack_start(GTK_BOX(box_fields1), entry2, FALSE, FALSE, 0);
     gtk_entry_set_alignment(GTK_ENTRY(entry2), 0.0);
-    g_signal_connect(entry2, "activate", G_CALLBACK(on_entry_activate), NULL);
+    g_signal_connect(entry2, "activate", G_CALLBACK(calculate_button_clicked), NULL);
 
-    // Making container for a button
-    GtkWidget *box_button1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    gtk_box_pack_end(GTK_BOX(box1), box_button1, FALSE, FALSE, BUTTON_MARGIN);
+    // Frame "address address"
+    GtkWidget *frameIpAddressBox1 = gtk_frame_new("Address settings");
+    gtk_box_pack_start(GTK_BOX(box1), frameIpAddressBox1, TRUE, TRUE, 0);
+    gtk_widget_set_margin_start(frameIpAddressBox1, 10);
+    gtk_widget_set_margin_end(frameIpAddressBox1, 10);
 
-    // Making button "Calculate"
-    GtkWidget *calculate_button1 = gtk_button_new_with_label("Calculate");
-    gtk_container_set_border_width(GTK_CONTAINER(calculate_button1), BUTTON_MARGIN);
-    g_signal_connect(calculate_button1, "clicked", G_CALLBACK(calculate_button_clicked), NULL);
-    gtk_widget_set_hexpand(calculate_button1, FALSE);
-    gtk_widget_set_vexpand(calculate_button1, FALSE);
-    gtk_box_pack_start(GTK_BOX(box_button1), calculate_button1, FALSE, FALSE, 0);
+    // Label for frame "ip address"
+    labelIpAddressBox1 = gtk_label_new(
+        "    IP address			:\n"
+        "    Mask address		:\n"
+        "    Wildcard address	:");
+    gtk_label_set_xalign(GTK_LABEL(labelIpAddressBox1), 0.0);
+    gtk_container_add(GTK_CONTAINER(frameIpAddressBox1), labelIpAddressBox1);
 
-    // Making result label
-    result_label_1 = gtk_label_new(blank_result_text);
-    gtk_label_set_text(GTK_LABEL(result_label_1), blank_result_text);
-    gtk_label_set_xalign(GTK_LABEL(result_label_1), 0.0);
-    gtk_box_pack_end(GTK_BOX(box1), result_label_1, TRUE, FALSE, 0);
-    gtk_widget_set_margin_start(result_label_1, BOX_MARGIN);
-    gtk_widget_set_margin_top(result_label_1, 13);
+    // Frame "ip network"
+    GtkWidget *frameIpNetworkBox1 = gtk_frame_new("Network properties");
+    gtk_box_pack_start(GTK_BOX(box1), frameIpNetworkBox1, TRUE, TRUE, 0);
+    gtk_widget_set_margin_start(frameIpNetworkBox1, 10);
+    gtk_widget_set_margin_end(frameIpNetworkBox1, 10);
+    gtk_widget_set_margin_bottom(frameIpNetworkBox1, 10);
+
+    // Label for frame "ip network"
+    labelIpNetworkBox1 = gtk_label_new(
+        "    Network address	:\n"
+        "    Broadcast address	:\n"
+        "    First address		:\n"
+        "    Last address		:\n"
+        "    Number of hosts	:");
+    gtk_label_set_xalign(GTK_LABEL(labelIpNetworkBox1), 0.0);
+    gtk_container_add(GTK_CONTAINER(frameIpNetworkBox1), labelIpNetworkBox1);
 
     // ------------------ SECOND BOX ------------------
 
@@ -361,12 +330,35 @@ void gtkWindowInit(int argc, char *argv[])
     }
     if (ifaddr != NULL) freeifaddrs(ifaddr);
 
-    // Making result label
-    strcat(blank_result_text, "\n\n");
-    result_label_2 = gtk_label_new((blank_result_text));
-    gtk_label_set_text(GTK_LABEL(result_label_2), blank_result_text);
-    gtk_label_set_xalign(GTK_LABEL(result_label_2), 0.0);
-    gtk_box_pack_end(GTK_BOX(box2), result_label_2, TRUE, FALSE, 0);
+    // Frame "ip address"
+    GtkWidget *frameIpAddressBox2 = gtk_frame_new("Interface settings");
+    gtk_box_pack_start(GTK_BOX(box2), frameIpAddressBox2, TRUE, TRUE, 0);
+    gtk_widget_set_margin_top(frameIpAddressBox2, 8);
+    gtk_widget_set_margin_end(frameIpAddressBox2, 10);
+
+    // Label for frame "ip address"
+    labelIpAddressBox2 = gtk_label_new(
+        "    IP address			:\n"
+        "    Mask address		:\n"
+        "    Wildcard address	:");
+    gtk_label_set_xalign(GTK_LABEL(labelIpAddressBox2), 0.0);
+    gtk_container_add(GTK_CONTAINER(frameIpAddressBox2), labelIpAddressBox2);
+
+    // Frame "ip network"
+    GtkWidget *frameIpNetworkBox2 = gtk_frame_new("Network properties");
+    gtk_box_pack_start(GTK_BOX(box2), frameIpNetworkBox2, TRUE, TRUE, 0);
+    gtk_widget_set_margin_end(frameIpNetworkBox2, 10);
+    gtk_widget_set_margin_bottom(frameIpNetworkBox2, 10);
+
+    // Label for frame "ip network"
+    labelIpNetworkBox2 = gtk_label_new(
+        "    Network address	:\n"
+        "    Broadcast address	:\n"
+        "    First address		:\n"
+        "    Last address		:\n"
+        "    Number of hosts	:");
+    gtk_label_set_xalign(GTK_LABEL(labelIpNetworkBox2), 0.0);
+    gtk_container_add(GTK_CONTAINER(frameIpNetworkBox2), labelIpNetworkBox2);
 
     gtk_widget_show_all(window);
     gtk_main();
