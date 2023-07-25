@@ -98,13 +98,13 @@ static void on_combobox_changed(GtkComboBox *widget)
     gtk_label_set_text(GTK_LABEL(labelIpNetworkBox2), result_text);
 }
 
-static void on_window_closed()
+static void on_window_closed(void)
 {
     g_print("Window closed\n");
     gtk_main_quit();
 }
 
-void calculate_button_clicked()
+void calculate_button_clicked(void)
 {
     const char *ip_address = gtk_entry_get_text(GTK_ENTRY(entry1));
     const char *maskPrefix = gtk_entry_get_text(GTK_ENTRY(entry2));

@@ -44,7 +44,7 @@ void mainOutput(const char *rawIpAddr, unsigned int rawMaskPrefix)
     printf("  Number of hosts: %d\n", numHost);
 }
 
-void helpOutput()
+void helpOutput(void)
 {
     printf("Usage: netcalc [ip_v4_address] [prefix_netmask]\n");
     printf("Options:\n");
