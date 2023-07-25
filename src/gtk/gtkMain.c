@@ -45,10 +45,19 @@ static void on_combobox_changed(GtkComboBox *widget)
     getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
     numHost = getHostNumber(maskPrefix);
 
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
     sprintf(result_text,
-            "    IP address         : %d.%d.%d.%d\n"
-            "    Mask address       : %d.%d.%d.%d\n"
-            "    Wildcard address   : %d.%d.%d.%d",
+            "    IP address			: %d.%d.%d.%d\n"
+            "    Mask address		: %d.%d.%d.%d\n"
+            "    Wildcard address		: %d.%d.%d.%d",
+#define BSD_SYSTEM
+#else
+    sprintf(result_text,
+            "    IP address			: %d.%d.%d.%d\n"
+            "    Mask address		: %d.%d.%d.%d\n"
+            "    Wildcard address	: %d.%d.%d.%d",
+#define OTHER_SYSTEM
+#endif
             ipAddrTab[0],
             ipAddrTab[1],
             ipAddrTab[2],
@@ -65,12 +74,23 @@ static void on_combobox_changed(GtkComboBox *widget)
             ipWildTab[3]);
     gtk_label_set_text(GTK_LABEL(labelIpAddressBox2), result_text);
 
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
     sprintf(result_text,
-            "    Network address    : %d.%d.%d.%d/%d\n"
-            "    Broadcast address  : %d.%d.%d.%d\n"
-            "    First address      : %d.%d.%d.%d\n"
-            "    Last address       : %d.%d.%d.%d\n"
-            "    Number of hosts    : %d",
+            "    Network address		: %d.%d.%d.%d/%d\n"
+            "    Broadcast address	: %d.%d.%d.%d\n"
+            "    First address			: %d.%d.%d.%d\n"
+            "    Last address			: %d.%d.%d.%d\n"
+            "    Number of hosts		: %d",
+#define BSD_SYSTEM
+#else
+    sprintf(result_text,
+            "    Network address	: %d.%d.%d.%d/%d\n"
+            "    Broadcast address	: %d.%d.%d.%d\n"
+            "    First address		: %d.%d.%d.%d\n"
+            "    Last address		: %d.%d.%d.%d\n"
+            "    Number of hosts	: %d",
+#define OTHER_SYSTEM
+#endif
             // Network address
             ipNetAddrTab[0],
             ipNetAddrTab[1],
@@ -130,10 +150,19 @@ void calculate_button_clicked(void)
         getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
         numHost = getHostNumber(atoi(maskPrefix));
 
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
         sprintf(result_text,
-                "    IP address         : %d.%d.%d.%d\n"
-                "    Mask address       : %d.%d.%d.%d\n"
-                "    Wildcard address   : %d.%d.%d.%d",
+                "    IP address			: %d.%d.%d.%d\n"
+                "    Mask address		: %d.%d.%d.%d\n"
+                "    Wildcard address		: %d.%d.%d.%d",
+#define BSD_SYSTEM
+#else
+        sprintf(result_text,
+                "    IP address			: %d.%d.%d.%d\n"
+                "    Mask address		: %d.%d.%d.%d\n"
+                "    Wildcard address	: %d.%d.%d.%d",
+#define OTHER_SYSTEM
+#endif
                 ipAddrTab[0],
                 ipAddrTab[1],
                 ipAddrTab[2],
@@ -150,12 +179,23 @@ void calculate_button_clicked(void)
                 ipWildTab[3]);
         gtk_label_set_text(GTK_LABEL(labelIpAddressBox1), result_text);
 
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
         sprintf(result_text,
-                "    Network address    : %d.%d.%d.%d/%s\n"
-                "    Broadcast address  : %d.%d.%d.%d\n"
-                "    First address      : %d.%d.%d.%d\n"
-                "    Last address       : %d.%d.%d.%d\n"
-                "    Number of hosts    : %d",
+                "    Network address		: %d.%d.%d.%d/%s\n"
+                "    Broadcast address	: %d.%d.%d.%d\n"
+                "    First address			: %d.%d.%d.%d\n"
+                "    Last address			: %d.%d.%d.%d\n"
+                "    Number of hosts		: %d",
+#define BSD_SYSTEM
+#else
+        sprintf(result_text,
+                "    Network address	: %d.%d.%d.%d/%s\n"
+                "    Broadcast address	: %d.%d.%d.%d\n"
+                "    First address		: %d.%d.%d.%d\n"
+                "    Last address		: %d.%d.%d.%d\n"
+                "    Number of hosts	: %d",
+#define OTHER_SYSTEM
+#endif
                 // Network address
                 ipNetAddrTab[0],
                 ipNetAddrTab[1],
@@ -184,18 +224,39 @@ void calculate_button_clicked(void)
     }
     else
     {
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
         sprintf(result_text,
-                "    IP address         : BAD IP ADDRESS OR MASK PREFIX\n"
-                "    Mask address       :\n"
-                "    Wildcard address   :");
+                "    IP address			: BAD IP ADDRESS OR MASK PREFIX\n"
+                "    Mask address		:\n"
+                "    Wildcard address		:");
+#define BSD_SYSTEM
+#else
+        sprintf(result_text,
+                "    IP address			: BAD IP ADDRESS OR MASK PREFIX\n"
+                "    Mask address		:\n"
+                "    Wildcard address	:");
+#define OTHER_SYSTEM
+#endif
         gtk_label_set_text(GTK_LABEL(labelIpAddressBox1), result_text);
 
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
         sprintf(result_text,
-                "    Network address    :\n"
-                "    Broadcast address  :\n"
-                "    First address      :\n"
-                "    Last address       :\n"
-                "    Number of hosts    :");
+                "    Network address		:\n"
+                "    Broadcast address	:\n"
+                "    First address			:\n"
+                "    Last address			:\n"
+                "    Number of hosts		:");
+#define BSD_SYSTEM
+#else
+        sprintf(result_text,
+                "    Network address	:\n"
+                "    Broadcast address	:\n"
+                "    First address		:\n"
+                "    Last address		:\n"
+                "    Number of hosts	:");
+#define OTHER_SYSTEM
+#endif
+
         gtk_label_set_text(GTK_LABEL(labelIpNetworkBox1), result_text);
     }
 
@@ -212,17 +273,33 @@ void gtkWindowInit(int argc, char *argv[])
     char outputAddress[256];
     char outputNetwork[256];
 
-    sprintf(outputNetwork,
-            "    Network address    :\n"
-            "    Broadcast address  :\n"
-            "    First address      :\n"
-            "    Last address       :\n"
-            "    Number of hosts    :");
-
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
     sprintf(outputAddress,
-            "    IP address         :\n"
-            "    Mask address       :\n"
-            "    Wildcard address   :");
+            "    IP address			:\n"
+            "    Mask address		:\n"
+            "    Wildcard address		:");
+
+    sprintf(outputNetwork,
+            "    Network address		:\n"
+            "    Broadcast address	:\n"
+            "    First address			:\n"
+            "    Last address			:\n"
+            "    Number of hosts		:");
+#define BSD_SYSTEM
+#else
+    sprintf(outputAddress,
+            "    IP address			:\n"
+            "    Mask address		:\n"
+            "    Wildcard address	:");
+
+    sprintf(outputNetwork,
+            "    Network address	:\n"
+            "    Broadcast address	:\n"
+            "    First address		:\n"
+            "    Last address		:\n"
+            "    Number of hosts	:");
+#define OTHER_SYSTEM
+#endif
 
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
