@@ -16,5 +16,5 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-void calculate_button_clicked();
+void calculate_button_clicked(void);
 void gtkWindowInit(int argc, char *argv[]);

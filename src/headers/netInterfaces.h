@@ -12,4 +12,4 @@
 
 int maskToPrefix(unsigned int maskAddr[]);
 void getInterfaceInfo(char *interfaceName);
-void showInterfaces();
+void showInterfaces(void);
