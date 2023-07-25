@@ -47,9 +47,9 @@ static void on_combobox_changed(GtkComboBox *widget)
     numHost = getHostNumber(maskPrefix);
 
     sprintf(result_text,
-            "  IP address       : %d.%d.%d.%d\n"
-            "  Mask address     : %d.%d.%d.%d\n"
-            "  Wildcard address : %d.%d.%d.%d",
+            " IP address       : %d.%d.%d.%d\n"
+            " Mask address     : %d.%d.%d.%d\n"
+            " Wildcard address : %d.%d.%d.%d",
             ipAddrTab[0],
             ipAddrTab[1],
             ipAddrTab[2],
@@ -67,11 +67,11 @@ static void on_combobox_changed(GtkComboBox *widget)
     gtk_label_set_text(GTK_LABEL(labelIpAddressBox2), result_text);
 
     sprintf(result_text,
-            "  Network address  : %d.%d.%d.%d/%d\n"
-            "  Broadcast address: %d.%d.%d.%d\n"
-            "  First address    : %d.%d.%d.%d\n"
-            "  Last address     : %d.%d.%d.%d\n"
-            "  Number of hosts  : %d",
+            " Network address  : %d.%d.%d.%d/%d\n"
+            " Broadcast address: %d.%d.%d.%d\n"
+            " First address    : %d.%d.%d.%d\n"
+            " Last address     : %d.%d.%d.%d\n"
+            " Number of hosts  : %d",
             // Network address
             ipNetAddrTab[0],
             ipNetAddrTab[1],
@@ -132,9 +132,9 @@ void calculate_button_clicked(void)
         numHost = getHostNumber(atoi(maskPrefix));
 
         sprintf(result_text,
-                "  IP address       : %d.%d.%d.%d\n"
-                "  Mask address     : %d.%d.%d.%d\n"
-                "  Wildcard address : %d.%d.%d.%d",
+                " IP address       : %d.%d.%d.%d\n"
+                " Mask address     : %d.%d.%d.%d\n"
+                " Wildcard address : %d.%d.%d.%d",
                 ipAddrTab[0],
                 ipAddrTab[1],
                 ipAddrTab[2],
@@ -152,11 +152,11 @@ void calculate_button_clicked(void)
         gtk_label_set_text(GTK_LABEL(labelIpAddressBox1), result_text);
 
         sprintf(result_text,
-                "  Network address  : %d.%d.%d.%d/%s\n"
-                "  Broadcast address: %d.%d.%d.%d\n"
-                "  First address    : %d.%d.%d.%d\n"
-                "  Last address     : %d.%d.%d.%d\n"
-                "  Number of hosts  : %d",
+                " Network address  : %d.%d.%d.%d/%s\n"
+                " Broadcast address: %d.%d.%d.%d\n"
+                " First address    : %d.%d.%d.%d\n"
+                " Last address     : %d.%d.%d.%d\n"
+                " Number of hosts  : %d",
                 // Network address
                 ipNetAddrTab[0],
                 ipNetAddrTab[1],
@@ -186,18 +186,18 @@ void calculate_button_clicked(void)
     else
     {
         sprintf(result_text,
-                "  IP address       : BAD IP ADDRESS OR MASK PREFIX\n"
-                "  Mask address     :\n"
-                "  Wildcard address :");
+                " IP address       : BAD IP ADDRESS OR MASK PREFIX\n"
+                " Mask address     :\n"
+                " Wildcard address :");
 
         gtk_label_set_text(GTK_LABEL(labelIpAddressBox1), result_text);
 
         sprintf(result_text,
-                "  Network address  :\n"
-                "  Broadcast address:\n"
-                "  First address    :\n"
-                "  Last address     :\n"
-                "  Number of hosts  :");
+                " Network address  :\n"
+                " Broadcast address:\n"
+                " First address    :\n"
+                " Last address     :\n"
+                " Number of hosts  :");
 
         gtk_label_set_text(GTK_LABEL(labelIpNetworkBox1), result_text);
     }
@@ -216,16 +216,16 @@ void gtkWindowInit(int argc, char *argv[])
     char outputNetwork[256];
 
     sprintf(outputAddress,
-            "  IP address       :\n"
-            "  Mask address     :\n"
-            "  Wildcard address :");
+            " IP address       :\n"
+            " Mask address     :\n"
+            " Wildcard address :");
 
     sprintf(outputNetwork,
-            "  Network address  :\n"
-            "  Broadcast address:\n"
-            "  First address    :\n"
-            "  Last address     :\n"
-            "  Number of hosts  :");
+            " Network address  :\n"
+            " Broadcast address:\n"
+            " First address    :\n"
+            " Last address     :\n"
+            " Number of hosts  :");
 
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
