@@ -9,7 +9,7 @@
 #define GTK_WINDOW_LENGTH 300
 #define BOX_MARGIN        10
 #define BUTTON_MARGIN     5
-#define FONT_OUTPUT       "Source Code Pro"
+#define FONT_OUTPUT       "Monospace"
 
 GtkWidget *entry1;
 GtkWidget *entry2;
