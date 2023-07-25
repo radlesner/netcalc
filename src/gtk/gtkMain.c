@@ -9,6 +9,7 @@
 #define GTK_WINDOW_LENGTH 300
 #define BOX_MARGIN        10
 #define BUTTON_MARGIN     5
+#define FONT_OUTPUT       "Source Code Pro"
 
 GtkWidget *entry1;
 GtkWidget *entry2;
@@ -363,8 +364,8 @@ void gtkWindowInit(int argc, char *argv[])
 
     // ------------------ SET FONT FOR OUTPUTS ------------------
     PangoFontDescription *font_desc = pango_font_description_new();
-    pango_font_description_set_family(font_desc, "Source Code Pro");
-    pango_font_description_set_absolute_size(font_desc, 12 * PANGO_SCALE);
+    pango_font_description_set_family(font_desc, FONT_OUTPUT);
+    pango_font_description_set_absolute_size(font_desc, 13 * PANGO_SCALE);
 
     gchar *css                   = g_strdup_printf("* { font-family: \"%s\"; font-size: %dpx; }",
                                  pango_font_description_get_family(font_desc),
