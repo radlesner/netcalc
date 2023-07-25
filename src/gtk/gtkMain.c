@@ -209,6 +209,21 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_init(&argc, &argv);
     setlocale(LC_ALL, "");
 
+    char outputAddress[256];
+    char outputNetwork[256];
+
+    sprintf(outputNetwork,
+            "    Network address	:\n"
+            "    Broadcast address	:\n"
+            "    First address		:\n"
+            "    Last address		:\n"
+            "    Number of hosts	:");
+
+    sprintf(outputAddress,
+            "    IP address			:\n"
+            "    Mask address		:\n"
+            "    Wildcard address	:");
+
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), "Netcalc v3.2");
@@ -263,10 +278,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_end(frameIpAddressBox1, 10);
 
     // Label for frame "ip address"
-    labelIpAddressBox1 = gtk_label_new(
-        "    IP address			:\n"
-        "    Mask address		:\n"
-        "    Wildcard address	:");
+    labelIpAddressBox1 = gtk_label_new(outputAddress);
     gtk_label_set_xalign(GTK_LABEL(labelIpAddressBox1), 0.0);
     gtk_container_add(GTK_CONTAINER(frameIpAddressBox1), labelIpAddressBox1);
 
@@ -278,12 +290,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_bottom(frameIpNetworkBox1, 10);
 
     // Label for frame "ip network"
-    labelIpNetworkBox1 = gtk_label_new(
-        "    Network address	:\n"
-        "    Broadcast address	:\n"
-        "    First address		:\n"
-        "    Last address		:\n"
-        "    Number of hosts	:");
+    labelIpNetworkBox1 = gtk_label_new(outputNetwork);
     gtk_label_set_xalign(GTK_LABEL(labelIpNetworkBox1), 0.0);
     gtk_container_add(GTK_CONTAINER(frameIpNetworkBox1), labelIpNetworkBox1);
 
@@ -337,10 +344,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_end(frameIpAddressBox2, 10);
 
     // Label for frame "ip address"
-    labelIpAddressBox2 = gtk_label_new(
-        "    IP address			:\n"
-        "    Mask address		:\n"
-        "    Wildcard address	:");
+    labelIpAddressBox2 = gtk_label_new(outputAddress);
     gtk_label_set_xalign(GTK_LABEL(labelIpAddressBox2), 0.0);
     gtk_container_add(GTK_CONTAINER(frameIpAddressBox2), labelIpAddressBox2);
 
@@ -351,12 +355,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_bottom(frameIpNetworkBox2, 10);
 
     // Label for frame "ip network"
-    labelIpNetworkBox2 = gtk_label_new(
-        "    Network address	:\n"
-        "    Broadcast address	:\n"
-        "    First address		:\n"
-        "    Last address		:\n"
-        "    Number of hosts	:");
+    labelIpNetworkBox2 = gtk_label_new(outputNetwork);
     gtk_label_set_xalign(GTK_LABEL(labelIpNetworkBox2), 0.0);
     gtk_container_add(GTK_CONTAINER(frameIpNetworkBox2), labelIpNetworkBox2);
 
