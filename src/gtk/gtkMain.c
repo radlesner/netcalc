@@ -45,7 +45,7 @@ static void on_combobox_changed(GtkComboBox *widget)
     getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
     numHost = getHostNumber(maskPrefix);
 
-#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_) || defined(_ghostbsd_)
     sprintf(result_text,
             "    IP address			: %d.%d.%d.%d\n"
             "    Mask address		: %d.%d.%d.%d\n"
@@ -74,7 +74,7 @@ static void on_combobox_changed(GtkComboBox *widget)
             ipWildTab[3]);
     gtk_label_set_text(GTK_LABEL(labelIpAddressBox2), result_text);
 
-#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_) || defined(_ghostbsd_)
     sprintf(result_text,
             "    Network address		: %d.%d.%d.%d/%d\n"
             "    Broadcast address	: %d.%d.%d.%d\n"
@@ -150,7 +150,7 @@ void calculate_button_clicked(void)
         getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
         numHost = getHostNumber(atoi(maskPrefix));
 
-#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_) || defined(_ghostbsd_)
         sprintf(result_text,
                 "    IP address			: %d.%d.%d.%d\n"
                 "    Mask address		: %d.%d.%d.%d\n"
@@ -179,7 +179,7 @@ void calculate_button_clicked(void)
                 ipWildTab[3]);
         gtk_label_set_text(GTK_LABEL(labelIpAddressBox1), result_text);
 
-#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_) || defined(_ghostbsd_)
         sprintf(result_text,
                 "    Network address		: %d.%d.%d.%d/%s\n"
                 "    Broadcast address	: %d.%d.%d.%d\n"
@@ -224,7 +224,7 @@ void calculate_button_clicked(void)
     }
     else
     {
-#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_) || defined(_ghostbsd_)
         sprintf(result_text,
                 "    IP address			: BAD IP ADDRESS OR MASK PREFIX\n"
                 "    Mask address		:\n"
@@ -239,7 +239,7 @@ void calculate_button_clicked(void)
 #endif
         gtk_label_set_text(GTK_LABEL(labelIpAddressBox1), result_text);
 
-#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_) || defined(_ghostbsd_)
         sprintf(result_text,
                 "    Network address		:\n"
                 "    Broadcast address	:\n"
@@ -273,7 +273,7 @@ void gtkWindowInit(int argc, char *argv[])
     char outputAddress[256];
     char outputNetwork[256];
 
-#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_)
+#if defined(_FreeBSD_) || defined(_OpenBSD_) || defined(_NetBSD_) || defined(_bsdi_) || defined(_DragonFly_) || defined(_ghostbsd_)
     sprintf(outputAddress,
             "    IP address			:\n"
             "    Mask address		:\n"
