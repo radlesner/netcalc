@@ -70,7 +70,7 @@ void getInterfaceInfo(char *interfaceName)
     freeifaddrs(ifaddr);
 }
 
-void showInterfaces()
+void showInterfaces(void)
 {
     struct ifaddrs *ifaddr, *ifa;
     if (getifaddrs(&ifaddr) == -1)
