@@ -12,8 +12,6 @@
 #include "headers/segmentForOctet.h"
 #include "headers/validArguments.h"
 
-#define VERSION_PROGRAM "3.2"
-
 // --------------------------------------------------- MAIN ---------------------------------------------------
 int main(int argc, char *argv[])
 {

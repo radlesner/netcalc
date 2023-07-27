@@ -16,5 +16,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#define VERSION_PROGRAM "4.0.0"
+
 void calculate_button_clicked(void);
 void gtkWindowInit(int argc, char *argv[]);
