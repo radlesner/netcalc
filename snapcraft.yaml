@@ -6,9 +6,21 @@ description: |
   It has the ability to download data from the interface.
   It calculates values for the subnet mask, network address,
   broadcast address, first and last address and number of hosts.
-grade: stable
+
 base: core18
+grade: stable
+confinement: strict
 license: GPL-2.0
+
+slots:
+  org-gtk-example:
+    interface: dbus
+    bus: session
+    name: org.gtk.Example
+  org-gtk-iconbrowser:
+    interface: dbus
+    bus: session
+    name: org.gtk.IconBrowser
 
 apps:
   netcalc:
@@ -70,11 +82,3 @@ parts:
       - libxkbcommon0
       - libxrandr2
       - libxrender1
-
-  deps:
-    plugin: nil
-    stage-packages:
-      - libgconf-2-4
-      - libnss3
-      - libxss1
-      - fontconfig-config
