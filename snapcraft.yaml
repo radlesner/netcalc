@@ -6,9 +6,8 @@ description: |
   It has the ability to download data from the interface.
   It calculates values for the subnet mask, network address,
   broadcast address, first and last address and number of hosts.
-
-base: core18
 grade: stable
+base: core18
 license: GPL-2.0
 
 apps:
