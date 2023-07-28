@@ -13,6 +13,7 @@ license: GPL-2.0
 apps:
   netcalc:
     command: netcalc
+    icon: /usr/share/icons/hicolor/128x128/apps/netcalc-128x128.png
     plugs:
       - network-bind
       - locale-control
