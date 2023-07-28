@@ -12,16 +12,6 @@ grade: stable
 confinement: strict
 license: GPL-2.0
 
-slots:
-  org-gtk-example:
-    interface: dbus
-    bus: session
-    name: org.gtk.Example
-  org-gtk-iconbrowser:
-    interface: dbus
-    bus: session
-    name: org.gtk.IconBrowser
-
 apps:
   netcalc:
     command: netcalc
