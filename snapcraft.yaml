@@ -16,6 +16,9 @@ apps:
     plugs:
       - network-bind
       - locale-control
+    environment:
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
 
 parts:
   netcalc:
