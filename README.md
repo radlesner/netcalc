@@ -43,8 +43,8 @@ snap install netcalc
 ### Images
 <p align="center">
   <img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-8.png">
+  <img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-1.png" width="35%">
+  <img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-2.png" width="35%">
+  <img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-3.png" width="35%">
+  <img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-4.png" width="35%">
 </p>
-<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-1.png" width="40%" align="left">
-<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-2.png" width="40%" align="right">
-<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-3.png" width="40%" align="left">
-<img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-4.png" width="40%" align="right">
