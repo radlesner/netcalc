@@ -8,8 +8,9 @@
             "name": "Debug manual args",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/debug/netcalc",
+            "program": "${workspaceFolder}/bin/debug/netcalc",
             "args": [
+                "-c",
                 "192.168.0.1",
                 "24"
             ],
@@ -30,7 +31,7 @@
             "name": "Debug interfaces",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/debug/netcalc",
+            "program": "${workspaceFolder}/bin/debug/netcalc",
             "args": [
                 "-i",
                 "lo"
@@ -52,7 +53,7 @@
             "name": "Debug show interfaces",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/debug/netcalc",
+            "program": "${workspaceFolder}/bin/debug/netcalc",
             "args": [
                 "-i"
             ],
@@ -73,7 +74,7 @@
             "name": "Debug help panel",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/debug/netcalc",
+            "program": "${workspaceFolder}/bin/debug/netcalc",
             "args": [
                 "-h"
             ],
@@ -94,7 +95,7 @@
             "name": "Debug GTK window",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/debug/netcalc",
+            "program": "${workspaceFolder}/bin/debug/netcalc",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

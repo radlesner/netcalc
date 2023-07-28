@@ -11,5 +11,5 @@
 #include <unistd.h>
 
 int maskToPrefix(unsigned int maskAddr[]);
-void getInterfaceInfo(char *interfaceName);
+void getInterfaceInfo(char *interfaceName, unsigned int ipAddr[], unsigned int ipMask[]);
 void showInterfaces(void);

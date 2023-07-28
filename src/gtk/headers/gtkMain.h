@@ -18,5 +18,11 @@
 
 #define VERSION_PROGRAM "4.0.0"
 
-void calculate_button_clicked(void);
+extern GtkWidget *entryIpAddress;
+extern GtkWidget *entryMaskPrefix;
+
+extern GtkWidget *labelFrameBox1;
+extern GtkWidget *labelFrameBox2;
+
+void calcButtonClick(void);
 void gtkWindowInit(int argc, char *argv[]);

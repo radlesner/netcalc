@@ -102,6 +102,8 @@
         "gtknetinterfaces.h": "c",
         "socket.h": "c",
         "ifaddrs.h": "c",
-        "netdb.h": "c"
+        "netdb.h": "c",
+        "gtksignals.h": "c",
+        "gtkmain.h": "c"
     }
 }

@@ -2,9 +2,8 @@
 #include "headers/ipOperations.h"
 #include "headers/segmentForOctet.h"
 
-void mainOutput(const char *rawIpAddr, unsigned int rawMaskPrefix)
+void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
 {
-    unsigned int ipAddrTab[4]      = {0, 0, 0, 0};
     unsigned int ipMaskTab[4]      = {0, 0, 0, 0};
     unsigned int ipWildTab[4]      = {0, 0, 0, 0};
     unsigned int ipNetAddrTab[4]   = {0, 0, 0, 0};
@@ -23,7 +22,6 @@ void mainOutput(const char *rawIpAddr, unsigned int rawMaskPrefix)
         Arrays in the code always have the abbreviation "Tab" at the end of the name
     */
 
-    getOctet(ipAddrTab, rawIpAddr);
     getMask(ipMaskTab, rawMaskPrefix);
     getWildAddr(ipWildTab, ipMaskTab);
     getNetworkAddr(ipNetAddrTab, ipAddrTab, ipMaskTab);
@@ -47,6 +45,8 @@ void mainOutput(const char *rawIpAddr, unsigned int rawMaskPrefix)
 void helpOutput(void)
 {
     printf("Usage: netcalc [ip_v4_address] [prefix_netmask]\n");
+    printf("Netcalc with no arguments will launch a GTK window\n\n");
+
     printf("Options:\n");
     printf("    -i    --inteface      Calculates values from interface\n");
     printf("    -v    --version       Version program\n");

@@ -1,5 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void mainOutput(const char *rawIpAddr, unsigned int rawMaskPrefix);
+void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix);
 void helpOutput(void);

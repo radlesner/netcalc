@@ -15,6 +15,9 @@
 // --------------------------------------------------- MAIN ---------------------------------------------------
 int main(int argc, char *argv[])
 {
+    unsigned int ipAddr[4] = {0, 0, 0, 0};
+    unsigned int ipMask[4] = {0, 0, 0, 0};
+
     if (argc == 1)
     {
         gtkWindowInit(argc, argv);
@@ -27,14 +30,16 @@ int main(int argc, char *argv[])
         {
             if (argc >= 3)
             {
-                getInterfaceInfo(argv[2]);
-                break;
+                getInterfaceInfo(argv[2], ipAddr, ipMask);
+                int maskPrefix = maskToPrefix(ipMask);
+                mainOutput(ipAddr, maskPrefix);
             }
             else
             {
                 showInterfaces();
-                break;
             }
+
+            break;
         }
         else if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--calculator") == 0)
         {
@@ -42,7 +47,8 @@ int main(int argc, char *argv[])
             {
                 if (isIPValid(argv[2]) && isMaskValid(argv[3]))
                 {
-                    mainOutput(argv[2], atoi(argv[3]));
+                    getOctet(ipAddr, argv[2]);
+                    mainOutput(ipAddr, atoi(argv[3]));
                 }
                 else
                 {

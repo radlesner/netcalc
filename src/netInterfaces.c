@@ -25,17 +25,13 @@ int maskToPrefix(unsigned int maskAddr[])
     return prefix;
 }
 
-void getInterfaceInfo(char *interfaceName)
+void getInterfaceInfo(char *interfaceName, unsigned int ipAddr[], unsigned int ipMask[])
 {
     struct ifaddrs *ifaddr, *ifa;
     struct sockaddr_in *addr, *netmask;
 
     char ipAddrBuffer[INET_ADDRSTRLEN];
     char subnetAddrBuffer[INET_ADDRSTRLEN];
-
-    unsigned int ipAddr[4] = {0, 0, 0, 0};
-    unsigned int ipMask[4] = {0, 0, 0, 0};
-    int maskPrefix;
 
     if (getifaddrs(&ifaddr) == -1)
     {
@@ -59,8 +55,6 @@ void getInterfaceInfo(char *interfaceName)
             {
                 getOctet(ipAddr, ipAddrBuffer);
                 getOctet(ipMask, subnetAddrBuffer);
-                maskPrefix = maskToPrefix(ipMask);
-                mainOutput(ipAddrBuffer, maskPrefix);
 
                 break;
             }
