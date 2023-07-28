@@ -17,9 +17,6 @@ apps:
       - network-bind
       - locale-control
 
-size: 128x128
-  path: /usr/share/icons/hicolor/128x128/apps/netcalc-128x128.png
-
 parts:
   netcalc:
     plugin: cmake
