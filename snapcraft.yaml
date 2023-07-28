@@ -9,7 +9,6 @@ description: |
 
 base: core18
 grade: stable
-confinement: strict
 license: GPL-2.0
 
 apps:
