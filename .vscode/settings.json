@@ -104,6 +104,7 @@
         "ifaddrs.h": "c",
         "netdb.h": "c",
         "gtksignals.h": "c",
-        "gtkmain.h": "c"
+        "gtkmain.h": "c",
+        "gtkoutputsignals.h": "c"
     }
 }

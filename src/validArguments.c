@@ -19,7 +19,7 @@ bool isIPValid(const char *ipAddress)
     return true;
 }
 
-bool isMaskValid(const char *maskPrefixStr)
+bool isMaskPrefixValid(const char *maskPrefixStr)
 {
     int i = 0;
     int intPrefix;
@@ -34,7 +34,7 @@ bool isMaskValid(const char *maskPrefixStr)
 
     intPrefix = atoi(maskPrefixStr);
 
-    if (intPrefix < 0 || intPrefix > 31)
+    if (intPrefix < 1 || intPrefix > 31)
     {
         return false;
     }

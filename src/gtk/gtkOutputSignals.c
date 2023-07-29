@@ -22,7 +22,7 @@ void onComboBoxInterface(GtkComboBox *widget)
     unsigned int ipBroadAddrTab[4]     = {0, 0, 0, 0};
     unsigned int ipFirstHost[4]        = {0, 0, 0, 0};
     unsigned int ipLastHost[4]         = {0, 0, 0, 0};
-    unsigned int numHost;
+    unsigned long int numHost;
     int maskPrefix;
     char result_text[1024];
 
@@ -55,7 +55,7 @@ void onComboBoxInterface(GtkComboBox *widget)
             " Broadcast address: %d.%d.%d.%d\n"
             " First address....: %d.%d.%d.%d\n"
             " Last address.....: %d.%d.%d.%d\n"
-            " Number of hosts..: %d",
+            " Number of hosts..: %ld",
             ipAddrTab[0],
             ipAddrTab[1],
             ipAddrTab[2],
@@ -110,11 +110,11 @@ void calcButtonClick(void)
     unsigned int ipBroadAddrTab[4] = {0, 0, 0, 0};
     unsigned int ipFirstHost[4]    = {0, 0, 0, 0};
     unsigned int ipLastHost[4]     = {0, 0, 0, 0};
-    unsigned int numHost;
+    unsigned long int numHost;
 
     char result_text[1024];
 
-    if (isIPValid(ip_address) && isMaskValid(maskPrefix))
+    if (isIPValid(ip_address) && isMaskPrefixValid(maskPrefix))
     {
         /*
             The following void functions perform calculations related to IP addresses
@@ -142,7 +142,7 @@ void calcButtonClick(void)
                 " Broadcast address: %d.%d.%d.%d\n"
                 " First address....: %d.%d.%d.%d\n"
                 " Last address.....: %d.%d.%d.%d\n"
-                " Number of hosts..: %d",
+                " Number of hosts..: %ld",
                 ipAddrTab[0],
                 ipAddrTab[1],
                 ipAddrTab[2],

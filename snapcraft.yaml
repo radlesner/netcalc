@@ -1,5 +1,5 @@
 name: netcalc
-version: '4.0.0'
+version: '4.0.1'
 summary: Simple network calculator
 description: |
   A program that converts values from the IP address and prefix of the subnet mask.

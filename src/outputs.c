@@ -10,7 +10,7 @@ void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
     unsigned int ipBroadAddrTab[4] = {0, 0, 0, 0};
     unsigned int ipFirstHost[4]    = {0, 0, 0, 0};
     unsigned int ipLastHost[4]     = {0, 0, 0, 0};
-    unsigned int numHost;
+    unsigned long int numHost;
 
     /*
         The following void functions perform calculations related to IP addresses
@@ -39,7 +39,7 @@ void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
     printf("Broadcast address: %d.%d.%d.%d\n", ipBroadAddrTab[0], ipBroadAddrTab[1], ipBroadAddrTab[2], ipBroadAddrTab[3]);
     printf("     Firt address: %d.%d.%d.%d\n", ipFirstHost[0], ipFirstHost[1], ipFirstHost[2], ipFirstHost[3]);
     printf("     Last address: %d.%d.%d.%d\n", ipLastHost[0], ipLastHost[1], ipLastHost[2], ipLastHost[3]);
-    printf("  Number of hosts: %d\n", numHost);
+    printf("  Number of hosts: %ld\n", numHost);
 }
 
 void helpOutput(void)

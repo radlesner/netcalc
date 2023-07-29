@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
         {
             if (argc >= 4)
             {
-                if (isIPValid(argv[2]) && isMaskValid(argv[3]))
+                if (isIPValid(argv[2]) && isMaskPrefixValid(argv[3]))
                 {
                     getOctet(ipAddr, argv[2]);
                     mainOutput(ipAddr, atoi(argv[3]));
@@ -75,7 +75,6 @@ int main(int argc, char *argv[])
         else
         {
             printf("Unknown option: %s\n", argv[i]);
-            break;
         }
     }
 
