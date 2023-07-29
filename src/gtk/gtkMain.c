@@ -1,27 +1,29 @@
 #include "headers/gtkMain.h"
 #include "headers/gtkOutputSignals.h"
 
-#define WINDOW_RESIZABLE        FALSE
-#define GTK_WINDOW_WIDTH        770
-#define GTK_WINDOW_HEIGHT       300
-#define BOX_MARGIN              10
-#define FONT_OUTPUT             "Monospace"
+#define WINDOW_RESIZABLE         FALSE
+#define GTK_WINDOW_WIDTH         770
+#define GTK_WINDOW_HEIGHT        300
+#define BOX_MARGIN               10
+#define FONT_OUTPUT              "Monospace"
+#define FONT_OUTPUT_SIZE         13
+#define FONT_OUTPUT_VERSION_SIZE 11
 
-#define FRAME_MARGIN_START      10
-#define FRAME_MARGIN_END        10
-#define FRAME_MARGIN_TOP        10
-#define FRAME_MARGIN_BOTTOM     0
+#define FRAME_MARGIN_START       10
+#define FRAME_MARGIN_END         10
+#define FRAME_MARGIN_TOP         10
+#define FRAME_MARGIN_BOTTOM      0
 
-#define BUTTON_MARGIN_START     50
-#define BUTTON_MARGIN_END       50
-#define BUTTON_MARGIN_TOP       0
-#define BUTTON_MARGIN_BOTTOM    10
+#define BUTTON_MARGIN_START      50
+#define BUTTON_MARGIN_END        50
+#define BUTTON_MARGIN_TOP        0
+#define BUTTON_MARGIN_BOTTOM     10
 
-#define COMBO_BOX_WIDTH         180
-#define COMBO_BOX_MARGIN_START  0
-#define COMBO_BOX_MARGIN_END    10
-#define COMBO_BOX_MARGIN_TOP    10
-#define COMBO_BOX_MARGIN_BOTTOM 0
+#define COMBO_BOX_WIDTH          180
+#define COMBO_BOX_MARGIN_START   0
+#define COMBO_BOX_MARGIN_END     10
+#define COMBO_BOX_MARGIN_TOP     10
+#define COMBO_BOX_MARGIN_BOTTOM  0
 
 GtkWidget *entryIpAddress;
 GtkWidget *entryMaskPrefix;
@@ -194,37 +196,52 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_size_request(separatorBox, -1, 44);
 
     // Program version output
-    GtkWidget *versionProgramBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    gtk_box_pack_start(GTK_BOX(separatorBox), versionProgramBox, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(GTK_WIDGET(versionProgramBox), 50, -1);
-    gtk_widget_set_margin_top(versionProgramBox, 20);
-    gtk_widget_set_margin_start(versionProgramBox, 218);
+    GtkWidget *labelVersionProgramBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    gtk_box_pack_start(GTK_BOX(separatorBox), labelVersionProgramBox, TRUE, TRUE, 0);
+    gtk_widget_set_size_request(GTK_WIDGET(labelVersionProgramBox), 50, -1);
+    gtk_widget_set_margin_top(labelVersionProgramBox, 20);
+    gtk_widget_set_margin_start(labelVersionProgramBox, 218);
 
     char versionProgramOutput[24];
     sprintf(versionProgramOutput, "Netcalc v%s ", VERSION_PROGRAM);
 
     GtkWidget *labelSeparatorBox = gtk_label_new(versionProgramOutput);
-    gtk_container_add(GTK_CONTAINER(versionProgramBox), labelSeparatorBox);
+    gtk_container_add(GTK_CONTAINER(labelVersionProgramBox), labelSeparatorBox);
     gtk_label_set_xalign(GTK_LABEL(labelSeparatorBox), 1);
 
     // ------------------ SET FONT FOR OUTPUTS ------------------
 
-    PangoFontDescription *font_desc = pango_font_description_new();
-    pango_font_description_set_family(font_desc, FONT_OUTPUT);
-    pango_font_description_set_absolute_size(font_desc, 13 * PANGO_SCALE);
+    // Setting font for outputs addresses labels
+    PangoFontDescription *fontGtkOutput = pango_font_description_new();
+    pango_font_description_set_family(fontGtkOutput, FONT_OUTPUT);
+    pango_font_description_set_absolute_size(fontGtkOutput, FONT_OUTPUT_SIZE * PANGO_SCALE);
 
-    gchar *css                   = g_strdup_printf("* { font-family: \"%s\"; font-size: %dpx; }",
-                                 pango_font_description_get_family(font_desc),
-                                 (int)pango_font_description_get_size(font_desc) / PANGO_SCALE);
-    GtkCssProvider *css_provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_data(css_provider, css, -1, NULL);
-    g_free(css);
-    gtk_style_context_add_provider(
-        gtk_widget_get_style_context(labelFrameBox1), GTK_STYLE_PROVIDER(css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-    gtk_style_context_add_provider(
-        gtk_widget_get_style_context(labelFrameBox2), GTK_STYLE_PROVIDER(css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-    g_object_unref(css_provider);
-    pango_font_description_free(font_desc);
+    gchar *cssFontGtkOutput               = g_strdup_printf("* { font-family: \"%s\"; font-size: %dpx; }", pango_font_description_get_family(fontGtkOutput), (int)pango_font_description_get_size(fontGtkOutput) / PANGO_SCALE);
+    GtkCssProvider *providerFontGtkOutput = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(providerFontGtkOutput, cssFontGtkOutput, -1, NULL);
+    g_free(cssFontGtkOutput);
+
+    gtk_style_context_add_provider(gtk_widget_get_style_context(labelFrameBox1), GTK_STYLE_PROVIDER(providerFontGtkOutput), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    gtk_style_context_add_provider(gtk_widget_get_style_context(labelFrameBox2), GTK_STYLE_PROVIDER(providerFontGtkOutput), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+    g_object_unref(providerFontGtkOutput);
+    pango_font_description_free(fontGtkOutput);
+
+    // Setting font for version program label
+    PangoFontDescription *fontGtkVersionProgram = pango_font_description_new();
+    pango_font_description_set_family(fontGtkVersionProgram, FONT_OUTPUT);
+    pango_font_description_set_absolute_size(fontGtkVersionProgram, FONT_OUTPUT_VERSION_SIZE * PANGO_SCALE);
+
+    gchar *cssFontGtkVersionProgram = g_strdup_printf("* { font-family: \"%s\"; font-size: %dpx; }", pango_font_description_get_family(fontGtkVersionProgram), (int)pango_font_description_get_size(fontGtkVersionProgram) / PANGO_SCALE);
+
+    GtkCssProvider *providerFontGtkVersionProgram = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(providerFontGtkVersionProgram, cssFontGtkVersionProgram, -1, NULL);
+    g_free(cssFontGtkVersionProgram);
+
+    gtk_style_context_add_provider(gtk_widget_get_style_context(labelVersionProgramBox), GTK_STYLE_PROVIDER(providerFontGtkVersionProgram), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+    g_object_unref(providerFontGtkVersionProgram);
+    pango_font_description_free(fontGtkVersionProgram);
 
     gtk_widget_show_all(window);
     gtk_main();
