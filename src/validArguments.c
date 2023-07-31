@@ -1,5 +1,6 @@
 #include "headers/validArguments.h"
 
+// -------------------------------------------------------------
 bool isIPValid(const char *ipAddress)
 {
     int ip3, ip2, ip1, ip0;
@@ -19,6 +20,7 @@ bool isIPValid(const char *ipAddress)
     return true;
 }
 
+// -------------------------------------------------------------
 bool isMaskPrefixValid(const char *maskPrefixStr)
 {
     int i = 0;

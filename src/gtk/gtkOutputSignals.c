@@ -11,6 +11,7 @@ extern GtkWidget *entryMaskPrefix;
 extern GtkWidget *labelFrameBox1;
 extern GtkWidget *labelFrameBox2;
 
+// -------------------------------------------------------------
 void onComboBoxInterface(GtkComboBox *widget)
 {
     GtkComboBoxText *comboBoxInterface = GTK_COMBO_BOX_TEXT(widget);
@@ -24,7 +25,7 @@ void onComboBoxInterface(GtkComboBox *widget)
     unsigned int ipLastHost[4]         = {0, 0, 0, 0};
     unsigned long int numHost;
     int maskPrefix;
-    char result_text[1024];
+    char result_text[251];
 
     g_print("Selected interface: %s\n", selected_text);
 
@@ -112,7 +113,7 @@ void calcButtonClick(void)
     unsigned int ipLastHost[4]     = {0, 0, 0, 0};
     unsigned long int numHost;
 
-    char result_text[1024];
+    char result_text[251];
 
     if (isIPValid(ip_address) && isMaskPrefixValid(maskPrefix))
     {

@@ -1,5 +1,6 @@
 #include "headers/ipOperations.h"
 
+// -------------------------------------------------------------
 void getWildAddr(unsigned int ipWildTab[], unsigned int ipMaskTab[])
 {
     for (int i = 0; i < 4; i++)
@@ -8,6 +9,7 @@ void getWildAddr(unsigned int ipWildTab[], unsigned int ipMaskTab[])
     }
 }
 
+// -------------------------------------------------------------
 void getNetworkAddr(unsigned int ipNetAddrTab[], unsigned int ipAddrTab[], unsigned int ipMaskTab[])
 {
     for (int i = 0; i < 4; i++)
@@ -16,6 +18,7 @@ void getNetworkAddr(unsigned int ipNetAddrTab[], unsigned int ipAddrTab[], unsig
     }
 }
 
+// -------------------------------------------------------------
 void getBroadAddr(unsigned int ipBroadAddrTab[], unsigned int ipNetAddrTab[], unsigned int ipMaskTab[])
 {
     for (int i = 0; i < 4; i++)
@@ -24,6 +27,7 @@ void getBroadAddr(unsigned int ipBroadAddrTab[], unsigned int ipNetAddrTab[], un
     }
 }
 
+// -------------------------------------------------------------
 void getFirstLastHost(unsigned int ipFirstHost[], unsigned int ipLastHost[], unsigned int ipNetAddrTab[], unsigned int ipBroadAddrTab[])
 {
     for (int i = 0; i < 4; i++)
@@ -39,6 +43,7 @@ void getFirstLastHost(unsigned int ipFirstHost[], unsigned int ipLastHost[], uns
     }
 }
 
+// -------------------------------------------------------------
 unsigned int getHostNumber(unsigned int rawMaskPrefix)
 {
     unsigned int numHost;

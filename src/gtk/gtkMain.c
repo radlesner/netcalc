@@ -1,29 +1,29 @@
 #include "headers/gtkMain.h"
 #include "headers/gtkOutputSignals.h"
 
-#define WINDOW_RESIZABLE         FALSE
-#define GTK_WINDOW_WIDTH         770
-#define GTK_WINDOW_HEIGHT        300
-#define BOX_MARGIN               10
-#define FONT_OUTPUT              "Monospace"
-#define FONT_OUTPUT_SIZE         13
-#define FONT_OUTPUT_VERSION_SIZE 11
+#define WINDOW_RESIZABLE           FALSE
+#define GTK_WINDOW_WIDTH           770
+#define GTK_WINDOW_HEIGHT          300
+#define BOX_MARGIN                 10
+#define FONT_OUTPUT                "Monospace"
+#define FONT_OUTPUT_SIZE           13
+#define FONT_OUTPUT_VERSION_SIZE   11
 
-#define FRAME_MARGIN_START       10
-#define FRAME_MARGIN_END         10
-#define FRAME_MARGIN_TOP         10
-#define FRAME_MARGIN_BOTTOM      0
+#define FRAME_OUTPUT_MARGIN_START  10
+#define FRAME_OUTPUT_MARGIN_END    10
+#define FRAME_OUTPUT_MARGIN_TOP    10
+#define FRAME_OUTPUT_MARGIN_BOTTOM 0
 
-#define BUTTON_MARGIN_START      50
-#define BUTTON_MARGIN_END        50
-#define BUTTON_MARGIN_TOP        0
-#define BUTTON_MARGIN_BOTTOM     10
+#define BUTTON_MARGIN_START        50
+#define BUTTON_MARGIN_END          50
+#define BUTTON_MARGIN_TOP          0
+#define BUTTON_MARGIN_BOTTOM       10
 
-#define COMBO_BOX_WIDTH          180
-#define COMBO_BOX_MARGIN_START   0
-#define COMBO_BOX_MARGIN_END     10
-#define COMBO_BOX_MARGIN_TOP     10
-#define COMBO_BOX_MARGIN_BOTTOM  0
+#define COMBO_BOX_WIDTH            180
+#define COMBO_BOX_MARGIN_START     0
+#define COMBO_BOX_MARGIN_END       10
+#define COMBO_BOX_MARGIN_TOP       10
+#define COMBO_BOX_MARGIN_BOTTOM    0
 
 GtkWidget *entryIpAddress;
 GtkWidget *entryMaskPrefix;
@@ -31,6 +31,7 @@ GtkWidget *entryMaskPrefix;
 GtkWidget *labelFrameBox1;
 GtkWidget *labelFrameBox2;
 
+// -------------------------------------------------------------
 static void comboBoxAddOptions(GtkComboBoxText *comboBoxInterface)
 {
     // Shows connected interfaces to combo box
@@ -62,7 +63,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_init(&argc, &argv);
     setlocale(LC_ALL, "");
 
-    char blankOutput[256];
+    char blankOutput[160];
 
     sprintf(blankOutput,
             " IP address.......:\n"
@@ -124,9 +125,9 @@ void gtkWindowInit(int argc, char *argv[])
     // Frame "address address"
     GtkWidget *frameBox1 = gtk_frame_new("Address settings");
     gtk_box_pack_start(GTK_BOX(box1), frameBox1, TRUE, TRUE, 0);
-    gtk_widget_set_margin_start(frameBox1, 10);
-    gtk_widget_set_margin_end(frameBox1, 10);
-    gtk_widget_set_margin_bottom(frameBox1, 0);
+    gtk_widget_set_margin_start(frameBox1, FRAME_OUTPUT_MARGIN_START);
+    gtk_widget_set_margin_end(frameBox1, FRAME_OUTPUT_MARGIN_END);
+    gtk_widget_set_margin_bottom(frameBox1, FRAME_OUTPUT_MARGIN_BOTTOM);
 
     // Label for frame "ip address"
     labelFrameBox1 = gtk_label_new(blankOutput);
@@ -180,9 +181,9 @@ void gtkWindowInit(int argc, char *argv[])
     GtkWidget *frameBox2 = gtk_frame_new("Interface settings");
     gtk_box_pack_start(GTK_BOX(box2), frameBox2, TRUE, TRUE, 0);
     gtk_widget_set_margin_start(frameBox2, 0);
-    gtk_widget_set_margin_end(frameBox2, FRAME_MARGIN_END);
-    gtk_widget_set_margin_top(frameBox2, FRAME_MARGIN_TOP);
-    gtk_widget_set_margin_bottom(frameBox2, FRAME_MARGIN_BOTTOM);
+    gtk_widget_set_margin_end(frameBox2, FRAME_OUTPUT_MARGIN_END);
+    gtk_widget_set_margin_top(frameBox2, FRAME_OUTPUT_MARGIN_TOP);
+    gtk_widget_set_margin_bottom(frameBox2, FRAME_OUTPUT_MARGIN_BOTTOM);
     gtk_widget_set_size_request(frameBox2, -1, 200);
 
     // Label for frame "ip address"

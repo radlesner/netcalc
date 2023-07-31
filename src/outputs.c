@@ -2,6 +2,7 @@
 #include "headers/ipOperations.h"
 #include "headers/segmentForOctet.h"
 
+// -------------------------------------------------------------
 void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
 {
     unsigned int ipMaskTab[4]      = {0, 0, 0, 0};
@@ -42,6 +43,7 @@ void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
     printf("  Number of hosts: %ld\n", numHost);
 }
 
+// -------------------------------------------------------------
 void helpOutput(void)
 {
     printf("Usage: netcalc [ip_v4_address] [prefix_netmask]\n");
