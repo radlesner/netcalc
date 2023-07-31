@@ -2,6 +2,7 @@
 #include "headers/outputs.h"
 #include "headers/segmentForOctet.h"
 
+// -------------------------------------------------------------
 int maskToPrefix(unsigned int maskAddr[])
 {
     int prefix = 0;
@@ -25,13 +26,14 @@ int maskToPrefix(unsigned int maskAddr[])
     return prefix;
 }
 
+// -------------------------------------------------------------
 void getInterfaceInfo(char *interfaceName, unsigned int ipAddr[], unsigned int ipMask[])
 {
     struct ifaddrs *ifaddr, *ifa;
-    struct sockaddr_in *addr, *netmask;
+    struct sockaddr_in *sockAddrBuffer;
 
-    char ipAddrBuffer[INET_ADDRSTRLEN];
-    char subnetAddrBuffer[INET_ADDRSTRLEN];
+    char ipAddress[INET_ADDRSTRLEN];
+    char maskAddress[INET_ADDRSTRLEN];
 
     if (getifaddrs(&ifaddr) == -1)
     {
@@ -45,16 +47,18 @@ void getInterfaceInfo(char *interfaceName, unsigned int ipAddr[], unsigned int i
 
         if (ifa->ifa_addr->sa_family == AF_INET)
         {
-            addr = (struct sockaddr_in *)ifa->ifa_addr;
-            inet_ntop(AF_INET, &(addr->sin_addr), ipAddrBuffer, INET_ADDRSTRLEN);
+            // Get IP address
+            sockAddrBuffer = (struct sockaddr_in *)ifa->ifa_addr;
+            inet_ntop(AF_INET, &(sockAddrBuffer->sin_addr), ipAddress, INET_ADDRSTRLEN);
 
-            netmask = (struct sockaddr_in *)ifa->ifa_netmask;
-            inet_ntop(AF_INET, &(netmask->sin_addr), subnetAddrBuffer, INET_ADDRSTRLEN);
+            // Get Mask
+            sockAddrBuffer = (struct sockaddr_in *)ifa->ifa_netmask;
+            inet_ntop(AF_INET, &(sockAddrBuffer->sin_addr), maskAddress, INET_ADDRSTRLEN);
 
             if (!strcmp(interfaceName, ifa->ifa_name))
             {
-                getOctet(ipAddr, ipAddrBuffer);
-                getOctet(ipMask, subnetAddrBuffer);
+                getOctet(ipAddr, ipAddress);
+                getOctet(ipMask, maskAddress);
 
                 break;
             }
@@ -64,6 +68,7 @@ void getInterfaceInfo(char *interfaceName, unsigned int ipAddr[], unsigned int i
     freeifaddrs(ifaddr);
 }
 
+// -------------------------------------------------------------
 void showInterfaces(void)
 {
     struct ifaddrs *ifaddr, *ifa;
@@ -80,4 +85,32 @@ void showInterfaces(void)
         if (ifa->ifa_addr->sa_family == AF_INET) printf("> %s\n", ifa->ifa_name);
     }
     if (ifaddr != NULL) freeifaddrs(ifaddr);
+}
+
+// -------------------------------------------------------------
+bool isExistInterface(char *interfaceName)
+{
+    struct ifaddrs *ifaddr, *ifa;
+
+    if (getifaddrs(&ifaddr) == -1)
+    {
+        perror("getifaddrs");
+        exit(1);
+    }
+
+    for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
+    {
+        if (!ifa->ifa_addr) continue;
+
+        if (ifa->ifa_addr->sa_family == AF_INET)
+        {
+            if (!strcmp(interfaceName, ifa->ifa_name))
+            {
+                return true;
+                break;
+            }
+        }
+    }
+
+    return false;
 }

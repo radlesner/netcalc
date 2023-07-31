@@ -30,9 +30,17 @@ int main(int argc, char *argv[])
         {
             if (argc >= 3)
             {
-                getInterfaceInfo(argv[2], ipAddr, ipMask);
-                int maskPrefix = maskToPrefix(ipMask);
-                mainOutput(ipAddr, maskPrefix);
+                if (isExistInterface(argv[2]))
+                {
+                    getInterfaceInfo(argv[2], ipAddr, ipMask);
+                    int maskPrefix = maskToPrefix(ipMask);
+                    mainOutput(ipAddr, maskPrefix);
+                }
+                else
+                {
+                    printf("Interface %s not foud.\n|\n", argv[2]);
+                    showInterfaces();
+                }
             }
             else
             {
@@ -74,7 +82,21 @@ int main(int argc, char *argv[])
         }
         else
         {
-            printf("Unknown option: %s\n", argv[i]);
+            // Handling invalid command line arguments
+            if (argc == 2)
+            {
+                printf("Unknown option: %s\n", argv[i]);
+            }
+            else
+            {
+                if (i == 1)
+                    printf("Unknown options: %s", argv[i]);
+                else
+                    printf(", %s", argv[i]);
+
+                if (i == (argc - 1))
+                    printf("\n");
+            }
         }
     }
 
