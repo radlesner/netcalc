@@ -14,6 +14,8 @@ PointerBindsToType: false
 SortIncludes: true
 SpacesBeforeTrailingComments: 1
 UseTab: Never
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
 
 AlignConsecutiveMacros:
   Enabled: true
