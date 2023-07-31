@@ -16,7 +16,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#define VERSION_PROGRAM "4.0.1"
+#define VERSION_PROGRAM "4.0.2"
 
 extern GtkWidget *entryIpAddress;
 extern GtkWidget *entryMaskPrefix;
