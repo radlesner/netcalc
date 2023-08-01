@@ -14,7 +14,6 @@ apps:
   netcalc:
     command: netcalc
     plugs:
-      - x11
       - network-bind
       - locale-control
     environment:
@@ -74,6 +73,3 @@ parts:
       - libxrender1
       - hicolor-icon-theme
       - fonts-dejavu-core
-    filesets:
-      fonts:
-        - resources/fonts
