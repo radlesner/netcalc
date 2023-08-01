@@ -72,6 +72,7 @@ parts:
       - libxrandr2
       - libxrender1
       - hicolor-icon-theme
+      - fonts-dejavu-core
     filesets:
       fonts:
         - resources/fonts
