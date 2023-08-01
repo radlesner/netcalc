@@ -5,7 +5,7 @@
 #define GTK_WINDOW_WIDTH           770
 #define GTK_WINDOW_HEIGHT          300
 #define BOX_MARGIN                 10
-#define FONT_OUTPUT                "Source Code Pro"
+#define FONT_OUTPUT                "Monospace"
 #define FONT_OUTPUT_SIZE           13
 #define FONT_OUTPUT_VERSION_SIZE   11
 
