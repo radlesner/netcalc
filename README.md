@@ -10,6 +10,10 @@ It can retrieve data from the network interface.
     - gtk3 (for ArchLinux)
     - gtk+ (for Slackware)
 
+## TODO
+  - [ ] Optimize font for GTK window to snap build
+  - [ ] Add Gateway and DNS address to interface output
+
 ## Compile
 ```sh
 mkdir build
