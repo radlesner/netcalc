@@ -14,6 +14,7 @@ apps:
   netcalc:
     command: netcalc
     plugs:
+      - x11
       - network-bind
       - locale-control
     environment:
