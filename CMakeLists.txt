@@ -58,6 +58,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(APPLICATIONS_DIR "/usr/share/applications/")
 set(ICON_DIR "/usr/share/icons/hicolor/")
 
+# FONT
+set(FONT_DIR "/usr/share/fonts/")
+
 # PROGRAM
 add_executable(netcalc ${SOURCES})
 
@@ -75,6 +78,8 @@ endif()
 install(TARGETS netcalc RUNTIME DESTINATION bin)
 install(FILES resources/netcalc.desktop DESTINATION ${APPLICATIONS_DIR})
 install(FILES resources/netcalc-128x128.png DESTINATION ${ICON_DIR}/128x128/apps/)
+install(FILES resources/Cantarell-Regular.ttf DESTINATION ${FONT_DIR})
+install(FILES resources/SourceCodePro-Regular.ttf DESTINATION ${FONT_DIR})
 
 # UNINSTALL TARGET
 configure_file(

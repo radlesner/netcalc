@@ -5,7 +5,7 @@
 #define GTK_WINDOW_WIDTH           770
 #define GTK_WINDOW_HEIGHT          300
 #define BOX_MARGIN                 10
-#define FONT_OUTPUT                "Monospace"
+#define FONT_OUTPUT                "Source Code Pro"
 #define FONT_OUTPUT_SIZE           13
 #define FONT_OUTPUT_VERSION_SIZE   11
 
@@ -44,10 +44,13 @@ static void comboBoxAddOptions(GtkComboBoxText *comboBoxInterface)
 
     for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
     {
-        if (!ifa->ifa_addr) continue;
-        if (ifa->ifa_addr->sa_family == AF_INET) gtk_combo_box_text_append_text(comboBoxInterface, ifa->ifa_name);
+        if (!ifa->ifa_addr)
+            continue;
+        if (ifa->ifa_addr->sa_family == AF_INET)
+            gtk_combo_box_text_append_text(comboBoxInterface, ifa->ifa_name);
     }
-    if (ifaddr != NULL) freeifaddrs(ifaddr);
+    if (ifaddr != NULL)
+        freeifaddrs(ifaddr);
 }
 
 static void on_window_closed(void)

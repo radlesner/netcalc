@@ -3,6 +3,8 @@
 #include <pango/pango.h>
 #include <pango/pangocairo.h>
 
+#include <fontconfig/fontconfig.h>
+
 #include <arpa/inet.h>
 #include <errno.h>
 #include <ifaddrs.h>

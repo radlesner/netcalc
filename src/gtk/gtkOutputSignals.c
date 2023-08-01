@@ -99,6 +99,7 @@ void onComboBoxInterface(GtkComboBox *widget)
     gtk_label_set_text(GTK_LABEL(labelFrameBox2), result_text);
 }
 
+// -------------------------------------------------------------
 void calcButtonClick(void)
 {
     const char *ip_address = gtk_entry_get_text(GTK_ENTRY(entryIpAddress));

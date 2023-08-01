@@ -16,6 +16,9 @@ apps:
     plugs:
       - network-bind
       - locale-control
+    fontconfig:
+      - /usr/share/fonts/Cantarell-Regular.ttf
+      - /usr/share/fonts/SourceCodePro-Regular.ttf
     environment:
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
