@@ -71,6 +71,7 @@ parts:
       - libxkbcommon0
       - libxrandr2
       - libxrender1
+      - hicolor-icon-theme
     filesets:
       fonts:
         - resources/fonts
