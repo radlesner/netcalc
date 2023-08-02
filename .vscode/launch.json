@@ -28,13 +28,35 @@
             ]
         },
         {
-            "name": "Debug interfaces",
+            "name": "Debug interface (lo)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/debug/netcalc",
             "args": [
                 "-i",
                 "lo"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Debug interface (wlan)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/debug/netcalc",
+            "args": [
+                "-i",
+                "wlp4s0"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

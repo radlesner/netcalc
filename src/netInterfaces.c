@@ -2,6 +2,8 @@
 #include "headers/outputs.h"
 #include "headers/segmentForOctet.h"
 
+#define COMMAND_GATEWAY_ADDRESS "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\" {gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, \"\", $3); print $3}' /proc/net/route"
+
 // -------------------------------------------------------------
 int maskToPrefix(unsigned int maskAddr[])
 {
@@ -43,7 +45,8 @@ void getInterfaceInfo(char *interfaceName, unsigned int ipAddr[], unsigned int i
 
     for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
     {
-        if (ifa->ifa_addr == NULL) continue;
+        if (ifa->ifa_addr == NULL)
+            continue;
 
         if (ifa->ifa_addr->sa_family == AF_INET)
         {
@@ -81,10 +84,13 @@ void showInterfaces(void)
     printf("List of active interfaces\n");
     for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
     {
-        if (!ifa->ifa_addr) continue;
-        if (ifa->ifa_addr->sa_family == AF_INET) printf("> %s\n", ifa->ifa_name);
+        if (!ifa->ifa_addr)
+            continue;
+        if (ifa->ifa_addr->sa_family == AF_INET)
+            printf("> %s\n", ifa->ifa_name);
     }
-    if (ifaddr != NULL) freeifaddrs(ifaddr);
+    if (ifaddr != NULL)
+        freeifaddrs(ifaddr);
 }
 
 // -------------------------------------------------------------
@@ -100,7 +106,8 @@ bool isExistInterface(char *interfaceName)
 
     for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
     {
-        if (!ifa->ifa_addr) continue;
+        if (!ifa->ifa_addr)
+            continue;
 
         if (ifa->ifa_addr->sa_family == AF_INET)
         {
@@ -113,4 +120,69 @@ bool isExistInterface(char *interfaceName)
     }
 
     return false;
+}
+
+// -------------------------------------------------------------
+void getMacAddress(char macAddress[], char *interfaceName)
+{
+    struct ifaddrs *ifaddr, *ifa;
+
+    if (getifaddrs(&ifaddr) == -1)
+    {
+        perror("getifaddrs");
+        return;
+    }
+
+    for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
+    {
+        if (ifa->ifa_addr == NULL)
+            continue;
+
+        if (ifa->ifa_addr->sa_family == AF_PACKET)
+        {
+            struct sockaddr_ll *s = (struct sockaddr_ll *)ifa->ifa_addr;
+            unsigned char *mac    = s->sll_addr;
+
+            if (!strcmp(interfaceName, ifa->ifa_name))
+                snprintf(macAddress, 18, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+        }
+    }
+
+    freeifaddrs(ifaddr);
+    return;
+}
+// -------------------------------------------------------------
+void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
+{
+    char command[512];
+    char result[512];
+
+    unsigned int decimalIP;
+
+    FILE *fp;
+
+    snprintf(command, sizeof(command), COMMAND_GATEWAY_ADDRESS, interfaceName);
+
+    fp = popen(command, "r");
+    if (fp == NULL)
+    {
+        perror("popen");
+        exit(EXIT_FAILURE);
+    }
+
+    if (fgets(result, sizeof(result), fp) != NULL)
+    {
+        sscanf(result, "%x", &decimalIP); // Convert HEX to DEC
+
+        ipGatewayAddr[3] = (decimalIP >> 24) & 0xFF;
+        ipGatewayAddr[2] = (decimalIP >> 16) & 0xFF;
+        ipGatewayAddr[1] = (decimalIP >> 8) & 0xFF;
+        ipGatewayAddr[0] = decimalIP & 0xFF;
+    }
+    else
+        printf("Error: Unable to retrieve gateway address.\n");
+
+    pclose(fp);
+
+    return;
 }
