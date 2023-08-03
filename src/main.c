@@ -37,9 +37,7 @@ int main(int argc, char *argv[])
                     getInterfaceInfo(argv[2], ipAddr, ipMask);
                     int maskPrefix = maskToPrefix(ipMask);
                     mainOutput(ipAddr, maskPrefix);
-
-                    if (strcmp(argv[2], "lo"))
-                        additionalInterfaceOutput(argv[2]);
+                    additionalInterfaceOutput(argv[2]);
                 }
                 else
                 {

@@ -19,3 +19,4 @@ void showInterfaces(void);
 bool isExistInterface(char *interfaceName);
 void getMacAddress(char *macAddress, char *interfaceName);
 void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName);
+int isStaticInterface(const char *interface);

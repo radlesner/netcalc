@@ -151,6 +151,7 @@ void getMacAddress(char macAddress[], char *interfaceName)
     freeifaddrs(ifaddr);
     return;
 }
+
 // -------------------------------------------------------------
 void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
 {
@@ -179,10 +180,37 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
         ipGatewayAddr[1] = (decimalIP >> 8) & 0xFF;
         ipGatewayAddr[0] = decimalIP & 0xFF;
     }
-    else
-        printf("Error: Unable to retrieve gateway address.\n");
 
     pclose(fp);
 
     return;
+}
+
+// -------------------------------------------------------------
+int isStaticInterface(const char *interface)
+{
+    char command[22];
+    sprintf(command, "ip -o -4 addr show %s", interface);
+
+    FILE *fp = popen(command, "r");
+    if (fp == NULL)
+    {
+        perror("popen");
+        return -1;
+    }
+
+    char buffer[256];
+    int is_static = 0;
+
+    while (fgets(buffer, sizeof(buffer), fp) != NULL)
+    {
+        if (strstr(buffer, "dynamic") == NULL)
+        {
+            is_static = 1;
+            break;
+        }
+    }
+
+    pclose(fp);
+    return is_static;
 }

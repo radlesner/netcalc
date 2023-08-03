@@ -10,26 +10,35 @@ extern GtkWidget *entryMaskPrefix;
 
 extern GtkWidget *labelFrameBox1;
 extern GtkWidget *labelFrameBox2;
+extern GtkWidget *labelFrameInterfaceConfigOutput;
+
+extern char blankOutput[160];
+extern char blankOutputInterface[160];
 
 // -------------------------------------------------------------
 void onComboBoxInterface(GtkComboBox *widget)
 {
     GtkComboBoxText *comboBoxInterface = GTK_COMBO_BOX_TEXT(widget);
-    gchar *selected_text               = gtk_combo_box_text_get_active_text(comboBoxInterface);
-    unsigned int ipAddrTab[4]          = {0, 0, 0, 0};
-    unsigned int ipMaskTab[4]          = {0, 0, 0, 0};
-    unsigned int ipWildTab[4]          = {0, 0, 0, 0};
-    unsigned int ipNetAddrTab[4]       = {0, 0, 0, 0};
-    unsigned int ipBroadAddrTab[4]     = {0, 0, 0, 0};
-    unsigned int ipFirstHost[4]        = {0, 0, 0, 0};
-    unsigned int ipLastHost[4]         = {0, 0, 0, 0};
+    gchar *interfaceName               = gtk_combo_box_text_get_active_text(comboBoxInterface);
+
+    char macAddress[18];
+    char dhcpOutput[32];
+    unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
+    unsigned int ipAddrTab[4]        = {0, 0, 0, 0};
+    unsigned int ipMaskTab[4]        = {0, 0, 0, 0};
+    unsigned int ipWildTab[4]        = {0, 0, 0, 0};
+    unsigned int ipNetAddrTab[4]     = {0, 0, 0, 0};
+    unsigned int ipBroadAddrTab[4]   = {0, 0, 0, 0};
+    unsigned int ipFirstHost[4]      = {0, 0, 0, 0};
+    unsigned int ipLastHost[4]       = {0, 0, 0, 0};
     unsigned long int numHost;
     int maskPrefix;
     char result_text[251];
+    char resultTextInterfaceConfig[251];
 
-    g_print("Selected interface: %s\n", selected_text);
+    g_print("Selected interface: %s\n", interfaceName);
 
-    getInterfaceInfo(selected_text, ipAddrTab, ipMaskTab);
+    getInterfaceInfo(interfaceName, ipAddrTab, ipMaskTab);
     maskPrefix = maskToPrefix(ipMaskTab);
 
     /*
@@ -47,6 +56,27 @@ void onComboBoxInterface(GtkComboBox *widget)
     getBroadAddr(ipBroadAddrTab, ipNetAddrTab, ipMaskTab);
     getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
     numHost = getHostNumber(maskPrefix);
+
+    if (!isStaticInterface(interfaceName))
+        sprintf(dhcpOutput, " Configuration.....: DHCP");
+    else
+        sprintf(dhcpOutput, " Configuration.....: Static");
+
+    getMacAddress(macAddress, interfaceName);
+    getGatewayAddr(ipGatewayAddrTab, interfaceName);
+
+    sprintf(resultTextInterfaceConfig,
+            "%s\n"
+            " MAC address.......: %s\n"
+            " Gateway address...: %d.%d.%d.%d",
+            dhcpOutput,
+            macAddress,
+            ipGatewayAddrTab[0],
+            ipGatewayAddrTab[1],
+            ipGatewayAddrTab[2],
+            ipGatewayAddrTab[3]);
+
+    gtk_label_set_text(GTK_LABEL(labelFrameInterfaceConfigOutput), resultTextInterfaceConfig);
 
     sprintf(result_text,
             " IP address.......: %d.%d.%d.%d\n"

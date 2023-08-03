@@ -45,13 +45,19 @@ void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
 // -------------------------------------------------------------
 void additionalInterfaceOutput(char *interfaceName)
 {
-    unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
     char macAddress[18];
+    unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
 
     getMacAddress(macAddress, interfaceName);
     getGatewayAddr(ipGatewayAddrTab, interfaceName);
 
     printf("\n");
+
+    if (!isStaticInterface(interfaceName))
+        printf("    Configuration: DHCP\n");
+    else
+        printf("    Configuration: Static\n");
+
     printf("      MAC address: %s\n", macAddress);
     printf("  Gateway address: %d.%d.%d.%d\n", ipGatewayAddrTab[0], ipGatewayAddrTab[1], ipGatewayAddrTab[2], ipGatewayAddrTab[3]);
 }
