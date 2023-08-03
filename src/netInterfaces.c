@@ -143,10 +143,12 @@ void getMacAddress(char macAddress[], char *interfaceName)
         if (ifa->ifa_addr->sa_family == AF_LINK)
         {
             struct sockaddr_dl *sdl = (struct sockaddr_dl *)ifa->ifa_addr;
-            unsigned char *mac      = (unsigned char *)LLADDR(sdl);
-
             if (strcmp(interfaceName, ifa->ifa_name) == 0)
+            {
+                unsigned char *mac = (unsigned char *)(sdl->sdl_data + sdl->sdl_nlen);
                 snprintf(macAddress, 18, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+                break;
+            }
         }
     }
 
