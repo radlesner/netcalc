@@ -2,8 +2,8 @@
 #include "headers/gtkOutputSignals.h"
 
 #define WINDOW_RESIZABLE           FALSE
-#define GTK_WINDOW_WIDTH           770
-#define GTK_WINDOW_HEIGHT          300
+#define GTK_WINDOW_WIDTH           100
+#define GTK_WINDOW_HEIGHT          100
 #define BOX_MARGIN                 10
 #define FONT_OUTPUT                "Monospace"
 #define FONT_OUTPUT_SIZE           13
@@ -73,6 +73,9 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_init(&argc, &argv);
     setlocale(LC_ALL, "");
 
+    char windowTitle[24];
+    sprintf(windowTitle, "Netcalc v%s", VERSION_PROGRAM);
+
     sprintf(blankOutput,
             " IP address.......:\n"
             " Mask address.....:\n"
@@ -90,7 +93,7 @@ void gtkWindowInit(int argc, char *argv[])
 
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(window), "Netcalc");
+    gtk_window_set_title(GTK_WINDOW(window), windowTitle);
     gtk_window_set_default_size(GTK_WINDOW(window), GTK_WINDOW_WIDTH, GTK_WINDOW_HEIGHT);
     gtk_window_set_resizable(GTK_WINDOW(window), WINDOW_RESIZABLE);
     g_signal_connect(window, "destroy", G_CALLBACK(on_window_closed), NULL);
@@ -141,7 +144,6 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_start(frameAddressOutput, FRAME_OUTPUT_MARGIN_START);
     gtk_widget_set_margin_end(frameAddressOutput, FRAME_OUTPUT_MARGIN_END);
     gtk_widget_set_margin_bottom(frameAddressOutput, FRAME_OUTPUT_MARGIN_BOTTOM);
-    gtk_widget_set_size_request(frameAddressOutput, -1, 200);
 
     // Label for frame "ip address"
     labelFrameBox1 = gtk_label_new(blankOutput);
@@ -154,7 +156,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_start(boxCalcButton, BUTTON_MARGIN_START);
     gtk_widget_set_margin_end(boxCalcButton, BUTTON_MARGIN_END);
     gtk_widget_set_margin_top(boxCalcButton, BUTTON_MARGIN_TOP);
-    gtk_widget_set_margin_bottom(boxCalcButton, 130);
+    gtk_widget_set_margin_bottom(boxCalcButton, 66);
 
     // Making button "Calculate"
     GtkWidget *calcButton = gtk_button_new_with_label("Calculate");
@@ -198,7 +200,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_end(frameInterfaceOutput, FRAME_OUTPUT_MARGIN_END);
     gtk_widget_set_margin_top(frameInterfaceOutput, FRAME_OUTPUT_MARGIN_TOP);
     gtk_widget_set_margin_bottom(frameInterfaceOutput, FRAME_OUTPUT_MARGIN_BOTTOM);
-    gtk_widget_set_size_request(frameInterfaceOutput, -1, 200);
+    gtk_widget_set_size_request(frameInterfaceOutput, -1, 180);
 
     // Label for frame "ip address"
     labelFrameBox2 = gtk_label_new(blankOutput);
@@ -210,33 +212,14 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_box_pack_start(GTK_BOX(box2), frameInterfaceConfigOutput, TRUE, TRUE, 0);
     gtk_widget_set_margin_start(frameInterfaceConfigOutput, 0);
     gtk_widget_set_margin_end(frameInterfaceConfigOutput, FRAME_OUTPUT_MARGIN_END);
-    gtk_widget_set_margin_top(frameInterfaceConfigOutput, FRAME_OUTPUT_MARGIN_TOP);
-    gtk_widget_set_margin_bottom(frameInterfaceConfigOutput, FRAME_OUTPUT_MARGIN_BOTTOM);
-    gtk_widget_set_size_request(frameInterfaceConfigOutput, -1, 100);
+    gtk_widget_set_margin_top(frameInterfaceConfigOutput, 0);
+    gtk_widget_set_margin_bottom(frameInterfaceConfigOutput, 10);
+    gtk_widget_set_size_request(frameInterfaceConfigOutput, -1, 90);
 
     // Label for additional output for interface
     labelFrameInterfaceConfigOutput = gtk_label_new(blankOutputInterface);
     gtk_label_set_xalign(GTK_LABEL(labelFrameInterfaceConfigOutput), 0.0);
     gtk_container_add(GTK_CONTAINER(frameInterfaceConfigOutput), labelFrameInterfaceConfigOutput);
-
-    // Making separator container
-    GtkWidget *separatorBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    gtk_box_pack_start(GTK_BOX(box2), separatorBox, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(separatorBox, -1, 44);
-
-    // Program version output
-    GtkWidget *labelVersionProgramBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    gtk_box_pack_start(GTK_BOX(separatorBox), labelVersionProgramBox, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(GTK_WIDGET(labelVersionProgramBox), 50, -1);
-    gtk_widget_set_margin_top(labelVersionProgramBox, 20);
-    gtk_widget_set_margin_start(labelVersionProgramBox, 218);
-
-    char versionProgramOutput[24];
-    sprintf(versionProgramOutput, "Netcalc v%s ", VERSION_PROGRAM);
-
-    GtkWidget *labelSeparatorBox = gtk_label_new(versionProgramOutput);
-    gtk_container_add(GTK_CONTAINER(labelVersionProgramBox), labelSeparatorBox);
-    gtk_label_set_xalign(GTK_LABEL(labelSeparatorBox), 1);
 
     // ------------------ SET FONT FOR OUTPUTS ------------------
 
@@ -256,22 +239,6 @@ void gtkWindowInit(int argc, char *argv[])
 
     g_object_unref(providerFontGtkOutput);
     pango_font_description_free(fontGtkOutput);
-
-    // Setting font for version program label
-    PangoFontDescription *fontGtkVersionProgram = pango_font_description_new();
-    pango_font_description_set_family(fontGtkVersionProgram, FONT_OUTPUT);
-    pango_font_description_set_absolute_size(fontGtkVersionProgram, FONT_OUTPUT_VERSION_SIZE * PANGO_SCALE);
-
-    gchar *cssFontGtkVersionProgram = g_strdup_printf("* { font-family: \"%s\"; font-size: %dpx; }", pango_font_description_get_family(fontGtkVersionProgram), (int)pango_font_description_get_size(fontGtkVersionProgram) / PANGO_SCALE);
-
-    GtkCssProvider *providerFontGtkVersionProgram = gtk_css_provider_new();
-    gtk_css_provider_load_from_data(providerFontGtkVersionProgram, cssFontGtkVersionProgram, -1, NULL);
-    g_free(cssFontGtkVersionProgram);
-
-    gtk_style_context_add_provider(gtk_widget_get_style_context(labelVersionProgramBox), GTK_STYLE_PROVIDER(providerFontGtkVersionProgram), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-    g_object_unref(providerFontGtkVersionProgram);
-    pango_font_description_free(fontGtkVersionProgram);
 
     gtk_widget_show_all(window);
     gtk_main();
