@@ -127,9 +127,6 @@ void getMacAddress(char macAddress[], char *interfaceName)
 {
 #if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__) || defined(__ghostbsd__)
 
-    freeifaddrs(ifaddr);
-    return;
-
     struct ifaddrs *ifaddr, *ifa;
 
     if (getifaddrs(&ifaddr) == -1)
@@ -181,6 +178,9 @@ void getMacAddress(char macAddress[], char *interfaceName)
                 snprintf(macAddress, 18, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
         }
     }
+
+    freeifaddrs(ifaddr);
+    return;
 
 #define OTHER_SYSTEM
 #endif
