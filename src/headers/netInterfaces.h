@@ -4,6 +4,10 @@
 #include <string.h>
 
 #if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__) || defined(__ghostbsd__)
+#define BSD_SYSTEM
+#endif
+
+#ifdef BSD_SYSTEM
 
 #include <arpa/inet.h>
 #include <ifaddrs.h>
@@ -12,9 +16,7 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <unistd.h>
 
-#define BSD_SYSTEM
 #else
 
 #include <arpa/inet.h>
@@ -28,7 +30,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#define OTHER_SYSTEM
 #endif
 
 int maskToPrefix(unsigned int maskAddr[]);

@@ -128,7 +128,7 @@ bool isExistInterface(char *interfaceName)
 // -------------------------------------------------------------
 void getMacAddress(char macAddress[], char *interfaceName)
 {
-#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__) || defined(__ghostbsd__)
+#ifdef BSD_SYSTEM
 
     char command[256];
     snprintf(command, sizeof(command), "ifconfig %s | grep -Eo '([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})'", interfaceName);
@@ -154,7 +154,6 @@ void getMacAddress(char macAddress[], char *interfaceName)
     pclose(fp);
     return;
 
-#define BSD_SYSTEM
 #else
 
     struct ifaddrs *ifaddr, *ifa;
@@ -183,7 +182,6 @@ void getMacAddress(char macAddress[], char *interfaceName)
     freeifaddrs(ifaddr);
     return;
 
-#define OTHER_SYSTEM
 #endif
 }
 
