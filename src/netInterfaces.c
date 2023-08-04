@@ -140,15 +140,32 @@ void getMacAddress(char macAddress[], char *interfaceName)
         if (ifa->ifa_addr == NULL)
             continue;
 
-        if (ifa->ifa_addr->sa_family == AF_LINK)
+        if (strcmp(ifa->ifa_name, interfaceName) == 0)
         {
-            struct sockaddr_dl *sdl = (struct sockaddr_dl *)ifa->ifa_addr;
-            if (strcmp(interfaceName, ifa->ifa_name) == 0)
+            int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+            if (sockfd == -1)
             {
-                unsigned char *mac = (unsigned char *)(sdl->sdl_data + sdl->sdl_nlen);
-                snprintf(macAddress, 18, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
-                break;
+                perror("socket");
+                freeifaddrs(ifaddr);
+                return;
             }
+
+            struct ifreq ifr;
+            memset(&ifr, 0, sizeof(ifr));
+            strncpy(ifr.ifr_name, interfaceName, IFNAMSIZ - 1);
+
+            if (ioctl(sockfd, SIOCGIFHWADDR, &ifr) != -1)
+            {
+                unsigned char *mac = (unsigned char *)ifr.ifr_hwaddr.sa_data;
+                snprintf(macAddress, 18, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+            }
+            else
+            {
+                perror("ioctl");
+            }
+
+            close(sockfd);
+            break;
         }
     }
 
