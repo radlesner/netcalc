@@ -227,47 +227,7 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
 int isStaticInterface(const char *interface)
 {
 #ifdef BSD_SYSTEM
-    struct ifreq ifr;
-    int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-
-    if (sockfd < 0)
-    {
-        perror("socket");
-        return -1;
-    }
-
-    memset(&ifr, 0, sizeof(ifr));
-    strncpy(ifr.ifr_name, interface, IFNAMSIZ - 1);
-
-    if (ioctl(sockfd, SIOCGIFFLAGS, &ifr) < 0)
-    {
-        perror("ioctl");
-        close(sockfd);
-        return -1;
-    }
-
-    if (ifr.ifr_flags & IFF_DHCP)
-    {
-        close(sockfd);
-        return 0; // DHCP
-    }
-
-    if (ioctl(sockfd, SIOCGIFADDR, &ifr) < 0)
-    {
-        perror("ioctl");
-        close(sockfd);
-        return -1;
-    }
-
-    struct sockaddr_in *addr = (struct sockaddr_in *)&ifr.ifr_addr;
-    if (addr->sin_addr.s_addr != 0)
-    {
-        close(sockfd);
-        return 1; // Static IP
-    }
-
-    close(sockfd);
-    return -1; // Unknown
+    return 0;
 #else
     char command[22];
     sprintf(command, "ip -o -4 addr show %s", interface);

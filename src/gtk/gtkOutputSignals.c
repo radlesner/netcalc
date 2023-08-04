@@ -57,10 +57,14 @@ void onComboBoxInterface(GtkComboBox *widget)
     getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
     numHost = getHostNumber(maskPrefix);
 
+#ifdef BSD_SYSTEM
+    sprintf(dhcpOutput, " Configuration.....: not supported");
+#else
     if (!isStaticInterface(interfaceName))
         sprintf(dhcpOutput, " Configuration.....: DHCP");
     else
         sprintf(dhcpOutput, " Configuration.....: Static");
+#endif
 
     getMacAddress(macAddress, interfaceName);
     getGatewayAddr(ipGatewayAddrTab, interfaceName);
@@ -69,7 +73,7 @@ void onComboBoxInterface(GtkComboBox *widget)
     sprintf(resultTextInterfaceConfig,
             "%s\n"
             " MAC address.......: %s\n"
-            " Gateway address...: not supported yet",
+            " Gateway address...: not supported",
             dhcpOutput,
             macAddress);
 #else
