@@ -66,7 +66,6 @@ void onComboBoxInterface(GtkComboBox *widget)
     getGatewayAddr(ipGatewayAddrTab, interfaceName);
 
 #ifdef BSD_SYSTEM
-
     sprintf(resultTextInterfaceConfig,
             "%s\n"
             " MAC address.......: %s\n"

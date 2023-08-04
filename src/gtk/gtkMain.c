@@ -7,7 +7,7 @@
 #define BOX_MARGIN                 10
 #define FONT_OUTPUT                "Monospace"
 #define FONT_OUTPUT_SIZE           13
-#define FONT_OUTPUT_VERSION_SIZE   11
+#define FONT_OUTPUT_VERSION_SIZE   10
 
 #define FRAME_OUTPUT_MARGIN_START  10
 #define FRAME_OUTPUT_MARGIN_END    10
@@ -65,6 +65,25 @@ static void on_window_closed(void)
     gtk_main_quit();
 }
 
+// -------------------------------------------------------------
+static void setLabelOutputFont(GtkWidget *label, char *fontName, int fontSize)
+{
+    // Setting font for outputs addresses labels
+    PangoFontDescription *fontGtkOutput = pango_font_description_new();
+    pango_font_description_set_family(fontGtkOutput, fontName);
+    pango_font_description_set_absolute_size(fontGtkOutput, fontSize * PANGO_SCALE);
+
+    gchar *cssFontGtkOutput               = g_strdup_printf("* { font-family: \"%s\"; font-size: %dpx; }", pango_font_description_get_family(fontGtkOutput), (int)pango_font_description_get_size(fontGtkOutput) / PANGO_SCALE);
+    GtkCssProvider *providerFontGtkOutput = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(providerFontGtkOutput, cssFontGtkOutput, -1, NULL);
+    g_free(cssFontGtkOutput);
+
+    gtk_style_context_add_provider(gtk_widget_get_style_context(label), GTK_STYLE_PROVIDER(providerFontGtkOutput), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+    g_object_unref(providerFontGtkOutput);
+    pango_font_description_free(fontGtkOutput);
+}
+
 // --------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------- GTK MAIN --------------------------------------------------------
 // --------------------------------------------------------------------------------------------------------------------------
@@ -72,9 +91,6 @@ void gtkWindowInit(int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
     setlocale(LC_ALL, "");
-
-    char windowTitle[24];
-    sprintf(windowTitle, "Netcalc v%s", VERSION_PROGRAM);
 
     sprintf(blankOutput,
             " IP address.......:\n"
@@ -93,13 +109,13 @@ void gtkWindowInit(int argc, char *argv[])
 
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(window), windowTitle);
+    gtk_window_set_title(GTK_WINDOW(window), "Netcalc");
     gtk_window_set_default_size(GTK_WINDOW(window), GTK_WINDOW_WIDTH, GTK_WINDOW_HEIGHT);
     gtk_window_set_resizable(GTK_WINDOW(window), WINDOW_RESIZABLE);
     g_signal_connect(window, "destroy", G_CALLBACK(on_window_closed), NULL);
 
     // Making main box
-    GtkWidget *main_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, BOX_MARGIN);
+    GtkWidget *main_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_container_add(GTK_CONTAINER(window), main_box);
 
     // ------------------ FIRST BOX ------------------
@@ -152,17 +168,30 @@ void gtkWindowInit(int argc, char *argv[])
 
     // Making container for a button
     GtkWidget *boxCalcButton = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    gtk_box_pack_end(GTK_BOX(box1), boxCalcButton, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(box1), boxCalcButton, FALSE, FALSE, 0);
     gtk_widget_set_margin_start(boxCalcButton, BUTTON_MARGIN_START);
     gtk_widget_set_margin_end(boxCalcButton, BUTTON_MARGIN_END);
     gtk_widget_set_margin_top(boxCalcButton, BUTTON_MARGIN_TOP);
-    gtk_widget_set_margin_bottom(boxCalcButton, 66);
+    // gtk_widget_set_margin_bottom(boxCalcButton, 66);
 
     // Making button "Calculate"
     GtkWidget *calcButton = gtk_button_new_with_label("Calculate");
     gtk_container_set_border_width(GTK_CONTAINER(calcButton), 0);
     gtk_box_pack_start(GTK_BOX(boxCalcButton), calcButton, FALSE, FALSE, 0);
     g_signal_connect(calcButton, "clicked", G_CALLBACK(calcButtonClick), NULL);
+
+    // Program version output
+    GtkWidget *boxVersionProgramBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    gtk_box_pack_start(GTK_BOX(box1), boxVersionProgramBox, TRUE, TRUE, 0);
+    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 42);
+    gtk_widget_set_margin_start(boxVersionProgramBox, 2);
+
+    char versionProgramOutput[24];
+    sprintf(versionProgramOutput, "Netcalc v%s ", VERSION_PROGRAM);
+
+    GtkWidget *labelVersionProgram = gtk_label_new(versionProgramOutput);
+    gtk_container_add(GTK_CONTAINER(boxVersionProgramBox), labelVersionProgram);
+    gtk_label_set_yalign(GTK_LABEL(labelVersionProgram), 1);
 
     // ------------------ SECOND BOX ------------------
 
@@ -223,22 +252,10 @@ void gtkWindowInit(int argc, char *argv[])
 
     // ------------------ SET FONT FOR OUTPUTS ------------------
 
-    // Setting font for outputs addresses labels
-    PangoFontDescription *fontGtkOutput = pango_font_description_new();
-    pango_font_description_set_family(fontGtkOutput, FONT_OUTPUT);
-    pango_font_description_set_absolute_size(fontGtkOutput, FONT_OUTPUT_SIZE * PANGO_SCALE);
-
-    gchar *cssFontGtkOutput               = g_strdup_printf("* { font-family: \"%s\"; font-size: %dpx; }", pango_font_description_get_family(fontGtkOutput), (int)pango_font_description_get_size(fontGtkOutput) / PANGO_SCALE);
-    GtkCssProvider *providerFontGtkOutput = gtk_css_provider_new();
-    gtk_css_provider_load_from_data(providerFontGtkOutput, cssFontGtkOutput, -1, NULL);
-    g_free(cssFontGtkOutput);
-
-    gtk_style_context_add_provider(gtk_widget_get_style_context(labelFrameBox1), GTK_STYLE_PROVIDER(providerFontGtkOutput), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-    gtk_style_context_add_provider(gtk_widget_get_style_context(labelFrameBox2), GTK_STYLE_PROVIDER(providerFontGtkOutput), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-    gtk_style_context_add_provider(gtk_widget_get_style_context(labelFrameInterfaceConfigOutput), GTK_STYLE_PROVIDER(providerFontGtkOutput), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-    g_object_unref(providerFontGtkOutput);
-    pango_font_description_free(fontGtkOutput);
+    setLabelOutputFont(labelFrameBox1, FONT_OUTPUT, FONT_OUTPUT_SIZE);
+    setLabelOutputFont(labelFrameBox2, FONT_OUTPUT, FONT_OUTPUT_SIZE);
+    setLabelOutputFont(labelFrameInterfaceConfigOutput, FONT_OUTPUT, FONT_OUTPUT_SIZE);
+    setLabelOutputFont(labelVersionProgram, FONT_OUTPUT, FONT_OUTPUT_VERSION_SIZE);
 
     gtk_widget_show_all(window);
     gtk_main();
