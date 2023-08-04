@@ -227,33 +227,47 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
 int isStaticInterface(const char *interface)
 {
 #ifdef BSD_SYSTEM
-    char command[100];
-    sprintf(command, "ifconfig %s", interface);
+    struct ifreq ifr;
+    int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 
-    FILE *fp = popen(command, "r");
-    if (fp == NULL)
+    if (sockfd < 0)
     {
-        perror("popen");
+        perror("socket");
         return -1;
     }
 
-    char buffer[256];
-    int is_static = 0;
+    memset(&ifr, 0, sizeof(ifr));
+    strncpy(ifr.ifr_name, interface, IFNAMSIZ - 1);
 
-    while (fgets(buffer, sizeof(buffer), fp) != NULL)
+    if (ioctl(sockfd, SIOCGIFFLAGS, &ifr) < 0)
     {
-        if (strstr(buffer, "inet ") != NULL)
-        {
-            if (strstr(buffer, "dynamic") == NULL)
-            {
-                is_static = 1;
-                break;
-            }
-        }
+        perror("ioctl");
+        close(sockfd);
+        return -1;
     }
 
-    pclose(fp);
-    return is_static;
+    if (ifr.ifr_flags & IFF_DHCP)
+    {
+        close(sockfd);
+        return 0; // DHCP
+    }
+
+    if (ioctl(sockfd, SIOCGIFADDR, &ifr) < 0)
+    {
+        perror("ioctl");
+        close(sockfd);
+        return -1;
+    }
+
+    struct sockaddr_in *addr = (struct sockaddr_in *)&ifr.ifr_addr;
+    if (addr->sin_addr.s_addr != 0)
+    {
+        close(sockfd);
+        return 1; // Static IP
+    }
+
+    close(sockfd);
+    return -1; // Unknown
 #else
     char command[22];
     sprintf(command, "ip -o -4 addr show %s", interface);
