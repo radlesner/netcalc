@@ -127,49 +127,28 @@ void getMacAddress(char macAddress[], char *interfaceName)
 {
 #if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__) || defined(__ghostbsd__)
 
-    struct ifaddrs *ifaddr, *ifa;
+    char command[256];
+    snprintf(command, sizeof(command), "ifconfig %s | grep -Eo '([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})'", interfaceName);
 
-    if (getifaddrs(&ifaddr) == -1)
+    if (!strcmp(interfaceName, "lo"))
     {
-        perror("getifaddrs");
+        sptintf(macAddress, "00:00:00:00:00:00");
         return;
     }
 
-    for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
+    FILE *fp = popen(command, "r");
+    if (fp == NULL)
     {
-        if (ifa->ifa_addr == NULL)
-            continue;
-
-        if (strcmp(ifa->ifa_name, interfaceName) == 0)
-        {
-            int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-            if (sockfd == -1)
-            {
-                perror("socket");
-                freeifaddrs(ifaddr);
-                return;
-            }
-
-            struct ifreq ifr;
-            memset(&ifr, 0, sizeof(ifr));
-            strncpy(ifr.ifr_name, interfaceName, IFNAMSIZ - 1);
-
-            if (ioctl(sockfd, SIOCGIFHWADDR, &ifr) != -1)
-            {
-                unsigned char *mac = (unsigned char *)ifr.ifr_hwaddr.sa_data;
-                snprintf(macAddress, 18, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
-            }
-            else
-            {
-                perror("ioctl");
-            }
-
-            close(sockfd);
-            break;
-        }
+        perror("popen");
+        return;
     }
 
-    freeifaddrs(ifaddr);
+    if (fgets(macAddress, 18, fp) == NULL)
+    {
+        perror("fgets");
+    }
+
+    pclose(fp);
     return;
 
 #define BSD_SYSTEM
