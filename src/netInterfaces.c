@@ -188,6 +188,9 @@ void getMacAddress(char macAddress[], char *interfaceName)
 // -------------------------------------------------------------
 void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
 {
+#ifdef BSD_SYSTEM
+    return;
+#else
     char command[512];
     char result[512];
 
@@ -217,6 +220,7 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
     pclose(fp);
 
     return;
+#endif
 }
 
 // -------------------------------------------------------------

@@ -5,6 +5,8 @@
 
 #if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__) || defined(__DragonFly__) || defined(__ghostbsd__)
 #define BSD_SYSTEM
+#else
+#define OTHER_SYSTEM
 #endif
 
 #ifdef BSD_SYSTEM

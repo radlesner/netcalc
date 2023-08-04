@@ -65,6 +65,15 @@ void onComboBoxInterface(GtkComboBox *widget)
     getMacAddress(macAddress, interfaceName);
     getGatewayAddr(ipGatewayAddrTab, interfaceName);
 
+#ifdef BSD_SYSTEM
+
+    sprintf(resultTextInterfaceConfig,
+            "%s\n"
+            " MAC address.......: %s\n"
+            " Gateway address...: not supported yet",
+            dhcpOutput,
+            macAddress);
+#else
     sprintf(resultTextInterfaceConfig,
             "%s\n"
             " MAC address.......: %s\n"
@@ -75,6 +84,7 @@ void onComboBoxInterface(GtkComboBox *widget)
             ipGatewayAddrTab[1],
             ipGatewayAddrTab[2],
             ipGatewayAddrTab[3]);
+#endif
 
     gtk_label_set_text(GTK_LABEL(labelFrameInterfaceConfigOutput), resultTextInterfaceConfig);
 
