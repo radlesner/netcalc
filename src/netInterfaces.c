@@ -132,7 +132,7 @@ void getMacAddress(char macAddress[], char *interfaceName)
 
     if (!strcmp(interfaceName, "lo"))
     {
-        sptintf(macAddress, "00:00:00:00:00:00");
+        sprintf(macAddress, "00:00:00:00:00:00");
         return;
     }
 
