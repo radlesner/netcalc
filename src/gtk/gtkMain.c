@@ -131,8 +131,6 @@ void gtkWindowInit(int argc, char *argv[])
     // Making label "IP address"
     GtkWidget *labelIpAddressBox1 = gtk_label_new("IP address: ");
     gtk_box_pack_start(GTK_BOX(fieldTextBox1), labelIpAddressBox1, FALSE, FALSE, 0);
-    gtk_label_set_xalign(GTK_LABEL(labelIpAddressBox1), 0.0);
-    gtk_label_set_yalign(GTK_LABEL(labelIpAddressBox1), 0.5);
 
     // Making textbox "IP address"
     entryIpAddress = gtk_entry_new();
@@ -144,8 +142,6 @@ void gtkWindowInit(int argc, char *argv[])
     // Making label "Subnet mask"
     GtkWidget *labelPrefixBox1 = gtk_label_new("  /  ");
     gtk_box_pack_start(GTK_BOX(fieldTextBox1), labelPrefixBox1, FALSE, FALSE, 0);
-    gtk_label_set_xalign(GTK_LABEL(labelPrefixBox1), 0.0);
-    gtk_label_set_yalign(GTK_LABEL(labelPrefixBox1), 0.5);
 
     // Making textbox "Subnet mask"
     entryMaskPrefix = gtk_entry_new();
@@ -159,7 +155,9 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_box_pack_start(GTK_BOX(box1), frameAddressOutput, TRUE, TRUE, 0);
     gtk_widget_set_margin_start(frameAddressOutput, FRAME_OUTPUT_MARGIN_START);
     gtk_widget_set_margin_end(frameAddressOutput, FRAME_OUTPUT_MARGIN_END);
+    gtk_widget_set_margin_top(frameAddressOutput, 0);
     gtk_widget_set_margin_bottom(frameAddressOutput, FRAME_OUTPUT_MARGIN_BOTTOM);
+    gtk_widget_set_size_request(GTK_WIDGET(frameAddressOutput), -1, 200);
 
     // Label for frame "ip address"
     labelFrameBox1 = gtk_label_new(blankOutput);
@@ -183,7 +181,7 @@ void gtkWindowInit(int argc, char *argv[])
     // Program version output
     GtkWidget *boxVersionProgramBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_pack_start(GTK_BOX(box1), boxVersionProgramBox, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 42);
+    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 55);
     gtk_widget_set_margin_start(boxVersionProgramBox, 2);
 
     char versionProgramOutput[24];
@@ -206,8 +204,9 @@ void gtkWindowInit(int argc, char *argv[])
     // Create the label for the combo box
     GtkWidget *labelComboBox = gtk_label_new("Select an interface: ");
     gtk_box_pack_start(GTK_BOX(boxComboBox), labelComboBox, FALSE, FALSE, 0);
-    gtk_label_set_xalign(GTK_LABEL(labelComboBox), 0.0);
-    gtk_label_set_yalign(GTK_LABEL(labelComboBox), 0.7);
+    // gtk_label_set_xalign(GTK_LABEL(labelComboBox), 0.0);
+    // gtk_label_set_yalign(GTK_LABEL(labelComboBox), 0.5);
+    gtk_widget_set_margin_top(labelComboBox, 10);
 
     // Create the combo box
     GtkWidget *fixed                   = gtk_fixed_new();
@@ -229,7 +228,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_end(frameInterfaceOutput, FRAME_OUTPUT_MARGIN_END);
     gtk_widget_set_margin_top(frameInterfaceOutput, FRAME_OUTPUT_MARGIN_TOP);
     gtk_widget_set_margin_bottom(frameInterfaceOutput, FRAME_OUTPUT_MARGIN_BOTTOM);
-    gtk_widget_set_size_request(frameInterfaceOutput, -1, 180);
+    gtk_widget_set_size_request(frameInterfaceOutput, -1, 200);
 
     // Label for frame "ip address"
     labelFrameBox2 = gtk_label_new(blankOutput);
