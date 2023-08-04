@@ -2,7 +2,10 @@
 #include "headers/outputs.h"
 #include "headers/segmentForOctet.h"
 
-#define COMMAND_GATEWAY_ADDRESS "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\" {gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, \"\", $3); print $3}' /proc/net/route"
+#define COMMAND_GATEWAY_ADDRESS                                                       \
+    "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\" "                 \
+    "{gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, \"\", $3); print $3}'" \
+    " /proc/net/route"
 
 // -------------------------------------------------------------
 int maskToPrefix(unsigned int maskAddr[])
@@ -130,7 +133,7 @@ void getMacAddress(char macAddress[], char *interfaceName)
     char command[256];
     snprintf(command, sizeof(command), "ifconfig %s | grep -Eo '([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})'", interfaceName);
 
-    if (!strcmp(interfaceName, "lo"))
+    if (!strcmp(interfaceName, "lo0"))
     {
         sprintf(macAddress, "00:00:00:00:00:00");
         return;
