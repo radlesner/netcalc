@@ -47,9 +47,21 @@ void additionalInterfaceOutput(char *interfaceName)
 {
     char macAddress[18];
     unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
+    unsigned int ipDnsAddrTab[4]     = {0, 0, 0, 0};
+
+    /*
+        The following void functions perform calculations related to IP addresses
+        and modify the values in the arrays of the parent function.
+
+        NOTE: The void functions in this code change values directly in memory
+        parent function arrays.
+
+        Arrays in the code always have the abbreviation "Tab" at the end of the name
+    */
 
     getMacAddress(macAddress, interfaceName);
     getGatewayAddr(ipGatewayAddrTab, interfaceName);
+    getDnsAddress(ipDnsAddrTab, interfaceName);
 
     printf("\n");
 
@@ -60,6 +72,7 @@ void additionalInterfaceOutput(char *interfaceName)
 
     printf("      MAC address: %s\n", macAddress);
     printf("  Gateway address: %d.%d.%d.%d\n", ipGatewayAddrTab[0], ipGatewayAddrTab[1], ipGatewayAddrTab[2], ipGatewayAddrTab[3]);
+    printf("      DNS address: %d.%d.%d.%d\n", ipDnsAddrTab[0], ipDnsAddrTab[1], ipDnsAddrTab[2], ipDnsAddrTab[3]);
 }
 
 // -------------------------------------------------------------

@@ -15,7 +15,7 @@ It can retrieve data from the network interface.
   - [x] Add DHCP configuration for interface
   - [x] Add MAC address for interface
   - [x] Add Gateway address for interface
-  - [ ] Add DNS address to interface output
+  - [x] Add DNS address to interface output
 
 ## Compile
 ```sh

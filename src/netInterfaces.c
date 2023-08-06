@@ -255,3 +255,26 @@ int isStaticInterface(const char *interface)
     return is_static;
 #endif
 }
+
+// -------------------------------------------------------------
+void getDnsAddress(unsigned int ipDnsAddrTab[], char *interfaceName)
+{
+    char command[128];
+    sprintf(command, "resolvectl status %s | grep 'Current DNS Server' | awk '{print $4}'", interfaceName);
+
+    FILE *fp = popen(command, "r");
+    if (fp == NULL)
+    {
+        perror("popen");
+        return;
+    }
+
+    char buffer[256];
+
+    while (fgets(buffer, sizeof(buffer), fp) != NULL)
+    {
+        getOctet(ipDnsAddrTab, buffer);
+    }
+
+    pclose(fp);
+}

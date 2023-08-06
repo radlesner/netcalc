@@ -24,6 +24,7 @@ void onComboBoxInterface(GtkComboBox *widget)
     char macAddress[18];
     char dhcpOutput[32];
     unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
+    unsigned int ipDnsAddrTab[4]     = {0, 0, 0, 0};
     unsigned int ipAddrTab[4]        = {0, 0, 0, 0};
     unsigned int ipMaskTab[4]        = {0, 0, 0, 0};
     unsigned int ipWildTab[4]        = {0, 0, 0, 0};
@@ -68,6 +69,7 @@ void onComboBoxInterface(GtkComboBox *widget)
 
     getMacAddress(macAddress, interfaceName);
     getGatewayAddr(ipGatewayAddrTab, interfaceName);
+    getDnsAddress(ipDnsAddrTab, interfaceName);
 
 #ifdef BSD_SYSTEM
     sprintf(resultTextInterfaceConfig,
@@ -80,13 +82,20 @@ void onComboBoxInterface(GtkComboBox *widget)
     sprintf(resultTextInterfaceConfig,
             "%s\n"
             " MAC address.......: %s\n"
-            " Gateway address...: %d.%d.%d.%d",
+            " Gateway address...: %d.%d.%d.%d\n"
+            " DNS address.......: %d.%d.%d.%d",
             dhcpOutput,
             macAddress,
+            // Gateway address
             ipGatewayAddrTab[0],
             ipGatewayAddrTab[1],
             ipGatewayAddrTab[2],
-            ipGatewayAddrTab[3]);
+            ipGatewayAddrTab[3],
+            // DNS address
+            ipDnsAddrTab[0],
+            ipDnsAddrTab[1],
+            ipDnsAddrTab[2],
+            ipDnsAddrTab[3]);
 #endif
 
     gtk_label_set_text(GTK_LABEL(labelFrameInterfaceConfigOutput), resultTextInterfaceConfig);
