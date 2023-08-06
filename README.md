@@ -49,7 +49,7 @@ snap install netcalc
 ```
 ### Images
 <p align="center">
-  <img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-8.png">
+  <img src="https://github.com/radlesner/netcalc/assets/41762007/399c4118-5922-417e-9423-725b1902c313">
   <img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-1.png" width="40%">
   <img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-2.png" width="40%">
   <img src="https://dashboard.snapcraft.io/site_media/appmedia/2023/07/netcalc-3.png" width="40%">
