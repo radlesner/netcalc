@@ -1,7 +1,7 @@
 #include "headers/gtkMain.h"
 #include "headers/gtkOutputSignals.h"
 
-#define WINDOW_RESIZABLE           TRUE
+#define WINDOW_RESIZABLE           FALSE
 #define GTK_WINDOW_WIDTH           100
 #define GTK_WINDOW_HEIGHT          100
 #define BOX_MARGIN                 10
