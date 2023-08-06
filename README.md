@@ -12,8 +12,9 @@ It can retrieve data from the network interface.
 
 ## TODO
   - [ ] Optimize font for GTK window to snap build
-  - [x] Add MAC address to interface output
-  - [x] Add Gateway address to interface output
+  - [x] Add DHCP configuration for interface
+  - [x] Add MAC address for interface
+  - [x] Add Gateway address for interface
   - [ ] Add DNS address to interface output
 
 ## Compile

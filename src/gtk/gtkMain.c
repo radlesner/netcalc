@@ -38,7 +38,6 @@ char blankOutputInterface[160];
 // -------------------------------------------------------------
 static void comboBoxAddOptions(GtkComboBoxText *comboBoxInterface)
 {
-    // Shows connected interfaces to combo box
     struct ifaddrs *ifaddr, *ifa;
     if (getifaddrs(&ifaddr) == -1)
     {
@@ -68,7 +67,6 @@ static void on_window_closed(void)
 // -------------------------------------------------------------
 static void setLabelOutputFont(GtkWidget *label, char *fontName, int fontSize)
 {
-    // Setting font for outputs addresses labels
     PangoFontDescription *fontGtkOutput = pango_font_description_new();
     pango_font_description_set_family(fontGtkOutput, fontName);
     pango_font_description_set_absolute_size(fontGtkOutput, fontSize * PANGO_SCALE);
@@ -82,6 +80,24 @@ static void setLabelOutputFont(GtkWidget *label, char *fontName, int fontSize)
 
     g_object_unref(providerFontGtkOutput);
     pango_font_description_free(fontGtkOutput);
+}
+
+// -------------------------------------------------------------
+static void printVersion(GtkWidget *box)
+{
+    GtkWidget *boxVersionProgramBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    gtk_box_pack_start(GTK_BOX(box), boxVersionProgramBox, TRUE, TRUE, 0);
+    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 55);
+    gtk_widget_set_margin_start(boxVersionProgramBox, 2);
+
+    char versionProgramOutput[24];
+    sprintf(versionProgramOutput, "v%s", VERSION_PROGRAM);
+
+    GtkWidget *labelVersionProgram = gtk_label_new(versionProgramOutput);
+    gtk_container_add(GTK_CONTAINER(boxVersionProgramBox), labelVersionProgram);
+    gtk_label_set_yalign(GTK_LABEL(labelVersionProgram), 1);
+
+    setLabelOutputFont(labelVersionProgram, FONT_OUTPUT, FONT_OUTPUT_VERSION_SIZE);
 }
 
 // --------------------------------------------------------------------------------------------------------------------------
@@ -170,7 +186,6 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_start(boxCalcButton, BUTTON_MARGIN_START);
     gtk_widget_set_margin_end(boxCalcButton, BUTTON_MARGIN_END);
     gtk_widget_set_margin_top(boxCalcButton, BUTTON_MARGIN_TOP);
-    // gtk_widget_set_margin_bottom(boxCalcButton, 66);
 
     // Making button "Calculate"
     GtkWidget *calcButton = gtk_button_new_with_label("Calculate");
@@ -179,17 +194,7 @@ void gtkWindowInit(int argc, char *argv[])
     g_signal_connect(calcButton, "clicked", G_CALLBACK(calcButtonClick), NULL);
 
     // Program version output
-    GtkWidget *boxVersionProgramBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    gtk_box_pack_start(GTK_BOX(box1), boxVersionProgramBox, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 55);
-    gtk_widget_set_margin_start(boxVersionProgramBox, 2);
-
-    char versionProgramOutput[24];
-    sprintf(versionProgramOutput, "Netcalc v%s ", VERSION_PROGRAM);
-
-    GtkWidget *labelVersionProgram = gtk_label_new(versionProgramOutput);
-    gtk_container_add(GTK_CONTAINER(boxVersionProgramBox), labelVersionProgram);
-    gtk_label_set_yalign(GTK_LABEL(labelVersionProgram), 1);
+    printVersion(box1);
 
     // ------------------ SECOND BOX ------------------
 
@@ -204,8 +209,6 @@ void gtkWindowInit(int argc, char *argv[])
     // Create the label for the combo box
     GtkWidget *labelComboBox = gtk_label_new("Select an interface: ");
     gtk_box_pack_start(GTK_BOX(boxComboBox), labelComboBox, FALSE, FALSE, 0);
-    // gtk_label_set_xalign(GTK_LABEL(labelComboBox), 0.0);
-    // gtk_label_set_yalign(GTK_LABEL(labelComboBox), 0.5);
     gtk_widget_set_margin_top(labelComboBox, 10);
 
     // Create the combo box
@@ -254,7 +257,6 @@ void gtkWindowInit(int argc, char *argv[])
     setLabelOutputFont(labelFrameBox1, FONT_OUTPUT, FONT_OUTPUT_SIZE);
     setLabelOutputFont(labelFrameBox2, FONT_OUTPUT, FONT_OUTPUT_SIZE);
     setLabelOutputFont(labelFrameInterfaceConfigOutput, FONT_OUTPUT, FONT_OUTPUT_SIZE);
-    setLabelOutputFont(labelVersionProgram, FONT_OUTPUT, FONT_OUTPUT_VERSION_SIZE);
 
     gtk_widget_show_all(window);
     gtk_main();
