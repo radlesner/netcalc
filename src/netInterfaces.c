@@ -2,10 +2,7 @@
 #include "headers/outputs.h"
 #include "headers/segmentForOctet.h"
 
-#define COMMAND_GATEWAY_ADDRESS                                                       \
-    "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\" "                 \
-    "{gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, \"\", $3); print $3}'" \
-    " /proc/net/route"
+#define COMMAND_GATEWAY_ADDRESS "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\" {gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, \"\", $3); print $3}' /proc/net/route"
 
 // -------------------------------------------------------------
 int maskToPrefix(unsigned int maskAddr[])
@@ -198,7 +195,12 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
 
     FILE *fp;
 
-    snprintf(command, sizeof(command), COMMAND_GATEWAY_ADDRESS, interfaceName);
+    snprintf(command,
+             sizeof(command),
+             "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\""
+             " {gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, "
+             "\"\", $3); print $3}' /proc/net/route",
+             interfaceName);
 
     fp = popen(command, "r");
     if (fp == NULL)
