@@ -44,6 +44,6 @@ void showInterfaces(void);
 bool isExistInterface(char *interfaceName);
 void getMacAddress(char *macAddress, char *interfaceName);
 void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName);
-int isStaticInterface(const char *interface);
+int isDhcpConfig(const char *interface);
 void getDnsAddress(unsigned int ipDnsAddrTab[], char *interfaceName);
 void getCommandResult(char *output, char *command);

@@ -65,7 +65,7 @@ void additionalInterfaceOutput(char *interfaceName)
 
     printf("\n");
 
-    if (!isStaticInterface(interfaceName))
+    if (!isDhcpConfig(interfaceName))
         printf("    Configuration: DHCP\n");
     else
         printf("    Configuration: Static\n");

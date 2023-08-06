@@ -61,7 +61,7 @@ void onComboBoxInterface(GtkComboBox *widget)
 #ifdef BSD_SYSTEM
     sprintf(dhcpOutput, " Configuration.....: not supported");
 #else
-    if (!isStaticInterface(interfaceName))
+    if (isDhcpConfig(interfaceName))
         sprintf(dhcpOutput, " Configuration.....: DHCP");
     else
         sprintf(dhcpOutput, " Configuration.....: Static");

@@ -226,12 +226,15 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
 }
 
 // -------------------------------------------------------------
-int isStaticInterface(const char *interface)
+int isDhcpConfig(const char *interface)
 {
 #ifdef BSD_SYSTEM
-    return 0;
+    return -1;
 #else
     char command[22];
+    char buffer[256];
+    int is_static = 1;
+
     sprintf(command, "ip -o -4 addr show %s", interface);
 
     FILE *fp = popen(command, "r");
@@ -241,14 +244,11 @@ int isStaticInterface(const char *interface)
         return -1;
     }
 
-    char buffer[256];
-    int is_static = 0;
-
     while (fgets(buffer, sizeof(buffer), fp) != NULL)
     {
         if (strstr(buffer, "dynamic") == NULL)
         {
-            is_static = 1;
+            is_static = 0;
             break;
         }
     }
