@@ -1,14 +1,17 @@
 #include "headers/gtkMain.h"
 #include "headers/gtkOutputSignals.h"
 
-#define WINDOW_RESIZABLE         FALSE
-#define GTK_WINDOW_WIDTH         100
-#define GTK_WINDOW_HEIGHT        100
-#define BOX_MARGIN               10
-#define FONT_OUTPUT              "Source Code Pro"
-#define FONT_OUTPUT_SIZE         13
-#define FONT_OUTPUT_VERSION_SIZE 10
-#define COMBO_BOX_WIDTH          190
+#define WINDOW_RESIZABLE          TRUE
+#define GTK_WINDOW_WIDTH          100
+#define GTK_WINDOW_HEIGHT         100
+#define BOX_MARGIN                10
+#define FONT_OUTPUT               "Source Code Pro"
+#define FONT_OUTPUT_SIZE          13
+#define FONT_OUTPUT_VERSION_SIZE  10
+#define COMBO_BOX_WIDTH           190
+#define FRAME_LABEL_MARGIN_START  10
+#define FRAME_LABEL_MARGIN_TOP    10
+#define FRAME_LABEL_MARGIN_BOTTOM 10
 
 GtkWidget *entryIpAddress;
 GtkWidget *entryMaskPrefix;
@@ -73,7 +76,7 @@ static void printVersion(GtkWidget *box)
 {
     GtkWidget *boxVersionProgramBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_pack_start(GTK_BOX(box), boxVersionProgramBox, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 86);
+    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 75);
     gtk_widget_set_margin_start(boxVersionProgramBox, 2);
 
     char versionProgramOutput[24];
@@ -95,20 +98,20 @@ void gtkWindowInit(int argc, char *argv[])
     setlocale(LC_ALL, "");
 
     sprintf(blankOutput,
-            " IP address.......:\n"
-            " Mask address.....:\n"
-            " Wildcard address.:\n"
-            " Network address..:\n"
-            " Broadcast address:\n"
-            " First address....:\n"
-            " Last address.....:\n"
-            " Number of hosts..:");
+            "IP address.......:\n"
+            "Mask address.....:\n"
+            "Wildcard address.:\n"
+            "Network address..:\n"
+            "Broadcast address:\n"
+            "First address....:\n"
+            "Last address.....:\n"
+            "Number of hosts..:");
 
     sprintf(blankOutputInterface,
-            " Configuration.....:\n"
-            " MAC address.......:\n"
-            " Gateway address...:\n"
-            " DNS address.......:");
+            "Configuration.....:\n"
+            "MAC address.......:\n"
+            "Gateway address...:\n"
+            "DNS address.......:");
 
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -156,7 +159,6 @@ void gtkWindowInit(int argc, char *argv[])
     // Frame "address address"
     GtkWidget *frameAddressOutput = gtk_frame_new("Network properties");
     gtk_box_pack_start(GTK_BOX(box1), frameAddressOutput, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(GTK_WIDGET(frameAddressOutput), -1, 200);
 
     gtk_widget_set_margin_start(frameAddressOutput, 10);
     gtk_widget_set_margin_end(frameAddressOutput, 10);
@@ -167,6 +169,10 @@ void gtkWindowInit(int argc, char *argv[])
     labelFrameBox1 = gtk_label_new(blankOutput);
     gtk_label_set_xalign(GTK_LABEL(labelFrameBox1), 0.0);
     gtk_container_add(GTK_CONTAINER(frameAddressOutput), labelFrameBox1);
+
+    gtk_widget_set_margin_start(labelFrameBox1, FRAME_LABEL_MARGIN_START);
+    gtk_widget_set_margin_top(labelFrameBox1, FRAME_LABEL_MARGIN_TOP);
+    gtk_widget_set_margin_bottom(labelFrameBox1, FRAME_LABEL_MARGIN_BOTTOM);
 
     // Making container for a button
     GtkWidget *boxCalcButton = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
@@ -219,7 +225,6 @@ void gtkWindowInit(int argc, char *argv[])
     // Frame "ip address"
     GtkWidget *frameInterfaceOutput = gtk_frame_new("Interface network properties");
     gtk_box_pack_start(GTK_BOX(box2), frameInterfaceOutput, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(frameInterfaceOutput, -1, 200);
 
     gtk_widget_set_margin_start(frameInterfaceOutput, 0);
     gtk_widget_set_margin_end(frameInterfaceOutput, 10);
@@ -231,10 +236,13 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_label_set_xalign(GTK_LABEL(labelFrameBox2), 0.0);
     gtk_container_add(GTK_CONTAINER(frameInterfaceOutput), labelFrameBox2);
 
+    gtk_widget_set_margin_start(labelFrameBox2, FRAME_LABEL_MARGIN_START);
+    gtk_widget_set_margin_top(labelFrameBox2, FRAME_LABEL_MARGIN_TOP);
+    gtk_widget_set_margin_bottom(labelFrameBox2, FRAME_LABEL_MARGIN_BOTTOM);
+
     // Frame for additional output for interface
     GtkWidget *frameInterfaceConfigOutput = gtk_frame_new("Interface config");
     gtk_box_pack_start(GTK_BOX(box2), frameInterfaceConfigOutput, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(frameInterfaceConfigOutput, -1, 120);
 
     gtk_widget_set_margin_start(frameInterfaceConfigOutput, 0);
     gtk_widget_set_margin_end(frameInterfaceConfigOutput, 10);
@@ -245,6 +253,10 @@ void gtkWindowInit(int argc, char *argv[])
     labelFrameInterfaceConfigOutput = gtk_label_new(blankOutputInterface);
     gtk_label_set_xalign(GTK_LABEL(labelFrameInterfaceConfigOutput), 0.0);
     gtk_container_add(GTK_CONTAINER(frameInterfaceConfigOutput), labelFrameInterfaceConfigOutput);
+
+    gtk_widget_set_margin_start(labelFrameInterfaceConfigOutput, FRAME_LABEL_MARGIN_START);
+    gtk_widget_set_margin_top(labelFrameInterfaceConfigOutput, FRAME_LABEL_MARGIN_TOP);
+    gtk_widget_set_margin_bottom(labelFrameInterfaceConfigOutput, FRAME_LABEL_MARGIN_BOTTOM);
 
     // ------------------ SET FONT FOR OUTPUTS ------------------
 
