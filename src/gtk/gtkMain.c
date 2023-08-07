@@ -1,11 +1,11 @@
 #include "headers/gtkMain.h"
 #include "headers/gtkOutputSignals.h"
 
-#define WINDOW_RESIZABLE          TRUE
+#define WINDOW_RESIZABLE          FALSE
 #define GTK_WINDOW_WIDTH          100
 #define GTK_WINDOW_HEIGHT         100
 #define BOX_MARGIN                10
-#define FONT_OUTPUT               "Source Code Pro"
+#define FONT_OUTPUT               "Source Code Pro Light"
 #define FONT_OUTPUT_SIZE          13
 #define FONT_OUTPUT_VERSION_SIZE  10
 #define COMBO_BOX_WIDTH           190
