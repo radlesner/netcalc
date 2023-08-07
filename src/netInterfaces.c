@@ -1,8 +1,7 @@
 #include "headers/netInterfaces.h"
+#include "headers/commands.h"
 #include "headers/outputs.h"
 #include "headers/segmentForOctet.h"
-
-#define COMMAND_GATEWAY_ADDRESS "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\" {gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, \"\", $3); print $3}' /proc/net/route"
 
 // -------------------------------------------------------------
 int maskToPrefix(unsigned int maskAddr[])
@@ -126,7 +125,6 @@ bool isExistInterface(char *interfaceName)
 void getMacAddress(char macAddress[], char *interfaceName)
 {
 #ifdef BSD_SYSTEM
-
     char command[256];
     snprintf(command, sizeof(command), "ifconfig %s | grep -Eo '([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})'", interfaceName);
 
@@ -136,23 +134,8 @@ void getMacAddress(char macAddress[], char *interfaceName)
         return;
     }
 
-    FILE *fp = popen(command, "r");
-    if (fp == NULL)
-    {
-        perror("popen");
-        return;
-    }
-
-    if (fgets(macAddress, 18, fp) == NULL)
-    {
-        perror("fgets");
-    }
-
-    pclose(fp);
-    return;
-
+    getCommandResult(macAddress, command);
 #else
-
     struct ifaddrs *ifaddr, *ifa;
 
     if (getifaddrs(&ifaddr) == -1)
@@ -177,8 +160,6 @@ void getMacAddress(char macAddress[], char *interfaceName)
     }
 
     freeifaddrs(ifaddr);
-    return;
-
 #endif
 }
 
@@ -189,11 +170,8 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
     return;
 #else
     char command[512];
-    char result[512];
-
+    char cmdResult[512];
     unsigned int decimalIP;
-
-    FILE *fp;
 
     snprintf(command,
              sizeof(command),
@@ -202,24 +180,13 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
              "\"\", $3); print $3}' /proc/net/route",
              interfaceName);
 
-    fp = popen(command, "r");
-    if (fp == NULL)
-    {
-        perror("popen");
-        exit(EXIT_FAILURE);
-    }
+    getCommandResult(cmdResult, command);
 
-    if (fgets(result, sizeof(result), fp) != NULL)
-    {
-        sscanf(result, "%x", &decimalIP); // Convert HEX to DEC
-
-        ipGatewayAddr[3] = (decimalIP >> 24) & 0xFF;
-        ipGatewayAddr[2] = (decimalIP >> 16) & 0xFF;
-        ipGatewayAddr[1] = (decimalIP >> 8) & 0xFF;
-        ipGatewayAddr[0] = decimalIP & 0xFF;
-    }
-
-    pclose(fp);
+    sscanf(cmdResult, "%x", &decimalIP); // Convert HEX to DEC
+    ipGatewayAddr[3] = (decimalIP >> 24) & 0xFF;
+    ipGatewayAddr[2] = (decimalIP >> 16) & 0xFF;
+    ipGatewayAddr[1] = (decimalIP >> 8) & 0xFF;
+    ipGatewayAddr[0] = decimalIP & 0xFF;
 
     return;
 #endif
@@ -233,7 +200,7 @@ int isDhcpConfig(const char *interface)
 #else
     char command[22];
     char buffer[256];
-    int is_static = 1;
+    int boolResult = 1; // default TRUE
 
     sprintf(command, "ip -o -4 addr show %s", interface);
 
@@ -248,13 +215,13 @@ int isDhcpConfig(const char *interface)
     {
         if (strstr(buffer, "dynamic") == NULL)
         {
-            is_static = 0;
+            boolResult = 0; // FALSE
             break;
         }
     }
 
     pclose(fp);
-    return is_static;
+    return boolResult;
 #endif
 }
 
@@ -262,21 +229,13 @@ int isDhcpConfig(const char *interface)
 void getDnsAddress(unsigned int ipDnsAddrTab[], char *interfaceName)
 {
     char command[128];
-    sprintf(command, "resolvectl status %s | grep 'Current DNS Server' | awk '{print $4}'", interfaceName);
+    char cmdResult[256];
 
-    FILE *fp = popen(command, "r");
-    if (fp == NULL)
-    {
-        perror("popen");
-        return;
-    }
+    if (isCommandAvailable("resolvectl"))
+        sprintf(command, "resolvectl status %s | grep 'Current DNS Server' | awk '{print $4}'", interfaceName);
+    else
+        sprintf(command, "grep -w -m 1 'nameserver' /etc/resolv.conf | awk '{print $2}'");
 
-    char buffer[256];
-
-    while (fgets(buffer, sizeof(buffer), fp) != NULL)
-    {
-        getOctet(ipDnsAddrTab, buffer);
-    }
-
-    pclose(fp);
+    getCommandResult(cmdResult, command);
+    getOctet(ipDnsAddrTab, cmdResult);
 }
