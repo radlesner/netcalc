@@ -48,6 +48,7 @@ void additionalInterfaceOutput(char *interfaceName)
     char macAddress[18];
     unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
     unsigned int ipDnsAddrTab[4]     = {0, 0, 0, 0};
+    size_t ipDnsAddrTabArraySize     = sizeof(ipDnsAddrTab) / sizeof(ipDnsAddrTab[0]);
 
     /*
         The following void functions perform calculations related to IP addresses
@@ -61,7 +62,7 @@ void additionalInterfaceOutput(char *interfaceName)
 
     getMacAddress(macAddress, interfaceName);
     getGatewayAddr(ipGatewayAddrTab, interfaceName);
-    getDnsAddress(ipDnsAddrTab, interfaceName);
+    getDnsAddress(ipDnsAddrTab, ipDnsAddrTabArraySize, interfaceName);
 
     printf("\n");
 

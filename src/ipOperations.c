@@ -51,3 +51,25 @@ unsigned int getHostNumber(unsigned int rawMaskPrefix)
     numHost = (1 << (32 - rawMaskPrefix)) - 2;
     return numHost;
 }
+
+int ipcmp(unsigned int ipTab[], int oct1, int oct2, int oct3, int oct4)
+{
+    int falseOctet               = 0;
+    int boolResult               = 1;
+    unsigned int compareIpTab[4] = {oct1, oct2, oct3, oct4};
+
+    for (int i = 0; i < 4; i++)
+    {
+        if (ipTab[i] == compareIpTab[i])
+        {
+            falseOctet++;
+        }
+    }
+
+    if (falseOctet == 4)
+        boolResult = 1; // TRUE
+    else
+        boolResult = 0; // FALSE
+
+    return boolResult;
+}

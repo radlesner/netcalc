@@ -1,5 +1,6 @@
 #include "headers/netInterfaces.h"
 #include "headers/commands.h"
+#include "headers/ipOperations.h"
 #include "headers/outputs.h"
 #include "headers/segmentForOctet.h"
 
@@ -170,8 +171,9 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
     return;
 #else
     char command[512];
-    char cmdResult[512];
+    char result[512];
     unsigned int decimalIP;
+    FILE *fp;
 
     snprintf(command,
              sizeof(command),
@@ -180,13 +182,24 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
              "\"\", $3); print $3}' /proc/net/route",
              interfaceName);
 
-    getCommandResult(cmdResult, command);
+    fp = popen(command, "r");
+    if (fp == NULL)
+    {
+        perror("popen");
+        exit(EXIT_FAILURE);
+    }
 
-    sscanf(cmdResult, "%x", &decimalIP); // Convert HEX to DEC
-    ipGatewayAddr[3] = (decimalIP >> 24) & 0xFF;
-    ipGatewayAddr[2] = (decimalIP >> 16) & 0xFF;
-    ipGatewayAddr[1] = (decimalIP >> 8) & 0xFF;
-    ipGatewayAddr[0] = decimalIP & 0xFF;
+    if (fgets(result, sizeof(result), fp) != NULL)
+    {
+        sscanf(result, "%x", &decimalIP); // Convert HEX to DEC
+
+        ipGatewayAddr[3] = (decimalIP >> 24) & 0xFF;
+        ipGatewayAddr[2] = (decimalIP >> 16) & 0xFF;
+        ipGatewayAddr[1] = (decimalIP >> 8) & 0xFF;
+        ipGatewayAddr[0] = decimalIP & 0xFF;
+    }
+
+    pclose(fp);
 
     return;
 #endif
@@ -226,16 +239,30 @@ int isDhcpConfig(const char *interface)
 }
 
 // -------------------------------------------------------------
-void getDnsAddress(unsigned int ipDnsAddrTab[], char *interfaceName)
+void getDnsAddress(unsigned int ipDnsAddrTab[], size_t arraySize, char *interfaceName)
 {
     char command[128];
     char cmdResult[256];
 
-    if (isCommandAvailable("resolvectl"))
-        sprintf(command, "resolvectl status %s | grep 'Current DNS Server' | awk '{print $4}'", interfaceName);
-    else
-        sprintf(command, "grep -w -m 1 'nameserver' /etc/resolv.conf | awk '{print $2}'");
+    if (!strcmp(interfaceName, "lo"))
+    {
+        for (size_t i = 0; i < arraySize; i++)
+            ipDnsAddrTab[i] = 0;
 
+        return;
+    }
+
+    sprintf(command, "grep -w -m 1 'nameserver' /etc/resolv.conf | awk '{print $2}'");
     getCommandResult(cmdResult, command);
     getOctet(ipDnsAddrTab, cmdResult);
+
+    if (ipcmp(ipDnsAddrTab, 127, 0, 0, 53))
+    {
+        for (int i = 0; i < 4; i++)
+            ipDnsAddrTab[i] = 0;
+
+        sprintf(command, "resolvectl status %s | grep 'Current DNS Server' | awk '{print $4}'", interfaceName);
+        getCommandResult(cmdResult, command);
+        getOctet(ipDnsAddrTab, cmdResult);
+    }
 }

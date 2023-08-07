@@ -5,7 +5,7 @@
 #define GTK_WINDOW_WIDTH         100
 #define GTK_WINDOW_HEIGHT        100
 #define BOX_MARGIN               10
-#define FONT_OUTPUT              "Monospace"
+#define FONT_OUTPUT              "Source Code Pro"
 #define FONT_OUTPUT_SIZE         13
 #define FONT_OUTPUT_VERSION_SIZE 10
 #define COMBO_BOX_WIDTH          190
@@ -56,7 +56,8 @@ static void setLabelOutputFont(GtkWidget *label, char *fontName, int fontSize)
     pango_font_description_set_family(fontGtkOutput, fontName);
     pango_font_description_set_absolute_size(fontGtkOutput, fontSize * PANGO_SCALE);
 
-    gchar *cssFontGtkOutput               = g_strdup_printf("* { font-family: \"%s\"; font-size: %dpx; }", pango_font_description_get_family(fontGtkOutput), (int)pango_font_description_get_size(fontGtkOutput) / PANGO_SCALE);
+    gchar *cssFontGtkOutput = g_strdup_printf(
+        "* { font-family: \"%s\"; font-size: %dpx; }", pango_font_description_get_family(fontGtkOutput), (int)pango_font_description_get_size(fontGtkOutput) / PANGO_SCALE);
     GtkCssProvider *providerFontGtkOutput = gtk_css_provider_new();
     gtk_css_provider_load_from_data(providerFontGtkOutput, cssFontGtkOutput, -1, NULL);
     g_free(cssFontGtkOutput);
