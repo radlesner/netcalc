@@ -3,7 +3,7 @@
 // -------------------------------------------------------------
 void getWildAddr(unsigned int ipWildTab[], unsigned int ipMaskTab[])
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < IP4_MAX_OCTET; i++)
     {
         ipWildTab[i] = ipMaskTab[i] ^ 255;
     }
@@ -12,7 +12,7 @@ void getWildAddr(unsigned int ipWildTab[], unsigned int ipMaskTab[])
 // -------------------------------------------------------------
 void getNetworkAddr(unsigned int ipNetAddrTab[], unsigned int ipAddrTab[], unsigned int ipMaskTab[])
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < IP4_MAX_OCTET; i++)
     {
         ipNetAddrTab[i] = ipAddrTab[i] & ipMaskTab[i];
     }
@@ -21,7 +21,7 @@ void getNetworkAddr(unsigned int ipNetAddrTab[], unsigned int ipAddrTab[], unsig
 // -------------------------------------------------------------
 void getBroadAddr(unsigned int ipBroadAddrTab[], unsigned int ipNetAddrTab[], unsigned int ipMaskTab[])
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < IP4_MAX_OCTET; i++)
     {
         ipBroadAddrTab[i] = ipNetAddrTab[i] | (~ipMaskTab[i] & 0xFF);
     }
@@ -30,7 +30,7 @@ void getBroadAddr(unsigned int ipBroadAddrTab[], unsigned int ipNetAddrTab[], un
 // -------------------------------------------------------------
 void getFirstLastHost(unsigned int ipFirstHost[], unsigned int ipLastHost[], unsigned int ipNetAddrTab[], unsigned int ipBroadAddrTab[])
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < IP4_MAX_OCTET; i++)
     {
         ipFirstHost[i] += ipNetAddrTab[i];
         ipLastHost[i] += ipBroadAddrTab[i];

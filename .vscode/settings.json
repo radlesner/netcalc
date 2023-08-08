@@ -105,6 +105,7 @@
         "netdb.h": "c",
         "gtksignals.h": "c",
         "gtkmain.h": "c",
-        "gtkoutputsignals.h": "c"
+        "gtkoutputsignals.h": "c",
+        "commands.h": "c"
     }
 }

@@ -34,6 +34,7 @@
 #include <netpacket/packet.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <systemd/sd-bus.h>
 #include <unistd.h>
 
 #endif
@@ -45,5 +46,5 @@ bool isExistInterface(char *interfaceName);
 void getMacAddress(char *macAddress, char *interfaceName);
 void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName);
 int isDhcpConfig(const char *interface);
-void getDnsAddress(unsigned int ipDnsAddrTab[], size_t arraySize, char *interfaceName);
+void getDnsAddress(unsigned int ipDnsAddrTab[]);
 void getCommandResult(char *output, char *command);

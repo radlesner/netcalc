@@ -9,6 +9,10 @@ file(GLOB SOURCES src/*.c src/gtk/*.c)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
+# CHECKING SD_BUS LIBRARY
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(SD_BUS REQUIRED libsystemd)
+
 # LIBS FOR BSD SYSTEMS
 set(EXTRA_LIBS
     -L/usr/local/lib
@@ -65,6 +69,10 @@ add_executable(netcalc ${SOURCES})
 target_include_directories(netcalc PUBLIC ${GTK3_INCLUDE_DIRS})
 target_compile_options(netcalc PUBLIC ${GTK3_CFLAGS_OTHER})
 target_link_libraries(netcalc ${GTK3_LIBRARIES})
+
+target_include_directories(netcalc PRIVATE ${SD_BUS_INCLUDE_DIRS})
+target_compile_options(netcalc PRIVATE ${SD_BUS_CFLAGS_OTHER})
+target_link_libraries(netcalc ${SD_BUS_LIBRARIES})
 
 # LINKING EXTRA LIBRARIES IF SYSTEM IS BSD
 if (CMAKE_SYSTEM_NAME MATCHES "BSD")

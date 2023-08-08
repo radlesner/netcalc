@@ -5,9 +5,9 @@ int isCommandAvailable(const char* command)
     char checkCmd[512];
     int boolResult;
 
-    snprintf(checkCmd, sizeof(checkCmd), "which %s >/dev/null 2>&1", command);
+    sprintf(checkCmd, "%s", command);
 
-    FILE* fp = popen(checkCmd, "r");
+    FILE* fp = popen(command, "r");
     if (fp == NULL)
     {
         perror("Błąd polecenia 'popen'");
@@ -20,21 +20,22 @@ int isCommandAvailable(const char* command)
     return boolResult;
 }
 
-void getCommandResult(char resultOutput[], char* command)
+void getCommandResult(char resultOutput[], char* inputCommand)
 {
+    FILE* cmd_output;
     char buffer[256];
 
-    FILE* fp = popen(command, "r");
-    if (fp == NULL)
+    cmd_output = popen(inputCommand, "r");
+    if (cmd_output == NULL)
     {
         perror("popen");
         return;
     }
 
-    while (fgets(buffer, sizeof(buffer), fp) != NULL)
+    while (fgets(buffer, sizeof(buffer), cmd_output) != NULL)
     {
         strcpy(resultOutput, buffer);
     }
 
-    pclose(fp);
+    pclose(cmd_output);
 }
