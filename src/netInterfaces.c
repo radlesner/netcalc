@@ -258,7 +258,8 @@ void getDnsAddress(unsigned int ipDnsAddrTab[], size_t arraySize, char *interfac
         getCommandResult(cmdResult, command);
         getOctet(ipDnsAddrTab, cmdResult);
 
-        return;
+        if (!ipcmp(ipDnsAddrTab, 0, 0, 0, 0))
+            return;
     }
 
     sprintf(command, "grep -w -m 1 'nameserver' /etc/resolv.conf | awk '{print $2}'");

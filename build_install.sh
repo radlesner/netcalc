@@ -4,4 +4,7 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 
-sudo make install
+read -p "Install project? [N/y]" install
+if [ "$install" = "Y" ] || [ "$install" = "y" ] ; then
+    sudo make install
+fi
