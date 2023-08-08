@@ -252,13 +252,22 @@ void getDnsAddress(unsigned int ipDnsAddrTab[], size_t arraySize, char *interfac
         return;
     }
 
+    if (isCommandAvailable("nmcli"))
+    {
+        sprintf(command, "nmcli device show %s | grep -w -m 1 'IP4.DNS' | awk '{print $2}'", interfaceName);
+        getCommandResult(cmdResult, command);
+        getOctet(ipDnsAddrTab, cmdResult);
+
+        return;
+    }
+
     sprintf(command, "grep -w -m 1 'nameserver' /etc/resolv.conf | awk '{print $2}'");
     getCommandResult(cmdResult, command);
     getOctet(ipDnsAddrTab, cmdResult);
 
     if (ipcmp(ipDnsAddrTab, 127, 0, 0, 53))
     {
-        for (int i = 0; i < 4; i++)
+        for (size_t i = 0; i < arraySize; i++)
             ipDnsAddrTab[i] = 0;
 
         sprintf(command, "resolvectl status %s | grep 'Current DNS Server' | awk '{print $4}'", interfaceName);

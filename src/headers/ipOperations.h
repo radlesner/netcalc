@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define IP4_MAX_OCTET 4
+
 void getWildAddr(unsigned int ipWildTab[], unsigned int ipMaskTab[]);
 void getNetworkAddr(unsigned int ipNetAddrTab[], unsigned int ipAddrTab[], unsigned int ipMaskTab[]);
 void getBroadAddr(unsigned int ipBroadAddrTab[], unsigned int ipNetAddrTab[], unsigned int ipMaskTab[]);
