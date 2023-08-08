@@ -59,7 +59,7 @@ int ipcmp(unsigned int ipTab[], int oct1, int oct2, int oct3, int oct4)
     int boolResult               = 1;
     unsigned int compareIpTab[4] = {oct1, oct2, oct3, oct4};
 
-    for (int i = 0; IP4_MAX_OCTET < 4; i++)
+    for (int i = 0; i < IP4_MAX_OCTET; i++)
     {
         if (ipTab[i] == compareIpTab[i])
         {
