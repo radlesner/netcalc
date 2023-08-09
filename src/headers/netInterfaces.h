@@ -47,4 +47,5 @@ void getMacAddress(char *macAddress, char *interfaceName);
 void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName);
 int isDhcpConfig(const char *interface);
 void getDnsAddress(unsigned int ipDnsAddrTab[]);
-void getCommandResult(char *output, char *command);
+int isSDBUSavailable(void);
+void getSDBUS_dns_IP_address(unsigned int ipDnsAddrTab[]);

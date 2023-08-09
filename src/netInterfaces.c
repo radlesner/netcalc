@@ -241,6 +241,24 @@ int isDhcpConfig(const char *interface)
 // -------------------------------------------------------------
 void getDnsAddress(unsigned int ipDnsAddrTab[])
 {
+    char command[128];
+    char cmdResult[256];
+
+    if (isSDBUSavailable())
+    {
+        getSDBUS_dns_IP_address(ipDnsAddrTab);
+    }
+    else
+    {
+        sprintf(command, "grep -w -m 1 'nameserver' /etc/resolv.conf | awk '{print $2}'");
+        getCommandResult(cmdResult, command);
+        getOctet(ipDnsAddrTab, cmdResult);
+    }
+}
+
+// -------------------------------------------------------------
+int isSDBUSavailable(void)
+{
     sd_bus_error dbusErr = SD_BUS_ERROR_NULL;
     sd_bus_message *msg  = NULL;
     sd_bus *dbus         = NULL;
@@ -248,39 +266,54 @@ void getDnsAddress(unsigned int ipDnsAddrTab[])
     int err = sd_bus_open_system(&dbus);
     if (err < 0)
     {
-        fprintf(stderr, "can't connect to system D-Bus: %s\n", strerror(-err));
-        return;
+        // fprintf(stderr, "can't connect to system D-Bus: %s\n", strerror(-err));
+        return 0;
     }
 
     err = sd_bus_get_property(dbus, "org.freedesktop.resolve1", "/org/freedesktop/resolve1", "org.freedesktop.resolve1.Manager", "DNS", &dbusErr, &msg, "a(iiay)");
     if (err < 0)
     {
-        fprintf(stderr, "can't connect to systemd-resolved: %s\n", dbusErr.message);
+        // fprintf(stderr, "can't connect to systemd-resolved: %s\n", dbusErr.message);
         sd_bus_error_free(&dbusErr);
         sd_bus_unref(dbus);
-        return;
+        return 0;
     }
 
     err = sd_bus_message_enter_container(msg, SD_BUS_TYPE_ARRAY, "(iiay)");
     if (err < 0)
     {
-        fprintf(stderr, "error entering array container: %s\n", strerror(-err));
+        // fprintf(stderr, "error entering array container: %s\n", strerror(-err));
         sd_bus_message_unref(msg);
         sd_bus_unref(dbus);
-        return;
+        return 0;
     }
+
+    sd_bus_message_exit_container(msg);
+    sd_bus_message_unref(msg);
+    sd_bus_unref(dbus);
+
+    return 1;
+}
+
+// -------------------------------------------------------------
+void getSDBUS_dns_IP_address(unsigned int ipDnsAddrTab[])
+{
+    sd_bus_message *msg = NULL;
+    sd_bus *dbus        = NULL;
 
     int32_t netif;
     int32_t af;
     size_t n;
     const void *addr;
     char buf[64];
+    int err;
+
     while (sd_bus_message_enter_container(msg, SD_BUS_TYPE_STRUCT, "iiay") > 0)
     {
         err = sd_bus_message_read(msg, "ii", &netif, &af);
         if (err < 0)
         {
-            fprintf(stderr, "error reading struct members: %s\n", strerror(-err));
+            // fprintf(stderr, "error reading struct members: %s\n", strerror(-err));
             sd_bus_message_unref(msg);
             sd_bus_unref(dbus);
             return;
@@ -288,7 +321,7 @@ void getDnsAddress(unsigned int ipDnsAddrTab[])
         err = sd_bus_message_read_array(msg, 'y', &addr, &n);
         if (err < 0)
         {
-            fprintf(stderr, "error reading array: %s\n", strerror(-err));
+            // fprintf(stderr, "error reading array: %s\n", strerror(-err));
             sd_bus_message_unref(msg);
             sd_bus_unref(dbus);
             return;
