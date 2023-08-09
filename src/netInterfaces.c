@@ -241,12 +241,14 @@ int isDhcpConfig(const char *interface)
 // -------------------------------------------------------------
 void getDnsAddress(unsigned int ipDnsAddrTab[])
 {
+    char SDBUSoutput[64];
     char command[128];
     char cmdResult[256];
 
     if (isSDBUSavailable())
     {
-        getSDBUS_dns_IP_address(ipDnsAddrTab);
+        getSDBUS_dns_IP_address(SDBUSoutput);
+        getOctet(ipDnsAddrTab, SDBUSoutput);
     }
     else
     {
@@ -296,10 +298,11 @@ int isSDBUSavailable(void)
 }
 
 // -------------------------------------------------------------
-void getSDBUS_dns_IP_address(unsigned int ipDnsAddrTab[])
+void getSDBUS_dns_IP_address(char SDBUSoutput[])
 {
-    sd_bus_message *msg = NULL;
-    sd_bus *dbus        = NULL;
+    sd_bus_error dbusErr = SD_BUS_ERROR_NULL;
+    sd_bus_message *msg  = NULL;
+    sd_bus *dbus         = NULL;
 
     int32_t netif;
     int32_t af;
@@ -307,6 +310,31 @@ void getSDBUS_dns_IP_address(unsigned int ipDnsAddrTab[])
     const void *addr;
     char buf[64];
     int err;
+
+    err = sd_bus_open_system(&dbus);
+    if (err < 0)
+    {
+        // fprintf(stderr, "can't connect to system D-Bus: %s\n", strerror(-err));
+        return;
+    }
+
+    err = sd_bus_get_property(dbus, "org.freedesktop.resolve1", "/org/freedesktop/resolve1", "org.freedesktop.resolve1.Manager", "DNS", &dbusErr, &msg, "a(iiay)");
+    if (err < 0)
+    {
+        // fprintf(stderr, "can't connect to systemd-resolved: %s\n", dbusErr.message);
+        sd_bus_error_free(&dbusErr);
+        sd_bus_unref(dbus);
+        return;
+    }
+
+    err = sd_bus_message_enter_container(msg, SD_BUS_TYPE_ARRAY, "(iiay)");
+    if (err < 0)
+    {
+        // fprintf(stderr, "error entering array container: %s\n", strerror(-err));
+        sd_bus_message_unref(msg);
+        sd_bus_unref(dbus);
+        return;
+    }
 
     while (sd_bus_message_enter_container(msg, SD_BUS_TYPE_STRUCT, "iiay") > 0)
     {
@@ -330,7 +358,7 @@ void getSDBUS_dns_IP_address(unsigned int ipDnsAddrTab[])
         inet_ntop(af, addr, buf, sizeof(buf));
 
         // ----------------------------------- //
-        getOctet(ipDnsAddrTab, buf);
+        strcpy(SDBUSoutput, buf);
     }
     sd_bus_message_exit_container(msg);
 
