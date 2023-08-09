@@ -48,4 +48,4 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName);
 int isDhcpConfig(const char *interface);
 void getDnsAddress(unsigned int ipDnsAddrTab[]);
 int isSDBUSavailable(void);
-void getSDBUS_dns_IP_address(unsigned int ipDnsAddrTab[]);
+void getSDBUS_dns_IP_address(char SDBUSoutput[]);
