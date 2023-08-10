@@ -61,7 +61,7 @@ void additionalInterfaceOutput(char *interfaceName)
 
     getMacAddress(macAddress, interfaceName);
     getGatewayAddr(ipGatewayAddrTab, interfaceName);
-    getDnsAddress(ipDnsAddrTab);
+    getDnsAddress(ipDnsAddrTab, interfaceName);
 
     printf("\n");
 

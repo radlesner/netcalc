@@ -2,6 +2,7 @@
 #include "headers/commands.h"
 #include "headers/ipOperations.h"
 #include "headers/outputs.h"
+#include "headers/sdbus.h"
 #include "headers/segmentForOctet.h"
 
 // -------------------------------------------------------------
@@ -125,18 +126,6 @@ bool isExistInterface(char *interfaceName)
 // -------------------------------------------------------------
 void getMacAddress(char macAddress[], char *interfaceName)
 {
-#ifdef BSD_SYSTEM
-    char command[256];
-    snprintf(command, sizeof(command), "ifconfig %s | grep -Eo '([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})'", interfaceName);
-
-    if (!strcmp(interfaceName, "lo0"))
-    {
-        sprintf(macAddress, "00:00:00:00:00:00");
-        return;
-    }
-
-    getCommandResult(macAddress, command);
-#else
     struct ifaddrs *ifaddr, *ifa;
 
     if (getifaddrs(&ifaddr) == -1)
@@ -161,15 +150,11 @@ void getMacAddress(char macAddress[], char *interfaceName)
     }
 
     freeifaddrs(ifaddr);
-#endif
 }
 
 // -------------------------------------------------------------
 void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
 {
-#ifdef BSD_SYSTEM
-    return;
-#else
     char command[512];
     char result[512];
     unsigned int decimalIP;
@@ -202,15 +187,11 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
     pclose(fp);
 
     return;
-#endif
 }
 
 // -------------------------------------------------------------
 int isDhcpConfig(const char *interface)
 {
-#ifdef BSD_SYSTEM
-    return -1;
-#else
     char command[22];
     char buffer[256];
     int boolResult = 1; // default TRUE
@@ -235,11 +216,10 @@ int isDhcpConfig(const char *interface)
 
     pclose(fp);
     return boolResult;
-#endif
 }
 
 // -------------------------------------------------------------
-void getDnsAddress(unsigned int ipDnsAddrTab[])
+void getDnsAddress(unsigned int ipDnsAddrTab[], char *interfaceName)
 {
     char SDBUSoutput[64];
     char command[128];
@@ -255,113 +235,12 @@ void getDnsAddress(unsigned int ipDnsAddrTab[])
         sprintf(command, "grep -w -m 1 'nameserver' /etc/resolv.conf | awk '{print $2}'");
         getCommandResult(cmdResult, command);
         getOctet(ipDnsAddrTab, cmdResult);
-    }
-}
 
-// -------------------------------------------------------------
-int isSDBUSavailable(void)
-{
-    sd_bus_error dbusErr = SD_BUS_ERROR_NULL;
-    sd_bus_message *msg  = NULL;
-    sd_bus *dbus         = NULL;
-
-    int err = sd_bus_open_system(&dbus);
-    if (err < 0)
-    {
-        // fprintf(stderr, "can't connect to system D-Bus: %s\n", strerror(-err));
-        return 0;
-    }
-
-    err = sd_bus_get_property(dbus, "org.freedesktop.resolve1", "/org/freedesktop/resolve1", "org.freedesktop.resolve1.Manager", "DNS", &dbusErr, &msg, "a(iiay)");
-    if (err < 0)
-    {
-        // fprintf(stderr, "can't connect to systemd-resolved: %s\n", dbusErr.message);
-        sd_bus_error_free(&dbusErr);
-        sd_bus_unref(dbus);
-        return 0;
-    }
-
-    err = sd_bus_message_enter_container(msg, SD_BUS_TYPE_ARRAY, "(iiay)");
-    if (err < 0)
-    {
-        // fprintf(stderr, "error entering array container: %s\n", strerror(-err));
-        sd_bus_message_unref(msg);
-        sd_bus_unref(dbus);
-        return 0;
-    }
-
-    sd_bus_message_exit_container(msg);
-    sd_bus_message_unref(msg);
-    sd_bus_unref(dbus);
-
-    return 1;
-}
-
-// -------------------------------------------------------------
-void getSDBUS_dns_IP_address(char SDBUSoutput[])
-{
-    sd_bus_error dbusErr = SD_BUS_ERROR_NULL;
-    sd_bus_message *msg  = NULL;
-    sd_bus *dbus         = NULL;
-
-    int32_t netif;
-    int32_t af;
-    size_t n;
-    const void *addr;
-    char buf[64];
-    int err;
-
-    err = sd_bus_open_system(&dbus);
-    if (err < 0)
-    {
-        // fprintf(stderr, "can't connect to system D-Bus: %s\n", strerror(-err));
-        return;
-    }
-
-    err = sd_bus_get_property(dbus, "org.freedesktop.resolve1", "/org/freedesktop/resolve1", "org.freedesktop.resolve1.Manager", "DNS", &dbusErr, &msg, "a(iiay)");
-    if (err < 0)
-    {
-        // fprintf(stderr, "can't connect to systemd-resolved: %s\n", dbusErr.message);
-        sd_bus_error_free(&dbusErr);
-        sd_bus_unref(dbus);
-        return;
-    }
-
-    err = sd_bus_message_enter_container(msg, SD_BUS_TYPE_ARRAY, "(iiay)");
-    if (err < 0)
-    {
-        // fprintf(stderr, "error entering array container: %s\n", strerror(-err));
-        sd_bus_message_unref(msg);
-        sd_bus_unref(dbus);
-        return;
-    }
-
-    while (sd_bus_message_enter_container(msg, SD_BUS_TYPE_STRUCT, "iiay") > 0)
-    {
-        err = sd_bus_message_read(msg, "ii", &netif, &af);
-        if (err < 0)
+        if (ipcmp(ipDnsAddrTab, 127, 0, 0, 53))
         {
-            // fprintf(stderr, "error reading struct members: %s\n", strerror(-err));
-            sd_bus_message_unref(msg);
-            sd_bus_unref(dbus);
-            return;
+            sprintf(command, "nmcli device show %s | grep -w -m 1 'IP4.DNS' | awk '{print $2}'", interfaceName);
+            getCommandResult(cmdResult, command);
+            getOctet(ipDnsAddrTab, cmdResult);
         }
-        err = sd_bus_message_read_array(msg, 'y', &addr, &n);
-        if (err < 0)
-        {
-            // fprintf(stderr, "error reading array: %s\n", strerror(-err));
-            sd_bus_message_unref(msg);
-            sd_bus_unref(dbus);
-            return;
-        }
-        sd_bus_message_exit_container(msg);
-        inet_ntop(af, addr, buf, sizeof(buf));
-
-        // ----------------------------------- //
-        strcpy(SDBUSoutput, buf);
     }
-    sd_bus_message_exit_container(msg);
-
-    sd_bus_message_unref(msg);
-    sd_bus_unref(dbus);
 }
