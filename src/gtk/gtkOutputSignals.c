@@ -74,6 +74,7 @@ void onComboBoxInterface(GtkComboBox *widget)
     }
 
     sprintf(resultTextDnsConfig, "DNS address.......: %d.%d.%d.%d", ipDnsAddrTab[0], ipDnsAddrTab[1], ipDnsAddrTab[2], ipDnsAddrTab[3]);
+    gtk_label_set_text(GTK_LABEL(labelFrameDnsConfig), resultTextDnsConfig);
 
     sprintf(resultTextInterfaceConfig,
             "%s\n"
@@ -86,6 +87,7 @@ void onComboBoxInterface(GtkComboBox *widget)
             ipGatewayAddrTab[1],
             ipGatewayAddrTab[2],
             ipGatewayAddrTab[3]);
+    gtk_label_set_text(GTK_LABEL(labelFrameInterfaceConfigOutput), resultTextInterfaceConfig);
 
     sprintf(result_text,
             "IP address.......: %d.%d.%d.%d\n"
@@ -134,9 +136,6 @@ void onComboBoxInterface(GtkComboBox *widget)
             ipLastHost[3],
             // Number of hosts
             numHost);
-
-    gtk_label_set_text(GTK_LABEL(labelFrameDnsConfig), resultTextDnsConfig);
-    gtk_label_set_text(GTK_LABEL(labelFrameInterfaceConfigOutput), resultTextInterfaceConfig);
     gtk_label_set_text(GTK_LABEL(labelFrameBox2), result_text);
 }
 

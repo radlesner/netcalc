@@ -9,10 +9,6 @@ file(GLOB SOURCES src/*.c src/gtk/*.c)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
-# CHECKING SD_BUS LIBRARY
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(SD_BUS REQUIRED libsystemd)
-
 # LIBS FOR BSD SYSTEMS
 set(EXTRA_LIBS
     -L/usr/local/lib
