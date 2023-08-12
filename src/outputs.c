@@ -60,8 +60,11 @@ void additionalInterfaceOutput(char *interfaceName)
     */
 
     getMacAddress(macAddress, interfaceName);
-    getGatewayAddr(ipGatewayAddrTab, interfaceName);
-    getDnsAddress(ipDnsAddrTab, interfaceName);
+    if (strcmp(interfaceName, "lo"))
+    {
+        getGatewayAddr(ipGatewayAddrTab, interfaceName);
+        getDnsAddress(ipDnsAddrTab, interfaceName);
+    }
 
     printf("\n");
 

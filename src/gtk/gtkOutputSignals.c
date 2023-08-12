@@ -66,8 +66,12 @@ void onComboBoxInterface(GtkComboBox *widget)
         sprintf(dhcpOutput, "Configuration.....: Static");
 
     getMacAddress(macAddress, interfaceName);
-    getGatewayAddr(ipGatewayAddrTab, interfaceName);
-    getDnsAddress(ipDnsAddrTab, interfaceName);
+
+    if (strcmp(interfaceName, "lo"))
+    {
+        getGatewayAddr(ipGatewayAddrTab, interfaceName);
+        getDnsAddress(ipDnsAddrTab, interfaceName);
+    }
 
     sprintf(resultTextDnsConfig, "DNS address.......: %d.%d.%d.%d", ipDnsAddrTab[0], ipDnsAddrTab[1], ipDnsAddrTab[2], ipDnsAddrTab[3]);
 

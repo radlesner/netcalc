@@ -2,7 +2,6 @@
 #include "headers/commands.h"
 #include "headers/ipOperations.h"
 #include "headers/outputs.h"
-#include "headers/sdbus.h"
 #include "headers/segmentForOctet.h"
 
 // -------------------------------------------------------------
@@ -221,26 +220,17 @@ int isDhcpConfig(const char *interface)
 // -------------------------------------------------------------
 void getDnsAddress(unsigned int ipDnsAddrTab[], char *interfaceName)
 {
-    char SDBUSoutput[64];
     char command[128];
     char cmdResult[256];
 
-    if (isSDBUSavailable())
+    sprintf(command, "grep -w -m 1 'nameserver' /etc/resolv.conf | awk '{print $2}'");
+    getCommandResult(cmdResult, command);
+    getOctet(ipDnsAddrTab, cmdResult);
+
+    if (ipcmp(ipDnsAddrTab, 127, 0, 0, 53))
     {
-        getSDBUS_dns_IP_address(SDBUSoutput);
-        getOctet(ipDnsAddrTab, SDBUSoutput);
-    }
-    else
-    {
-        sprintf(command, "grep -w -m 1 'nameserver' /etc/resolv.conf | awk '{print $2}'");
+        sprintf(command, "nmcli device show %s | grep -w -m 1 'IP4.DNS' | awk '{print $2}'", interfaceName);
         getCommandResult(cmdResult, command);
         getOctet(ipDnsAddrTab, cmdResult);
-
-        if (ipcmp(ipDnsAddrTab, 127, 0, 0, 53))
-        {
-            sprintf(command, "nmcli device show %s | grep -w -m 1 'IP4.DNS' | awk '{print $2}'", interfaceName);
-            getCommandResult(cmdResult, command);
-            getOctet(ipDnsAddrTab, cmdResult);
-        }
     }
 }
