@@ -37,7 +37,6 @@ void onComboBoxInterface(GtkComboBox *widget)
     int maskPrefix;
     char result_text[251];
     char resultTextInterfaceConfig[251];
-    char resultTextDnsConfig[251];
 
     g_print("Selected interface: %s\n", interfaceName);
 
@@ -61,9 +60,9 @@ void onComboBoxInterface(GtkComboBox *widget)
     numHost = getHostNumber(maskPrefix);
 
     if (isDhcpConfig(interfaceName))
-        sprintf(dhcpOutput, "Configuration.....: DHCP");
+        sprintf(dhcpOutput, "Configuration:     DHCP");
     else
-        sprintf(dhcpOutput, "Configuration.....: Static");
+        sprintf(dhcpOutput, "Configuration:     Static");
 
     getMacAddress(macAddress, interfaceName);
 
@@ -73,31 +72,37 @@ void onComboBoxInterface(GtkComboBox *widget)
         getDnsAddress(ipDnsAddrTab, interfaceName);
     }
 
-    sprintf(resultTextDnsConfig, "DNS address.......: %d.%d.%d.%d", ipDnsAddrTab[0], ipDnsAddrTab[1], ipDnsAddrTab[2], ipDnsAddrTab[3]);
-    gtk_label_set_text(GTK_LABEL(labelFrameDnsConfig), resultTextDnsConfig);
+    // sprintf(resultTextDnsConfig, "DNS:               %d.%d.%d.%d", ipDnsAddrTab[0], ipDnsAddrTab[1], ipDnsAddrTab[2], ipDnsAddrTab[3]);
+    // gtk_label_set_text(GTK_LABEL(labelFrameDnsConfig), resultTextDnsConfig);
 
     sprintf(resultTextInterfaceConfig,
             "%s\n"
-            "MAC address.......: %s\n"
-            "Gateway address...: %d.%d.%d.%d",
+            "MAC address:       %s\n"
+            "Gateway address:   %d.%d.%d.%d\n"
+            "DNS address:       %d.%d.%d.%d",
             dhcpOutput,
             macAddress,
             // Gateway address
             ipGatewayAddrTab[0],
             ipGatewayAddrTab[1],
             ipGatewayAddrTab[2],
-            ipGatewayAddrTab[3]);
+            ipGatewayAddrTab[3],
+            //
+            ipDnsAddrTab[0],
+            ipDnsAddrTab[1],
+            ipDnsAddrTab[2],
+            ipDnsAddrTab[3]);
     gtk_label_set_text(GTK_LABEL(labelFrameInterfaceConfigOutput), resultTextInterfaceConfig);
 
     sprintf(result_text,
-            "IP address.......: %d.%d.%d.%d\n"
-            "Mask address.....: %d.%d.%d.%d\n"
-            "Wildcard address.: %d.%d.%d.%d\n"
-            "Network address..: %d.%d.%d.%d/%d\n"
+            "IP address:        %d.%d.%d.%d\n"
+            "Mask address:      %d.%d.%d.%d\n"
+            "Wildcard address:  %d.%d.%d.%d\n"
+            "Network address:   %d.%d.%d.%d/%d\n"
             "Broadcast address: %d.%d.%d.%d\n"
-            "First address....: %d.%d.%d.%d\n"
-            "Last address.....: %d.%d.%d.%d\n"
-            "Number of hosts..: %ld",
+            "First address:     %d.%d.%d.%d\n"
+            "Last address:      %d.%d.%d.%d\n"
+            "Number of hosts:   %ld",
             ipAddrTab[0],
             ipAddrTab[1],
             ipAddrTab[2],
@@ -177,14 +182,14 @@ void calcButtonClick(void)
         numHost = getHostNumber(atoi(maskPrefix));
 
         sprintf(result_text,
-                "IP address.......: %d.%d.%d.%d\n"
-                "Mask address.....: %d.%d.%d.%d\n"
-                "Wildcard address.: %d.%d.%d.%d\n"
-                "Network address..: %d.%d.%d.%d/%s\n"
+                "IP address:        %d.%d.%d.%d\n"
+                "Mask address:      %d.%d.%d.%d\n"
+                "Wildcard address:  %d.%d.%d.%d\n"
+                "Network address:   %d.%d.%d.%d/%s\n"
                 "Broadcast address: %d.%d.%d.%d\n"
-                "First address....: %d.%d.%d.%d\n"
-                "Last address.....: %d.%d.%d.%d\n"
-                "Number of hosts..: %ld",
+                "First address:     %d.%d.%d.%d\n"
+                "Last address:      %d.%d.%d.%d\n"
+                "Number of hosts:   %ld",
                 ipAddrTab[0],
                 ipAddrTab[1],
                 ipAddrTab[2],
@@ -229,14 +234,14 @@ void calcButtonClick(void)
     else
     {
         sprintf(result_text,
-                "IP address.......: BAD IP ADDRESS OR MASK PREFIX\n"
-                "Mask address.....:\n"
-                "Wildcard address.:\n"
-                "Network address..:\n"
+                "IP address:        BAD IP ADDRESS OR MASK PREFIX\n"
+                "Mask address:\n"
+                "Wildcard address:\n"
+                "Network address:\n"
                 "Broadcast address:\n"
-                "First address....:\n"
-                "Last address.....:\n"
-                "Number of hosts..:");
+                "First address:\n"
+                "Last address:\n"
+                "Number of hosts:");
 
         gtk_label_set_text(GTK_LABEL(labelFrameBox1), result_text);
     }
