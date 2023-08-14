@@ -3,7 +3,6 @@
 #include "headers/ipOperations.h"
 #include "headers/outputs.h"
 #include "headers/segmentForOctet.h"
-#include "headers/strings.h"
 
 // -------------------------------------------------------------
 int maskToPrefix(unsigned int maskAddr[])
