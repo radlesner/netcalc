@@ -15,6 +15,7 @@ extern GtkWidget *labelFrameDnsConfig;
 
 extern char blankOutput[160];
 extern char blankOutputInterface[160];
+extern char blankOutputDnsConfig[160];
 
 // -------------------------------------------------------------
 void onComboBoxInterface(GtkComboBox *widget)
@@ -32,11 +33,12 @@ void onComboBoxInterface(GtkComboBox *widget)
     unsigned int ipFirstHost[4]      = {0, 0, 0, 0};
     unsigned int ipLastHost[4]       = {0, 0, 0, 0};
     unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
-    unsigned int ipDnsAddrTab[4]     = {0, 0, 0, 0};
+    unsigned int ipDnsAddrTab[4][4]  = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
     unsigned long int numHost;
     int maskPrefix;
     char result_text[251];
     char resultTextInterfaceConfig[251];
+    char resultTextDnsconfig[251];
 
     g_print("Selected interface: %s\n", interfaceName);
 
@@ -75,23 +77,43 @@ void onComboBoxInterface(GtkComboBox *widget)
     // sprintf(resultTextDnsConfig, "DNS:               %d.%d.%d.%d", ipDnsAddrTab[0], ipDnsAddrTab[1], ipDnsAddrTab[2], ipDnsAddrTab[3]);
     // gtk_label_set_text(GTK_LABEL(labelFrameDnsConfig), resultTextDnsConfig);
 
+    sprintf(resultTextDnsconfig,
+            "DNS 1:             %d.%d.%d.%d\n"
+            "DNS 2:             %d.%d.%d.%d\n"
+            "DNS 3:             %d.%d.%d.%d\n"
+            "DNS 4:             %d.%d.%d.%d",
+            ipDnsAddrTab[0][0],
+            ipDnsAddrTab[0][1],
+            ipDnsAddrTab[0][2],
+            ipDnsAddrTab[0][3],
+            //
+            ipDnsAddrTab[1][0],
+            ipDnsAddrTab[1][1],
+            ipDnsAddrTab[1][2],
+            ipDnsAddrTab[1][3],
+            //
+            ipDnsAddrTab[2][0],
+            ipDnsAddrTab[2][1],
+            ipDnsAddrTab[2][2],
+            ipDnsAddrTab[2][3],
+            //
+            ipDnsAddrTab[3][0],
+            ipDnsAddrTab[3][1],
+            ipDnsAddrTab[3][2],
+            ipDnsAddrTab[3][3]);
+    gtk_label_set_text(GTK_LABEL(labelFrameDnsConfig), resultTextDnsconfig);
+
     sprintf(resultTextInterfaceConfig,
             "%s\n"
             "MAC address:       %s\n"
-            "Gateway address:   %d.%d.%d.%d\n"
-            "DNS address:       %d.%d.%d.%d",
+            "Gateway address:   %d.%d.%d.%d",
             dhcpOutput,
             macAddress,
             // Gateway address
             ipGatewayAddrTab[0],
             ipGatewayAddrTab[1],
             ipGatewayAddrTab[2],
-            ipGatewayAddrTab[3],
-            //
-            ipDnsAddrTab[0],
-            ipDnsAddrTab[1],
-            ipDnsAddrTab[2],
-            ipDnsAddrTab[3]);
+            ipGatewayAddrTab[3]);
     gtk_label_set_text(GTK_LABEL(labelFrameInterfaceConfigOutput), resultTextInterfaceConfig);
 
     sprintf(result_text,

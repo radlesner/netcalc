@@ -3,6 +3,7 @@
 #include "headers/ipOperations.h"
 #include "headers/outputs.h"
 #include "headers/segmentForOctet.h"
+#include "headers/strings.h"
 
 // -------------------------------------------------------------
 int maskToPrefix(unsigned int maskAddr[])
@@ -155,9 +156,8 @@ void getMacAddress(char macAddress[], char *interfaceName)
 void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
 {
     char command[512];
-    char result[512];
+    char cmdResult[512] = "";
     unsigned int decimalIP;
-    FILE *fp;
 
     snprintf(command,
              sizeof(command),
@@ -166,26 +166,13 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
              "\"\", $3); print $3}' /proc/net/route",
              interfaceName);
 
-    fp = popen(command, "r");
-    if (fp == NULL)
-    {
-        perror("popen");
-        exit(EXIT_FAILURE);
-    }
+    getCommandResult(cmdResult, command);
 
-    if (fgets(result, sizeof(result), fp) != NULL)
-    {
-        sscanf(result, "%x", &decimalIP); // Convert HEX to DEC
-
-        ipGatewayAddr[3] = (decimalIP >> 24) & 0xFF;
-        ipGatewayAddr[2] = (decimalIP >> 16) & 0xFF;
-        ipGatewayAddr[1] = (decimalIP >> 8) & 0xFF;
-        ipGatewayAddr[0] = decimalIP & 0xFF;
-    }
-
-    pclose(fp);
-
-    return;
+    sscanf(cmdResult, "%x", &decimalIP); // Convert HEX to DEC
+    ipGatewayAddr[3] = (decimalIP >> 24) & 0xFF;
+    ipGatewayAddr[2] = (decimalIP >> 16) & 0xFF;
+    ipGatewayAddr[1] = (decimalIP >> 8) & 0xFF;
+    ipGatewayAddr[0] = decimalIP & 0xFF;
 }
 
 // -------------------------------------------------------------
@@ -218,19 +205,77 @@ int isDhcpConfig(const char *interface)
 }
 
 // -------------------------------------------------------------
-void getDnsAddress(unsigned int ipDnsAddrTab[], char *interfaceName)
+void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char *interfaceName)
 {
     char command[128];
-    char cmdResult[256];
+    char cmdResult[128]      = "";
+    char strIpDnsAddr[4][15] = {{""}, {""}, {""}, {""}};
 
-    sprintf(command, "grep -w -m 1 'nameserver' /etc/resolv.conf | awk '{print $2}'");
+    sprintf(command, "grep -w 'nameserver' /etc/resolv.conf | awk '{print $2}'");
     getCommandResult(cmdResult, command);
-    getOctet(ipDnsAddrTab, cmdResult);
+    getOctet(ipDnsAddrTab[0], cmdResult);
 
-    if (ipcmp(ipDnsAddrTab, 127, 0, 0, 53))
+    if (ipcmp(ipDnsAddrTab[0], 127, 0, 0, 53))
     {
-        sprintf(command, "nmcli device show %s | grep -w -m 1 'IP4.DNS' | awk '{print $2}'", interfaceName);
+        memset(cmdResult, 0, sizeof(cmdResult));
+
+        sprintf(command, "nmcli device show %s | grep -w 'IP4.DNS' | awk '{print $2}'", interfaceName);
         getCommandResult(cmdResult, command);
-        getOctet(ipDnsAddrTab, cmdResult);
+
+        {
+            int newlineCount = 0;
+            int y            = 0;
+            int x            = 0;
+            char buffer[64]  = "";
+
+            for (size_t i = 0; i < strlen(cmdResult); i++)
+            {
+                if (cmdResult[i] == '\n')
+                {
+                    strcpy(strIpDnsAddr[x], buffer);
+
+                    getOctet(ipDnsAddrTab[x], strIpDnsAddr[x]);
+
+                    newlineCount++;
+                    y = 0;
+                    x++;
+
+                    memset(buffer, 0, sizeof(buffer));
+                }
+                else
+                {
+                    buffer[y] = cmdResult[i];
+                    y++;
+                }
+            }
+        }
+    }
+    else
+    {
+        int newlineCount = 0;
+        int y            = 0;
+        int x            = 0;
+        char buffer[64]  = "";
+
+        for (size_t i = 0; i < strlen(cmdResult); i++)
+        {
+            if (cmdResult[i] == '\n')
+            {
+                strcpy(strIpDnsAddr[x], buffer);
+
+                getOctet(ipDnsAddrTab[x], strIpDnsAddr[x]);
+
+                newlineCount++;
+                y = 0;
+                x++;
+
+                memset(buffer, 0, sizeof(buffer));
+            }
+            else
+            {
+                buffer[y] = cmdResult[i];
+                y++;
+            }
+        }
     }
 }

@@ -78,7 +78,7 @@ static void printVersion(GtkWidget *box)
 {
     GtkWidget *boxVersionProgramBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_pack_start(GTK_BOX(box), boxVersionProgramBox, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 75);
+    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 187);
     gtk_widget_set_margin_start(boxVersionProgramBox, 2);
 
     char versionProgramOutput[24];
@@ -112,8 +112,13 @@ void gtkWindowInit(int argc, char *argv[])
     sprintf(blankOutputInterface,
             "Configuration:\n"
             "MAC address:\n"
-            "Gateway address:\n"
-            "DNS address:");
+            "Gateway address:");
+
+    sprintf(blankOutputDnsConfig,
+            "DNS 1:\n"
+            "DNS 2:\n"
+            "DNS 3:\n"
+            "DNS 4:");
 
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -260,11 +265,29 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_top(labelFrameInterfaceConfigOutput, FRAME_LABEL_MARGIN_TOP);
     gtk_widget_set_margin_bottom(labelFrameInterfaceConfigOutput, FRAME_LABEL_MARGIN_BOTTOM);
 
+    // Frame DNS configuration
+    GtkWidget *frameFrameDnsConfig = gtk_frame_new("DNS configuration");
+    gtk_box_pack_start(GTK_BOX(box2), frameFrameDnsConfig, TRUE, TRUE, 0);
+
+    gtk_widget_set_margin_start(frameFrameDnsConfig, 0);
+    gtk_widget_set_margin_end(frameFrameDnsConfig, 10);
+    gtk_widget_set_margin_top(frameFrameDnsConfig, 0);
+    gtk_widget_set_margin_bottom(frameFrameDnsConfig, 10);
+
+    labelFrameDnsConfig = gtk_label_new(blankOutputDnsConfig);
+    gtk_label_set_xalign(GTK_LABEL(labelFrameDnsConfig), 0.0);
+    gtk_container_add(GTK_CONTAINER(frameFrameDnsConfig), labelFrameDnsConfig);
+
+    gtk_widget_set_margin_start(labelFrameDnsConfig, FRAME_LABEL_MARGIN_START);
+    gtk_widget_set_margin_top(labelFrameDnsConfig, FRAME_LABEL_MARGIN_TOP);
+    gtk_widget_set_margin_bottom(labelFrameDnsConfig, FRAME_LABEL_MARGIN_BOTTOM);
+
     // ------------------ SET FONT FOR OUTPUTS ------------------
 
     setLabelOutputFont(labelFrameBox1, FONT_OUTPUT, FONT_OUTPUT_SIZE);
     setLabelOutputFont(labelFrameBox2, FONT_OUTPUT, FONT_OUTPUT_SIZE);
     setLabelOutputFont(labelFrameInterfaceConfigOutput, FONT_OUTPUT, FONT_OUTPUT_SIZE);
+    setLabelOutputFont(labelFrameDnsConfig, FONT_OUTPUT, FONT_OUTPUT_SIZE);
 
     gtk_widget_show_all(window);
     gtk_main();

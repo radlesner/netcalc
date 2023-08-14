@@ -1,13 +1,13 @@
 #include "headers/commands.h"
 
-int isCommandAvailable(const char* command)
+int isCommandAvailable(const char *command)
 {
     char checkCmd[512];
     int boolResult;
 
     sprintf(checkCmd, "%s", command);
 
-    FILE* fp = popen(command, "r");
+    FILE *fp = popen(command, "r");
     if (fp == NULL)
     {
         perror("Błąd polecenia 'popen'");
@@ -20,9 +20,9 @@ int isCommandAvailable(const char* command)
     return boolResult;
 }
 
-void getCommandResult(char resultOutput[], char* inputCommand)
+void getCommandResult(char resultOutput[], char *inputCommand)
 {
-    FILE* cmd_output;
+    FILE *cmd_output;
     char buffer[256];
 
     cmd_output = popen(inputCommand, "r");
@@ -34,7 +34,7 @@ void getCommandResult(char resultOutput[], char* inputCommand)
 
     while (fgets(buffer, sizeof(buffer), cmd_output) != NULL)
     {
-        strcpy(resultOutput, buffer);
+        strcat(resultOutput, buffer);
     }
 
     pclose(cmd_output);
