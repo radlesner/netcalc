@@ -78,7 +78,7 @@ static void printVersion(GtkWidget *box)
 {
     GtkWidget *boxVersionProgramBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_pack_start(GTK_BOX(box), boxVersionProgramBox, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 177);
+    // gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 67);
     gtk_widget_set_margin_start(boxVersionProgramBox, 2);
 
     char versionProgramOutput[24];
@@ -197,6 +197,10 @@ void gtkWindowInit(int argc, char *argv[])
     g_signal_connect(calcButton, "clicked", G_CALLBACK(calcButtonClick), NULL);
 
     // Program version output
+    GtkWidget *fillBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    gtk_box_pack_start(GTK_BOX(box1), fillBox, TRUE, TRUE, 0);
+    gtk_widget_set_size_request(GTK_WIDGET(fillBox), -1, 153);
+
     printVersion(box1);
 
     // ------------------ SECOND BOX ------------------
