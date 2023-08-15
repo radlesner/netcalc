@@ -78,7 +78,7 @@ static void printVersion(GtkWidget *box)
 {
     GtkWidget *boxVersionProgramBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_pack_start(GTK_BOX(box), boxVersionProgramBox, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 187);
+    gtk_widget_set_size_request(GTK_WIDGET(boxVersionProgramBox), -1, 177);
     gtk_widget_set_margin_start(boxVersionProgramBox, 2);
 
     char versionProgramOutput[24];
@@ -254,7 +254,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_start(frameInterfaceConfigOutput, 0);
     gtk_widget_set_margin_end(frameInterfaceConfigOutput, 10);
     gtk_widget_set_margin_top(frameInterfaceConfigOutput, 0);
-    gtk_widget_set_margin_bottom(frameInterfaceConfigOutput, 10);
+    gtk_widget_set_margin_bottom(frameInterfaceConfigOutput, 0);
 
     // Label for additional output for interface
     labelFrameInterfaceConfigOutput = gtk_label_new(blankOutputInterface);

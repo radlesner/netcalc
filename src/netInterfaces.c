@@ -220,61 +220,29 @@ void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char *interfaceName)
 
         sprintf(command, "nmcli device show %s | grep -w 'IP4.DNS' | awk '{print $2}'", interfaceName);
         getCommandResult(cmdResult, command);
-
-        {
-            int newlineCount = 0;
-            int y            = 0;
-            int x            = 0;
-            char buffer[64]  = "";
-
-            for (size_t i = 0; i < strlen(cmdResult); i++)
-            {
-                if (cmdResult[i] == '\n')
-                {
-                    strcpy(strIpDnsAddr[x], buffer);
-
-                    getOctet(ipDnsAddrTab[x], strIpDnsAddr[x]);
-
-                    newlineCount++;
-                    y = 0;
-                    x++;
-
-                    memset(buffer, 0, sizeof(buffer));
-                }
-                else
-                {
-                    buffer[y] = cmdResult[i];
-                    y++;
-                }
-            }
-        }
     }
-    else
+
+    int newlineCount = 0;
+    int y            = 0; // New line buffer index
+    int x            = 0; // Line index
+    char buffer[64]  = "";
+
+    for (size_t i = 0; i < strlen(cmdResult); i++)
     {
-        int newlineCount = 0;
-        int y            = 0;
-        int x            = 0;
-        char buffer[64]  = "";
-
-        for (size_t i = 0; i < strlen(cmdResult); i++)
+        if (cmdResult[i] == '\n')
         {
-            if (cmdResult[i] == '\n')
-            {
-                strcpy(strIpDnsAddr[x], buffer);
+            strcpy(strIpDnsAddr[x], buffer);
+            getOctet(ipDnsAddrTab[x], strIpDnsAddr[x]);
+            memset(buffer, 0, sizeof(buffer));
 
-                getOctet(ipDnsAddrTab[x], strIpDnsAddr[x]);
-
-                newlineCount++;
-                y = 0;
-                x++;
-
-                memset(buffer, 0, sizeof(buffer));
-            }
-            else
-            {
-                buffer[y] = cmdResult[i];
-                y++;
-            }
+            newlineCount++;
+            y = 0;
+            x++;
+        }
+        else
+        {
+            buffer[y] = cmdResult[i];
+            y++;
         }
     }
 }
