@@ -74,9 +74,6 @@ void onComboBoxInterface(GtkComboBox *widget)
         getDnsAddress(ipDnsAddrTab, interfaceName);
     }
 
-    // sprintf(resultTextDnsConfig, "DNS:               %d.%d.%d.%d", ipDnsAddrTab[0], ipDnsAddrTab[1], ipDnsAddrTab[2], ipDnsAddrTab[3]);
-    // gtk_label_set_text(GTK_LABEL(labelFrameDnsConfig), resultTextDnsConfig);
-
     sprintf(resultTextDnsconfig,
             "DNS 1:             %d.%d.%d.%d\n"
             "DNS 2:             %d.%d.%d.%d\n"
