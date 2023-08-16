@@ -54,7 +54,7 @@ set(CMAKE_C_FLAGS "-Wall -Wextra -pedantic")
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# ICON
+# SETTING RESOURCES
 set(APPLICATIONS_DIR "/usr/share/applications/")
 set(ICON_DIR "/usr/share/icons/hicolor/")
 
@@ -65,10 +65,6 @@ add_executable(netcalc ${SOURCES})
 target_include_directories(netcalc PUBLIC ${GTK3_INCLUDE_DIRS})
 target_compile_options(netcalc PUBLIC ${GTK3_CFLAGS_OTHER})
 target_link_libraries(netcalc ${GTK3_LIBRARIES})
-
-target_include_directories(netcalc PRIVATE ${SD_BUS_INCLUDE_DIRS})
-target_compile_options(netcalc PRIVATE ${SD_BUS_CFLAGS_OTHER})
-target_link_libraries(netcalc ${SD_BUS_LIBRARIES})
 
 # LINKING EXTRA LIBRARIES IF SYSTEM IS BSD
 if (CMAKE_SYSTEM_NAME MATCHES "BSD")
