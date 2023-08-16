@@ -222,7 +222,7 @@ void getDnsAddress(char ipDnsAddrs[4][64], char *interfaceName)
         getCommandResult(cmdResult, command);
     }
 
-    int newlineCount = 0;
+    int newlineCount = 0; // Count of lines command output
     int y            = 0; // New line buffer index
     int x            = 0; // Line index
     char buffer[64]  = "";
