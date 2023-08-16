@@ -5,8 +5,8 @@
 #define GTK_WINDOW_WIDTH          100
 #define GTK_WINDOW_HEIGHT         100
 #define BOX_MARGIN                10
-#define FONT_OUTPUT               "Monospace"
-#define FONT_OUTPUT_SIZE          12
+#define FONT_OUTPUT               "Source Code Pro Light"
+#define FONT_OUTPUT_SIZE          13
 #define FONT_OUTPUT_VERSION_SIZE  10
 #define COMBO_BOX_WIDTH           190
 #define FRAME_LABEL_MARGIN_START  10
@@ -199,7 +199,7 @@ void gtkWindowInit(int argc, char *argv[])
     // Program version output
     GtkWidget *fillBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_pack_start(GTK_BOX(box1), fillBox, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(GTK_WIDGET(fillBox), -1, 153);
+    gtk_widget_set_size_request(GTK_WIDGET(fillBox), -1, 154);
 
     printVersion(box1);
 
