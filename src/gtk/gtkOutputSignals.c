@@ -60,12 +60,6 @@ void onComboBoxInterface(GtkComboBox *widget)
     getBroadAddr(ipBroadAddrTab, ipNetAddrTab, ipMaskTab);
     getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
     numHost = getHostNumber(maskPrefix);
-
-    if (isDhcpConfig(interfaceName))
-        sprintf(dhcpOutput, "DHCP");
-    else
-        sprintf(dhcpOutput, "Static");
-
     getMacAddress(macAddress, interfaceName);
 
     if (strcmp(interfaceName, "lo"))
@@ -74,29 +68,10 @@ void onComboBoxInterface(GtkComboBox *widget)
         getDnsAddress(ipDnsAddrTab, interfaceName);
     }
 
-    sprintf(resultTextDnsconfig,
-            "DNS 1:             %s\n"
-            "DNS 2:             %s\n"
-            "DNS 3:             %s\n"
-            "DNS 4:             %s",
-            ipDnsAddrTab[0],
-            ipDnsAddrTab[1],
-            ipDnsAddrTab[2],
-            ipDnsAddrTab[3]);
-    gtk_label_set_text(GTK_LABEL(labelFrameDnsConfig), resultTextDnsconfig);
-
-    sprintf(resultTextInterfaceConfig,
-            "Configuration:     %s\n"
-            "MAC address:       %s\n"
-            "Gateway address:   %d.%d.%d.%d",
-            dhcpOutput,
-            macAddress,
-            // Gateway address
-            ipGatewayAddrTab[0],
-            ipGatewayAddrTab[1],
-            ipGatewayAddrTab[2],
-            ipGatewayAddrTab[3]);
-    gtk_label_set_text(GTK_LABEL(labelFrameInterfaceConfigOutput), resultTextInterfaceConfig);
+    if (isDhcpConfig(interfaceName))
+        sprintf(dhcpOutput, "DHCP");
+    else
+        sprintf(dhcpOutput, "Static");
 
     sprintf(result_text,
             "IP address:        %d.%d.%d.%d\n"
@@ -146,6 +121,30 @@ void onComboBoxInterface(GtkComboBox *widget)
             // Number of hosts
             numHost);
     gtk_label_set_text(GTK_LABEL(labelFrameBox2), result_text);
+
+    sprintf(resultTextInterfaceConfig,
+            "Configuration:     %s\n"
+            "MAC address:       %s\n"
+            "Gateway address:   %d.%d.%d.%d",
+            dhcpOutput,
+            macAddress,
+            // Gateway address
+            ipGatewayAddrTab[0],
+            ipGatewayAddrTab[1],
+            ipGatewayAddrTab[2],
+            ipGatewayAddrTab[3]);
+    gtk_label_set_text(GTK_LABEL(labelFrameInterfaceConfigOutput), resultTextInterfaceConfig);
+
+    sprintf(resultTextDnsconfig,
+            "DNS 1:             %s\n"
+            "DNS 2:             %s\n"
+            "DNS 3:             %s\n"
+            "DNS 4:             %s",
+            ipDnsAddrTab[0],
+            ipDnsAddrTab[1],
+            ipDnsAddrTab[2],
+            ipDnsAddrTab[3]);
+    gtk_label_set_text(GTK_LABEL(labelFrameDnsConfig), resultTextDnsconfig);
 }
 
 // -------------------------------------------------------------

@@ -67,17 +67,16 @@ void additionalInterfaceOutput(char *interfaceName)
         getDnsAddress(ipDnsAddrTab, interfaceName);
     }
 
-    printf("\n");
-
     if (isDhcpConfig(interfaceName))
         sprintf(dhcp, "DHCP");
     else
         sprintf(dhcp, "Static");
 
+    printf("\n");
     printf("    Configuration: %s\n", dhcp);
     printf("      MAC address: %s\n", macAddress);
-    printf("  Gateway address: %d.%d.%d.%d\n\n", ipGatewayAddrTab[0], ipGatewayAddrTab[1], ipGatewayAddrTab[2], ipGatewayAddrTab[3]);
-
+    printf("  Gateway address: %d.%d.%d.%d\n", ipGatewayAddrTab[0], ipGatewayAddrTab[1], ipGatewayAddrTab[2], ipGatewayAddrTab[3]);
+    printf("\n");
     printf("            DNS 1: %s\n", ipDnsAddrTab[0]);
     printf("            DNS 2: %s\n", ipDnsAddrTab[1]);
     printf("            DNS 3: %s\n", ipDnsAddrTab[2]);
