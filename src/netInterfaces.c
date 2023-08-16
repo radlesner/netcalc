@@ -229,7 +229,7 @@ void getDnsAddress(char ipDnsAddrs[4][64], char *interfaceName)
 
     for (size_t i = 0; i < strlen(cmdResult); i++)
     {
-        if ((cmdResult[i] == '\n') || (cmdResult[i] == '%'))
+        if (cmdResult[i] == '\n')
         {
             strcpy(ipDnsAddrs[x], buffer);
             memset(buffer, 0, sizeof(buffer));
