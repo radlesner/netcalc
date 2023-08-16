@@ -5,8 +5,12 @@ if [ "$font" = "Y" ] || [ "$font" = "y" ] ; then
     if [ -e "/usr/share/fonts/adobe-source-code-pro/" ] ; then
         echo "-- Source Code Pro font are installed."
     else
-        printf "-- Installing fonr... ."
+        printf "-- Installing font... ."
         sudo cp -n -r ./resources/adobe-source-code-pro/ /usr/share/fonts
+        printf "Done\n"
+
+        printf "-- Refresh fonts... ."
+        sudo fc-cache -fv
         printf "Done\n"
     fi
 fi

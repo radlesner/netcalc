@@ -10,6 +10,7 @@
 #define FONT_OUTPUT_VERSION_SIZE  10
 #define COMBO_BOX_WIDTH           190
 #define FRAME_LABEL_MARGIN_START  10
+#define FRAME_LABEL_MARGIN_END    10
 #define FRAME_LABEL_MARGIN_TOP    10
 #define FRAME_LABEL_MARGIN_BOTTOM 10
 
@@ -178,6 +179,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_container_add(GTK_CONTAINER(frameAddressOutput), labelFrameBox1);
 
     gtk_widget_set_margin_start(labelFrameBox1, FRAME_LABEL_MARGIN_START);
+    gtk_widget_set_margin_end(labelFrameBox1, FRAME_LABEL_MARGIN_END);
     gtk_widget_set_margin_top(labelFrameBox1, FRAME_LABEL_MARGIN_TOP);
     gtk_widget_set_margin_bottom(labelFrameBox1, FRAME_LABEL_MARGIN_BOTTOM);
 
@@ -248,6 +250,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_container_add(GTK_CONTAINER(frameInterfaceOutput), labelFrameBox2);
 
     gtk_widget_set_margin_start(labelFrameBox2, FRAME_LABEL_MARGIN_START);
+    gtk_widget_set_margin_end(labelFrameBox2, FRAME_LABEL_MARGIN_END);
     gtk_widget_set_margin_top(labelFrameBox2, FRAME_LABEL_MARGIN_TOP);
     gtk_widget_set_margin_bottom(labelFrameBox2, FRAME_LABEL_MARGIN_BOTTOM);
 
@@ -266,6 +269,7 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_container_add(GTK_CONTAINER(frameInterfaceConfigOutput), labelFrameInterfaceConfigOutput);
 
     gtk_widget_set_margin_start(labelFrameInterfaceConfigOutput, FRAME_LABEL_MARGIN_START);
+    gtk_widget_set_margin_end(labelFrameInterfaceConfigOutput, FRAME_LABEL_MARGIN_END);
     gtk_widget_set_margin_top(labelFrameInterfaceConfigOutput, FRAME_LABEL_MARGIN_TOP);
     gtk_widget_set_margin_bottom(labelFrameInterfaceConfigOutput, FRAME_LABEL_MARGIN_BOTTOM);
 

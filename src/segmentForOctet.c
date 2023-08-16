@@ -32,10 +32,7 @@ void getOctet(unsigned int ipAddrTab[], const char *ipAddr)
     }
 
     for (int i = 0; i < MAX_OCTETS; i++)
-    {
         ipAddrTab[i] = atoi(ipOctet[i]);
-        // free(ipOctet[i]);
-    }
 }
 
 // -------------------------------------------------------------
