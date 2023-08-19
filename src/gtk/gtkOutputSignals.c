@@ -34,6 +34,7 @@ void onComboBoxInterface(GtkComboBox *widget)
     unsigned int ipLastHost[4]       = {0, 0, 0, 0};
     unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
     unsigned int ipDnsAddrTab[4][4]  = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
+    size_t sizeDnsOutput             = sizeof(ipDnsAddrTab) / sizeof(ipDnsAddrTab[0]);
     unsigned long int numHost;
     int maskPrefix;
     char result_text[251];
@@ -82,7 +83,7 @@ void onComboBoxInterface(GtkComboBox *widget)
     else
         sprintf(gatewayAddrOutput, "Not configured");
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < sizeDnsOutput; i++)
     {
         if (!ipcmp(ipDnsAddrTab[i], 0, 0, 0, 0))
             sprintf(dnsAddrOutput[i], "%d.%d.%d.%d", ipDnsAddrTab[0][0], ipDnsAddrTab[0][1], ipDnsAddrTab[0][2], ipDnsAddrTab[0][3]);

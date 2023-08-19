@@ -52,6 +52,7 @@ void additionalInterfaceOutput(char *interfaceName)
 
     unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
     unsigned int ipDnsAddrTab[4][4]  = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
+    size_t sizeDnsOutput             = sizeof(ipDnsAddrTab) / sizeof(ipDnsAddrTab[0]);
 
     /*
         The following void functions perform calculations related to IP addresses
@@ -80,7 +81,7 @@ void additionalInterfaceOutput(char *interfaceName)
     else
         sprintf(gatewayAddrOutput, "Not configured");
 
-    for (int i = 0; i < 4; i++)
+    for (size_t i = 0; i < sizeDnsOutput; i++)
     {
         if (!ipcmp(ipDnsAddrTab[i], 0, 0, 0, 0))
             sprintf(dnsAddrOutput[i], "%d.%d.%d.%d", ipDnsAddrTab[0][0], ipDnsAddrTab[0][1], ipDnsAddrTab[0][2], ipDnsAddrTab[0][3]);
