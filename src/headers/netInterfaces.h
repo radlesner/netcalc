@@ -21,4 +21,4 @@ bool isExistInterface(char *interfaceName);
 void getMacAddress(char *macAddress, char *interfaceName);
 void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName);
 int isDhcpConfig(const char *interface);
-void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char *interfaceName);
+void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char dnsResolver[], char *interfaceName);

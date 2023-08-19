@@ -115,10 +115,11 @@ void gtkWindowInit(int argc, char *argv[])
             "Gateway address:");
 
     sprintf(blankOutputDnsConfig,
-            "DNS 1:\n"
-            "DNS 2:\n"
-            "DNS 3:\n"
-            "DNS 4:");
+            "DNS:\n"
+            "DNS address 1:\n"
+            "DNS address 2:\n"
+            "DNS address 3:\n"
+            "DNS address 4:");
 
     // Main window
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);

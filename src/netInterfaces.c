@@ -204,7 +204,7 @@ int isDhcpConfig(const char *interface)
 }
 
 // -------------------------------------------------------------
-void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char *interfaceName)
+void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char dnsResolver[], char *interfaceName)
 {
     char command[128];
     char cmdResult[128]      = "";
@@ -213,12 +213,14 @@ void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char *interfaceName)
     sprintf(command, "grep -w 'nameserver' /etc/resolv.conf | awk '{print $2}'");
     getCommandResult(cmdResult, command);
     getOctet(ipDnsAddrTab[0], cmdResult);
+    sprintf(dnsResolver, "/etc/resolv.conf");
 
     if (ipcmp(ipDnsAddrTab[0], 127, 0, 0, 53))
     {
         memset(cmdResult, 0, sizeof(cmdResult));
 
         sprintf(command, "nmcli device show %s | grep -w 'IP4.DNS' | awk '{print $2}'", interfaceName);
+        sprintf(dnsResolver, "systemd-resolved");
         getCommandResult(cmdResult, command);
     }
 

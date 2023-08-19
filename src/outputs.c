@@ -50,6 +50,7 @@ void additionalInterfaceOutput(char *interfaceName)
     char macAddressOutput[18];
     char gatewayAddrOutput[17];
     char dnsAddrOutput[4][17];
+    char dnsResolver[32];
 
     unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
     unsigned int ipDnsAddrTab[4][4]  = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
@@ -70,8 +71,10 @@ void additionalInterfaceOutput(char *interfaceName)
     if (strcmp(interfaceName, "lo"))
     {
         getGatewayAddr(ipGatewayAddrTab, interfaceName);
-        getDnsAddress(ipDnsAddrTab, interfaceName);
+        getDnsAddress(ipDnsAddrTab, dnsResolver, interfaceName);
     }
+    else
+        sprintf(dnsResolver, "Not set");
 
     // --------------------------------------- Check output
     if (isDhcpConfig(interfaceName))
@@ -82,14 +85,14 @@ void additionalInterfaceOutput(char *interfaceName)
     if (!ipcmp(ipGatewayAddrTab, 0, 0, 0, 0))
         sprintf(gatewayAddrOutput, "%d.%d.%d.%d", ipGatewayAddrTab[0], ipGatewayAddrTab[1], ipGatewayAddrTab[2], ipGatewayAddrTab[3]);
     else
-        sprintf(gatewayAddrOutput, "Not configured");
+        sprintf(gatewayAddrOutput, "Not set");
 
     for (size_t i = 0; i < sizeDnsOutput; i++)
     {
         if (!ipcmp(ipDnsAddrTab[i], 0, 0, 0, 0))
             sprintf(dnsAddrOutput[i], "%d.%d.%d.%d", ipDnsAddrTab[i][0], ipDnsAddrTab[i][1], ipDnsAddrTab[i][2], ipDnsAddrTab[i][3]);
         else
-            sprintf(dnsAddrOutput[i], "Not configured");
+            sprintf(dnsAddrOutput[i], "Not set");
     }
 
     // --------------------------------------- Print output
@@ -98,10 +101,11 @@ void additionalInterfaceOutput(char *interfaceName)
     printf("      MAC address: %s\n", macAddressOutput);
     printf("  Gateway address: %s\n\n", gatewayAddrOutput);
 
-    printf("            DNS 1: %s\n", dnsAddrOutput[0]);
-    printf("            DNS 2: %s\n", dnsAddrOutput[1]);
-    printf("            DNS 3: %s\n", dnsAddrOutput[2]);
-    printf("            DNS 4: %s\n", dnsAddrOutput[3]);
+    printf("              DNS: %s\n", dnsResolver);
+    printf("    DNS address 1: %s\n", dnsAddrOutput[0]);
+    printf("    DNS address 2: %s\n", dnsAddrOutput[1]);
+    printf("    DNS address 3: %s\n", dnsAddrOutput[2]);
+    printf("    DNS address 4: %s\n", dnsAddrOutput[3]);
 }
 
 // -------------------------------------------------------------
