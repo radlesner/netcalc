@@ -24,6 +24,7 @@ void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
         Arrays in the code always have the abbreviation "Tab" at the end of the name
     */
 
+    // --------------------------------------- Get the values to output
     getMask(ipMaskTab, rawMaskPrefix);
     getWildAddr(ipWildTab, ipMaskTab);
     getNetworkAddr(ipNetAddrTab, ipAddrTab, ipMaskTab);
@@ -31,7 +32,7 @@ void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
     getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
     numHost = getHostNumber(rawMaskPrefix);
 
-    // Output for console
+    // --------------------------------------- Print output
     printf("       IP address: %d.%d.%d.%d\n", ipAddrTab[0], ipAddrTab[1], ipAddrTab[2], ipAddrTab[3]);
     printf("     Mask address: %d.%d.%d.%d\n", ipMaskTab[0], ipMaskTab[1], ipMaskTab[2], ipMaskTab[3]);
     printf(" Wildcard address: %d.%d.%d.%d\n", ipWildTab[0], ipWildTab[1], ipWildTab[2], ipWildTab[3]);
@@ -64,6 +65,7 @@ void additionalInterfaceOutput(char *interfaceName)
         Arrays in the code always have the abbreviation "Tab" at the end of the name
     */
 
+    // --------------------------------------- Get the values to output
     getMacAddress(macAddressOutput, interfaceName);
     if (strcmp(interfaceName, "lo"))
     {
@@ -71,6 +73,7 @@ void additionalInterfaceOutput(char *interfaceName)
         getDnsAddress(ipDnsAddrTab, interfaceName);
     }
 
+    // --------------------------------------- Check output
     if (isDhcpConfig(interfaceName))
         sprintf(dhcpOutput, "DHCP");
     else
@@ -89,6 +92,7 @@ void additionalInterfaceOutput(char *interfaceName)
             sprintf(dnsAddrOutput[i], "Not configured");
     }
 
+    // --------------------------------------- Print output
     printf("\n");
     printf("    Configuration: %s\n", dhcpOutput);
     printf("      MAC address: %s\n", macAddressOutput);

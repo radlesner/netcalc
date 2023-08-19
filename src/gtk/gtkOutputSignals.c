@@ -59,6 +59,7 @@ void onComboBoxInterface(GtkComboBox *widget)
         Arrays in the code always have the abbreviation "Tab" at the end of the name
     */
 
+    // --------------------------------------- Get the values to output
     getWildAddr(ipWildTab, ipMaskTab);
     getNetworkAddr(ipNetAddrTab, ipAddrTab, ipMaskTab);
     getBroadAddr(ipBroadAddrTab, ipNetAddrTab, ipMaskTab);
@@ -83,7 +84,7 @@ void onComboBoxInterface(GtkComboBox *widget)
     else
         sprintf(gatewayAddrOutput, "Not configured");
 
-    for (int i = 0; i < sizeDnsOutput; i++)
+    for (size_t i = 0; i < sizeDnsOutput; i++)
     {
         if (!ipcmp(ipDnsAddrTab[i], 0, 0, 0, 0))
             sprintf(dnsAddrOutput[i], "%d.%d.%d.%d", ipDnsAddrTab[0][0], ipDnsAddrTab[0][1], ipDnsAddrTab[0][2], ipDnsAddrTab[0][3]);
