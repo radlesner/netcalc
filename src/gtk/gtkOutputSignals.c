@@ -87,7 +87,7 @@ void onComboBoxInterface(GtkComboBox *widget)
     for (size_t i = 0; i < sizeDnsOutput; i++)
     {
         if (!ipcmp(ipDnsAddrTab[i], 0, 0, 0, 0))
-            sprintf(dnsAddrOutput[i], "%d.%d.%d.%d", ipDnsAddrTab[0][0], ipDnsAddrTab[0][1], ipDnsAddrTab[0][2], ipDnsAddrTab[0][3]);
+            sprintf(dnsAddrOutput[i], "%d.%d.%d.%d", ipDnsAddrTab[i][0], ipDnsAddrTab[i][1], ipDnsAddrTab[i][2], ipDnsAddrTab[i][3]);
         else
             sprintf(dnsAddrOutput[i], "Not configured");
     }
@@ -148,15 +148,14 @@ void onComboBoxInterface(GtkComboBox *widget)
             "Gateway address:   %s",
             dhcpOutput,
             macAddress,
-            // Gateway address
             gatewayAddrOutput);
     gtk_label_set_text(GTK_LABEL(labelFrameInterfaceConfigOutput), resultTextInterfaceConfig);
 
     sprintf(resultTextDnsconfig,
-            "DNS 1:             %s\n"
-            "DNS 2:             %s\n"
-            "DNS 3:             %s\n"
-            "DNS 4:             %s",
+            "DNS address 1:     %s\n"
+            "DNS address 2:     %s\n"
+            "DNS address 3:     %s\n"
+            "DNS address 4:     %s",
             dnsAddrOutput[0],
             dnsAddrOutput[1],
             dnsAddrOutput[2],
