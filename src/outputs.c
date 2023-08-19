@@ -45,10 +45,13 @@ void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
 // -------------------------------------------------------------
 void additionalInterfaceOutput(char *interfaceName)
 {
-    char dhcp[7];
-    char macAddress[18];
+    char dhcpOutput[7];
+    char macAddressOutput[18];
+    char gatewayAddrOutput[17];
+    char dnsAddrOutput[4][17];
+
     unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
-    char ipDnsAddrTab[4][64]         = {{""}, {""}, {""}, {""}};
+    unsigned int ipDnsAddrTab[4][4]  = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
 
     /*
         The following void functions perform calculations related to IP addresses
@@ -60,7 +63,7 @@ void additionalInterfaceOutput(char *interfaceName)
         Arrays in the code always have the abbreviation "Tab" at the end of the name
     */
 
-    getMacAddress(macAddress, interfaceName);
+    getMacAddress(macAddressOutput, interfaceName);
     if (strcmp(interfaceName, "lo"))
     {
         getGatewayAddr(ipGatewayAddrTab, interfaceName);
@@ -68,19 +71,32 @@ void additionalInterfaceOutput(char *interfaceName)
     }
 
     if (isDhcpConfig(interfaceName))
-        sprintf(dhcp, "DHCP");
+        sprintf(dhcpOutput, "DHCP");
     else
-        sprintf(dhcp, "Static");
+        sprintf(dhcpOutput, "Static");
+
+    if (!ipcmp(ipGatewayAddrTab, 0, 0, 0, 0))
+        sprintf(gatewayAddrOutput, "%d.%d.%d.%d", ipGatewayAddrTab[0], ipGatewayAddrTab[1], ipGatewayAddrTab[2], ipGatewayAddrTab[3]);
+    else
+        sprintf(gatewayAddrOutput, "Not configured");
+
+    for (int i = 0; i < 4; i++)
+    {
+        if (!ipcmp(ipDnsAddrTab[i], 0, 0, 0, 0))
+            sprintf(dnsAddrOutput[i], "%d.%d.%d.%d", ipDnsAddrTab[0][0], ipDnsAddrTab[0][1], ipDnsAddrTab[0][2], ipDnsAddrTab[0][3]);
+        else
+            sprintf(dnsAddrOutput[i], "Not configured");
+    }
 
     printf("\n");
-    printf("    Configuration: %s\n", dhcp);
-    printf("      MAC address: %s\n", macAddress);
-    printf("  Gateway address: %d.%d.%d.%d\n", ipGatewayAddrTab[0], ipGatewayAddrTab[1], ipGatewayAddrTab[2], ipGatewayAddrTab[3]);
-    printf("\n");
-    printf("            DNS 1: %s\n", ipDnsAddrTab[0]);
-    printf("            DNS 2: %s\n", ipDnsAddrTab[1]);
-    printf("            DNS 3: %s\n", ipDnsAddrTab[2]);
-    printf("            DNS 4: %s\n", ipDnsAddrTab[3]);
+    printf("    Configuration: %s\n", dhcpOutput);
+    printf("      MAC address: %s\n", macAddressOutput);
+    printf("  Gateway address: %s\n\n", gatewayAddrOutput);
+
+    printf("            DNS 1: %s\n", dnsAddrOutput[0]);
+    printf("            DNS 2: %s\n", dnsAddrOutput[1]);
+    printf("            DNS 3: %s\n", dnsAddrOutput[2]);
+    printf("            DNS 4: %s\n", dnsAddrOutput[3]);
 }
 
 // -------------------------------------------------------------

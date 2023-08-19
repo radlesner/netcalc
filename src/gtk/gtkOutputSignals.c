@@ -33,12 +33,15 @@ void onComboBoxInterface(GtkComboBox *widget)
     unsigned int ipFirstHost[4]      = {0, 0, 0, 0};
     unsigned int ipLastHost[4]       = {0, 0, 0, 0};
     unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
-    char ipDnsAddrTab[4][64]         = {{""}, {""}, {""}, {""}};
+    unsigned int ipDnsAddrTab[4][4]  = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
     unsigned long int numHost;
     int maskPrefix;
     char result_text[251];
     char resultTextInterfaceConfig[251];
     char resultTextDnsconfig[350];
+
+    char gatewayAddrOutput[17];
+    char dnsAddrOutput[4][17];
 
     g_print("Selected interface: %s\n", interfaceName);
 
@@ -68,11 +71,26 @@ void onComboBoxInterface(GtkComboBox *widget)
         getDnsAddress(ipDnsAddrTab, interfaceName);
     }
 
+    // --------------------------------------- Check output
     if (isDhcpConfig(interfaceName))
         sprintf(dhcpOutput, "DHCP");
     else
         sprintf(dhcpOutput, "Static");
 
+    if (!ipcmp(ipGatewayAddrTab, 0, 0, 0, 0))
+        sprintf(gatewayAddrOutput, "%d.%d.%d.%d", ipGatewayAddrTab[0], ipGatewayAddrTab[1], ipGatewayAddrTab[2], ipGatewayAddrTab[3]);
+    else
+        sprintf(gatewayAddrOutput, "Not configured");
+
+    for (int i = 0; i < 4; i++)
+    {
+        if (!ipcmp(ipDnsAddrTab[i], 0, 0, 0, 0))
+            sprintf(dnsAddrOutput[i], "%d.%d.%d.%d", ipDnsAddrTab[0][0], ipDnsAddrTab[0][1], ipDnsAddrTab[0][2], ipDnsAddrTab[0][3]);
+        else
+            sprintf(dnsAddrOutput[i], "Not configured");
+    }
+
+    // --------------------------------------- Print output
     sprintf(result_text,
             "IP address:        %d.%d.%d.%d\n"
             "Mask address:      %d.%d.%d.%d\n"
@@ -125,14 +143,11 @@ void onComboBoxInterface(GtkComboBox *widget)
     sprintf(resultTextInterfaceConfig,
             "Configuration:     %s\n"
             "MAC address:       %s\n"
-            "Gateway address:   %d.%d.%d.%d",
+            "Gateway address:   %s",
             dhcpOutput,
             macAddress,
             // Gateway address
-            ipGatewayAddrTab[0],
-            ipGatewayAddrTab[1],
-            ipGatewayAddrTab[2],
-            ipGatewayAddrTab[3]);
+            gatewayAddrOutput);
     gtk_label_set_text(GTK_LABEL(labelFrameInterfaceConfigOutput), resultTextInterfaceConfig);
 
     sprintf(resultTextDnsconfig,
@@ -140,10 +155,10 @@ void onComboBoxInterface(GtkComboBox *widget)
             "DNS 2:             %s\n"
             "DNS 3:             %s\n"
             "DNS 4:             %s",
-            ipDnsAddrTab[0],
-            ipDnsAddrTab[1],
-            ipDnsAddrTab[2],
-            ipDnsAddrTab[3]);
+            dnsAddrOutput[0],
+            dnsAddrOutput[1],
+            dnsAddrOutput[2],
+            dnsAddrOutput[3]);
     gtk_label_set_text(GTK_LABEL(labelFrameDnsConfig), resultTextDnsconfig);
 }
 

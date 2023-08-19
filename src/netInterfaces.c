@@ -204,17 +204,17 @@ int isDhcpConfig(const char *interface)
 }
 
 // -------------------------------------------------------------
-void getDnsAddress(char ipDnsAddrs[4][64], char *interfaceName)
+void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char *interfaceName)
 {
     char command[128];
-    char cmdResult[128]       = "";
-    unsigned int compareIp[4] = {0, 0, 0, 0};
+    char cmdResult[128]      = "";
+    char strIpDnsAddr[4][15] = {{""}, {""}, {""}, {""}};
 
     sprintf(command, "grep -w 'nameserver' /etc/resolv.conf | awk '{print $2}'");
     getCommandResult(cmdResult, command);
-    getOctet(compareIp, cmdResult);
+    getOctet(ipDnsAddrTab[0], cmdResult);
 
-    if (ipcmp(compareIp, 127, 0, 0, 53))
+    if (ipcmp(ipDnsAddrTab[0], 127, 0, 0, 53))
     {
         memset(cmdResult, 0, sizeof(cmdResult));
 
@@ -222,7 +222,7 @@ void getDnsAddress(char ipDnsAddrs[4][64], char *interfaceName)
         getCommandResult(cmdResult, command);
     }
 
-    int newlineCount = 0; // Count of lines command output
+    int newlineCount = 0;
     int y            = 0; // New line buffer index
     int x            = 0; // Line index
     char buffer[64]  = "";
@@ -231,7 +231,8 @@ void getDnsAddress(char ipDnsAddrs[4][64], char *interfaceName)
     {
         if (cmdResult[i] == '\n')
         {
-            strcpy(ipDnsAddrs[x], buffer);
+            strcpy(strIpDnsAddr[x], buffer);
+            getOctet(ipDnsAddrTab[x], strIpDnsAddr[x]);
             memset(buffer, 0, sizeof(buffer));
 
             newlineCount++;
