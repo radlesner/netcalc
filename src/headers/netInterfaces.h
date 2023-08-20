@@ -11,7 +11,6 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <systemd/sd-bus.h>
 #include <unistd.h>
 
 int maskToPrefix(unsigned int maskAddr[]);
