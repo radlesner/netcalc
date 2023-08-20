@@ -15,13 +15,9 @@ int maskToPrefix(unsigned int maskAddr[])
         for (j = 7; j >= 0; j--)
         {
             if ((maskAddr[i] >> j) & 1)
-            {
                 prefix++;
-            }
             else
-            {
                 break;
-            }
         }
     }
 
@@ -62,7 +58,6 @@ void getInterfaceInfo(char *interfaceName, unsigned int ipAddr[], unsigned int i
             {
                 getOctet(ipAddr, ipAddress);
                 getOctet(ipMask, maskAddress);
-
                 break;
             }
         }
@@ -160,9 +155,7 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
 
     snprintf(command,
              sizeof(command),
-             "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\""
-             " {gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, "
-             "\"\", $3); print $3}' /proc/net/route",
+             "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\" {gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, \"\", $3); print $3}' /proc/net/route",
              interfaceName);
 
     getCommandResult(cmdResult, command);
@@ -218,7 +211,6 @@ void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char dnsResolver[], char *in
     if (ipcmp(ipDnsAddrTab[0], 127, 0, 0, 53))
     {
         memset(cmdResult, 0, sizeof(cmdResult));
-
         sprintf(command, "nmcli device show %s | grep -w 'IP4.DNS' | awk '{print $2}'", interfaceName);
         sprintf(dnsResolver, "systemd-resolved");
         getCommandResult(cmdResult, command);

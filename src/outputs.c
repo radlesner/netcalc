@@ -6,6 +6,7 @@
 // -------------------------------------------------------------
 void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
 {
+    // Value arrays
     unsigned int ipMaskTab[4]      = {0, 0, 0, 0};
     unsigned int ipWildTab[4]      = {0, 0, 0, 0};
     unsigned int ipNetAddrTab[4]   = {0, 0, 0, 0};
@@ -46,12 +47,14 @@ void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
 // -------------------------------------------------------------
 void additionalInterfaceOutput(char *interfaceName)
 {
+    // Output strings
     char dhcpOutput[7];
     char macAddressOutput[18];
     char gatewayAddrOutput[17];
     char dnsAddrOutput[4][17];
     char dnsResolver[32];
 
+    // Value arrays
     unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
     unsigned int ipDnsAddrTab[4][4]  = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
     size_t sizeDnsOutput             = sizeof(ipDnsAddrTab) / sizeof(ipDnsAddrTab[0]);

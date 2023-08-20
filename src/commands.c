@@ -33,9 +33,7 @@ void getCommandResult(char resultOutput[], char *inputCommand)
     }
 
     while (fgets(buffer, sizeof(buffer), cmd_output) != NULL)
-    {
         strcat(resultOutput, buffer);
-    }
 
     pclose(cmd_output);
 }

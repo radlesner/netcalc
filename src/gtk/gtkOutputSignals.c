@@ -23,6 +23,7 @@ void onComboBoxInterface(GtkComboBox *widget)
     GtkComboBoxText *comboBoxInterface = GTK_COMBO_BOX_TEXT(widget);
     gchar *interfaceName               = gtk_combo_box_text_get_active_text(comboBoxInterface);
 
+    // Value arrays
     unsigned int ipAddrTab[4]        = {0, 0, 0, 0};
     unsigned int ipMaskTab[4]        = {0, 0, 0, 0};
     unsigned int ipWildTab[4]        = {0, 0, 0, 0};
@@ -35,15 +36,18 @@ void onComboBoxInterface(GtkComboBox *widget)
     size_t sizeDnsOutput             = sizeof(ipDnsAddrTab) / sizeof(ipDnsAddrTab[0]);
     unsigned long int numHost;
     int maskPrefix;
-    char result_text[251];
-    char resultTextInterfaceConfig[251];
-    char resultTextDnsconfig[350];
 
+    // Output strings
     char macAddress[18];
     char dhcpOutput[32];
     char gatewayAddrOutput[17];
     char dnsAddrOutput[4][17];
     char dnsResolver[32];
+
+    // Result strings passed to be displayed in the GTK window
+    char result_text[251];
+    char resultTextInterfaceConfig[251];
+    char resultTextDnsconfig[350];
 
     g_print("Selected interface: %s\n", interfaceName);
 

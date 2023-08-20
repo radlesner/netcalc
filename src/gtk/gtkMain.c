@@ -5,7 +5,7 @@
 #define GTK_WINDOW_WIDTH          100
 #define GTK_WINDOW_HEIGHT         100
 #define BOX_MARGIN                10
-#define FONT_OUTPUT               "Source Code Pro Light"
+#define FONT_STYLE                "Source Code Pro Light"
 #define FONT_OUTPUT_SIZE          13
 #define FONT_OUTPUT_VERSION_SIZE  10
 #define COMBO_BOX_WIDTH           190
@@ -88,7 +88,7 @@ static void printVersion(GtkWidget *box)
     gtk_container_add(GTK_CONTAINER(boxVersionProgramBox), labelVersionProgram);
     gtk_label_set_yalign(GTK_LABEL(labelVersionProgram), 1);
 
-    setLabelOutputFont(labelVersionProgram, FONT_OUTPUT, FONT_OUTPUT_VERSION_SIZE);
+    setLabelOutputFont(labelVersionProgram, FONT_STYLE, FONT_OUTPUT_VERSION_SIZE);
 }
 
 // --------------------------------------------------------------------------------------------------------------------------
@@ -292,10 +292,10 @@ void gtkWindowInit(int argc, char *argv[])
 
     // ------------------ SET FONT FOR OUTPUTS ------------------
 
-    setLabelOutputFont(labelFrameBox1, FONT_OUTPUT, FONT_OUTPUT_SIZE);
-    setLabelOutputFont(labelFrameBox2, FONT_OUTPUT, FONT_OUTPUT_SIZE);
-    setLabelOutputFont(labelFrameInterfaceConfigOutput, FONT_OUTPUT, FONT_OUTPUT_SIZE);
-    setLabelOutputFont(labelFrameDnsConfig, FONT_OUTPUT, FONT_OUTPUT_SIZE);
+    setLabelOutputFont(labelFrameBox1, FONT_STYLE, FONT_OUTPUT_SIZE);
+    setLabelOutputFont(labelFrameBox2, FONT_STYLE, FONT_OUTPUT_SIZE);
+    setLabelOutputFont(labelFrameInterfaceConfigOutput, FONT_STYLE, FONT_OUTPUT_SIZE);
+    setLabelOutputFont(labelFrameDnsConfig, FONT_STYLE, FONT_OUTPUT_SIZE);
 
     gtk_widget_show_all(window);
     gtk_main();
