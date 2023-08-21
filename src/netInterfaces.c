@@ -170,7 +170,7 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
 // -------------------------------------------------------------
 int isDhcpConfig(const char *interface)
 {
-    char command[22];
+    char command[64];
     char buffer[256];
     int boolResult = 1; // default TRUE
 
