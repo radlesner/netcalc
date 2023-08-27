@@ -3,5 +3,5 @@
 #include <string.h>
 #include <unistd.h>
 
-int isCommandAvailable(const char* command);
-void getCommandResult(char resultOutput[], char* command);
+int isCommandAvailable(const char *command);
+void getCommandResult(char resultOutput[], char *command);

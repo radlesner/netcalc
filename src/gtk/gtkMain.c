@@ -16,15 +16,10 @@
 
 GtkWidget *entryIpAddress;
 GtkWidget *entryMaskPrefix;
-
 GtkWidget *labelFrameBox1;
 GtkWidget *labelFrameBox2;
 GtkWidget *labelFrameInterfaceConfigOutput;
 GtkWidget *labelFrameDnsConfig;
-
-char blankOutput[160];
-char blankOutputInterface[160];
-char blankOutputDnsConfig[160];
 
 // -------------------------------------------------------------
 static void comboBoxAddOptions(GtkComboBoxText *comboBoxInterface)
@@ -39,9 +34,14 @@ static void comboBoxAddOptions(GtkComboBoxText *comboBoxInterface)
     for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
     {
         if (!ifa->ifa_addr)
+        {
             continue;
+        }
+
         if (ifa->ifa_addr->sa_family == AF_INET)
+        {
             gtk_combo_box_text_append_text(comboBoxInterface, ifa->ifa_name);
+        }
     }
 
     if (ifaddr != NULL)
@@ -49,10 +49,11 @@ static void comboBoxAddOptions(GtkComboBoxText *comboBoxInterface)
 }
 
 // -------------------------------------------------------------
-static void on_window_closed(void)
+_Noreturn static void on_window_closed(void)
 {
     g_print("Window closed\n");
     gtk_main_quit();
+    exit(0);
 }
 
 // -------------------------------------------------------------
@@ -98,6 +99,10 @@ void gtkWindowInit(int argc, char *argv[])
 {
     gtk_init(&argc, &argv);
     setlocale(LC_ALL, "");
+
+    char blankOutput[126];
+    char blankOutputInterface[45];
+    char blankOutputDnsConfig[65];
 
     sprintf(blankOutput,
             "IP address:\n"

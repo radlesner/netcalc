@@ -1,28 +1,34 @@
 #include "headers/ipOperations.h"
 
 // -------------------------------------------------------------
-void getWildAddr(unsigned int ipWildTab[], unsigned int ipMaskTab[])
+void getWildAddr(unsigned int *ipWildTab, unsigned int *ipMaskTab)
 {
     for (int i = 0; i < IP4_MAX_OCTET; i++)
+    {
         ipWildTab[i] = ipMaskTab[i] ^ 255;
+    }
 }
 
 // -------------------------------------------------------------
-void getNetworkAddr(unsigned int ipNetAddrTab[], unsigned int ipAddrTab[], unsigned int ipMaskTab[])
+void getNetworkAddr(unsigned int *ipNetAddrTab, unsigned int *ipAddrTab, unsigned int *ipMaskTab)
 {
     for (int i = 0; i < IP4_MAX_OCTET; i++)
+    {
         ipNetAddrTab[i] = ipAddrTab[i] & ipMaskTab[i];
+    }
 }
 
 // -------------------------------------------------------------
-void getBroadAddr(unsigned int ipBroadAddrTab[], unsigned int ipNetAddrTab[], unsigned int ipMaskTab[])
+void getBroadAddr(unsigned int *ipBroadAddrTab, unsigned int *ipNetAddrTab, unsigned int *ipMaskTab)
 {
     for (int i = 0; i < IP4_MAX_OCTET; i++)
+    {
         ipBroadAddrTab[i] = ipNetAddrTab[i] | (~ipMaskTab[i] & 0xFF);
+    }
 }
 
 // -------------------------------------------------------------
-void getFirstLastHost(unsigned int ipFirstHost[], unsigned int ipLastHost[], unsigned int ipNetAddrTab[], unsigned int ipBroadAddrTab[])
+void getFirstLastHost(unsigned int *ipFirstHost, unsigned int *ipLastHost, unsigned int *ipNetAddrTab, unsigned int *ipBroadAddrTab)
 {
     for (int i = 0; i < IP4_MAX_OCTET; i++)
     {
@@ -47,7 +53,7 @@ unsigned int getHostNumber(unsigned int rawMaskPrefix)
 }
 
 // -------------------------------------------------------------
-int ipcmp(unsigned int ipTab[], int oct1, int oct2, int oct3, int oct4)
+int ipcmp(unsigned int *ipTab, int oct1, int oct2, int oct3, int oct4)
 {
     int matchingOctets           = 0;
     int boolResult               = 1;
@@ -56,13 +62,19 @@ int ipcmp(unsigned int ipTab[], int oct1, int oct2, int oct3, int oct4)
     for (int i = 0; i < IP4_MAX_OCTET; i++)
     {
         if (ipTab[i] == compareIpTab[i])
+        {
             matchingOctets++;
+        }
     }
 
     if (matchingOctets == 4)
+    {
         boolResult = 1; // TRUE
+    }
     else
+    {
         boolResult = 0; // FALSE
+    }
 
     return boolResult;
 }

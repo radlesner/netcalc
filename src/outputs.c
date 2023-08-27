@@ -4,7 +4,7 @@
 #include "headers/segmentForOctet.h"
 
 // -------------------------------------------------------------
-void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
+void mainOutput(unsigned int *ipAddrTab, unsigned int rawMaskPrefix)
 {
     // Value arrays
     unsigned int ipMaskTab[4]      = {0, 0, 0, 0};
@@ -13,7 +13,7 @@ void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
     unsigned int ipBroadAddrTab[4] = {0, 0, 0, 0};
     unsigned int ipFirstHost[4]    = {0, 0, 0, 0};
     unsigned int ipLastHost[4]     = {0, 0, 0, 0};
-    unsigned long int numHost;
+    unsigned long int numHost      = getHostNumber(rawMaskPrefix);
 
     /*
         The following void functions perform calculations related to IP addresses
@@ -31,7 +31,6 @@ void mainOutput(unsigned int ipAddrTab[4], unsigned int rawMaskPrefix)
     getNetworkAddr(ipNetAddrTab, ipAddrTab, ipMaskTab);
     getBroadAddr(ipBroadAddrTab, ipNetAddrTab, ipMaskTab);
     getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
-    numHost = getHostNumber(rawMaskPrefix);
 
     // --------------------------------------- Print output
     printf("       IP address: %d.%d.%d.%d\n", ipAddrTab[0], ipAddrTab[1], ipAddrTab[2], ipAddrTab[3]);
@@ -121,4 +120,33 @@ void helpOutput(void)
     printf("    -i    --inteface      Calculates values from interface\n");
     printf("    -v    --version       Version program\n");
     printf("    -h    --help          Help panel\n");
+}
+
+_Noreturn void invalidArgumentsOutput(int argc, char *argv[])
+{
+    for (int i = 1; i < argc; i++)
+    {
+        if (argc == 2)
+        {
+            printf("Unknown option: %s\n", argv[i]);
+        }
+        else
+        {
+            if (i == 1)
+            {
+                printf("Unknown options: %s", argv[i]);
+            }
+            else
+            {
+                printf(", %s", argv[i]);
+            }
+
+            if (i == (argc - 1))
+            {
+                printf("\n");
+            }
+        }
+    }
+
+    exit(1);
 }

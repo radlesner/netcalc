@@ -13,11 +13,11 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-int maskToPrefix(unsigned int maskAddr[]);
-void getInterfaceInfo(char *interfaceName, unsigned int ipAddr[], unsigned int ipMask[]);
+int maskToPrefix(unsigned int *maskAddr);
+void getInterfaceInfo(char *interfaceName, unsigned int *ipAddr, unsigned int *ipMask);
 void showInterfaces(void);
 bool isExistInterface(char *interfaceName);
 void getMacAddress(char *macAddress, char *interfaceName);
-void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName);
+void getGatewayAddr(unsigned int *ipGatewayAddr, char *interfaceName);
 int isDhcpConfig(const char *interface);
-void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char dnsResolver[], char *interfaceName);
+void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char *dnsResolver, char *interfaceName);

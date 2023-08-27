@@ -4,7 +4,6 @@
 #include <string.h>
 #include <unistd.h>
 
-// Include files
 #include "gtk/headers/gtkMain.h"
 #include "headers/ipOperations.h"
 #include "headers/netInterfaces.h"
@@ -85,21 +84,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            // Handling invalid command line arguments
-            if (argc == 2)
-            {
-                printf("Unknown option: %s\n", argv[i]);
-            }
-            else
-            {
-                if (i == 1)
-                    printf("Unknown options: %s", argv[i]);
-                else
-                    printf(", %s", argv[i]);
-
-                if (i == (argc - 1))
-                    printf("\n");
-            }
+            invalidArgumentsOutput(argc, argv);
         }
     }
 

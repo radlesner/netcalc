@@ -13,10 +13,6 @@ extern GtkWidget *labelFrameBox2;
 extern GtkWidget *labelFrameInterfaceConfigOutput;
 extern GtkWidget *labelFrameDnsConfig;
 
-extern char blankOutput[160];
-extern char blankOutputInterface[160];
-extern char blankOutputDnsConfig[160];
-
 // -------------------------------------------------------------
 void onComboBoxInterface(GtkComboBox *widget)
 {
@@ -34,8 +30,6 @@ void onComboBoxInterface(GtkComboBox *widget)
     unsigned int ipGatewayAddrTab[4] = {0, 0, 0, 0};
     unsigned int ipDnsAddrTab[4][4]  = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
     size_t sizeDnsOutput             = sizeof(ipDnsAddrTab) / sizeof(ipDnsAddrTab[0]);
-    unsigned long int numHost;
-    int maskPrefix;
 
     // Output strings
     char macAddress[18];
@@ -52,7 +46,8 @@ void onComboBoxInterface(GtkComboBox *widget)
     g_print("Selected interface: %s\n", interfaceName);
 
     getInterfaceInfo(interfaceName, ipAddrTab, ipMaskTab);
-    maskPrefix = maskToPrefix(ipMaskTab);
+    int maskPrefix            = maskToPrefix(ipMaskTab);
+    unsigned long int numHost = getHostNumber(maskPrefix);
 
     /*
         The following void functions perform calculations related to IP addresses
@@ -69,7 +64,6 @@ void onComboBoxInterface(GtkComboBox *widget)
     getNetworkAddr(ipNetAddrTab, ipAddrTab, ipMaskTab);
     getBroadAddr(ipBroadAddrTab, ipNetAddrTab, ipMaskTab);
     getFirstLastHost(ipFirstHost, ipLastHost, ipNetAddrTab, ipBroadAddrTab);
-    numHost = getHostNumber(maskPrefix);
     getMacAddress(macAddress, interfaceName);
 
     if (strcmp(interfaceName, "lo"))

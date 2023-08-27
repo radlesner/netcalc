@@ -5,7 +5,7 @@
 #include "headers/segmentForOctet.h"
 
 // -------------------------------------------------------------
-int maskToPrefix(unsigned int maskAddr[])
+int maskToPrefix(unsigned int *maskAddr)
 {
     int prefix = 0;
     int i, j;
@@ -25,7 +25,7 @@ int maskToPrefix(unsigned int maskAddr[])
 }
 
 // -------------------------------------------------------------
-void getInterfaceInfo(char *interfaceName, unsigned int ipAddr[], unsigned int ipMask[])
+void getInterfaceInfo(char *interfaceName, unsigned int *ipAddr, unsigned int *ipMask)
 {
     struct ifaddrs *ifaddr, *ifa;
     struct sockaddr_in *buffer;
@@ -118,7 +118,7 @@ bool isExistInterface(char *interfaceName)
 }
 
 // -------------------------------------------------------------
-void getMacAddress(char macAddress[], char *interfaceName)
+void getMacAddress(char *macAddress, char *interfaceName)
 {
     struct ifaddrs *ifaddr, *ifa;
 
@@ -147,7 +147,7 @@ void getMacAddress(char macAddress[], char *interfaceName)
 }
 
 // -------------------------------------------------------------
-void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
+void getGatewayAddr(unsigned int *ipGatewayAddr, char *interfaceName)
 {
     char command[512];
     char cmdResult[512] = "";
@@ -198,7 +198,7 @@ int isDhcpConfig(const char *interface)
 }
 
 // -------------------------------------------------------------
-void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char dnsResolver[], char *interfaceName)
+void getDnsAddress(unsigned int ipDnsAddrTab[4][4], char *dnsResolver, char *interfaceName)
 {
     char command[128];
     char cmdResult[128]      = "";

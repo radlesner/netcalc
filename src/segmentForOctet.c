@@ -1,7 +1,7 @@
 #include "headers/segmentForOctet.h"
 
 // -------------------------------------------------------------
-void getOctet(unsigned int ipAddrTab[], const char *ipAddr)
+void getOctet(unsigned int *ipAddrTab, const char *ipAddr)
 {
     int octetIndex = 0;
     int octetSize  = 0;
@@ -22,7 +22,9 @@ void getOctet(unsigned int ipAddrTab[], const char *ipAddr)
             octetSize = 0;
 
             if (octetIndex == MAX_OCTETS)
+            {
                 break;
+            }
         }
         else
         {
@@ -32,11 +34,13 @@ void getOctet(unsigned int ipAddrTab[], const char *ipAddr)
     }
 
     for (int i = 0; i < MAX_OCTETS; i++)
+    {
         ipAddrTab[i] = atoi(ipOctet[i]);
+    }
 }
 
 // -------------------------------------------------------------
-void getMask(unsigned int ipNetMaskTab[], unsigned int maskPrefix)
+void getMask(unsigned int *ipNetMaskTab, const unsigned int maskPrefix)
 {
     uint32_t subnetMask = 0xFFFFFFFF;
 
