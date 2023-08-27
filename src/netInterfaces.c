@@ -28,7 +28,7 @@ int maskToPrefix(unsigned int maskAddr[])
 void getInterfaceInfo(char *interfaceName, unsigned int ipAddr[], unsigned int ipMask[])
 {
     struct ifaddrs *ifaddr, *ifa;
-    struct sockaddr_in *sockAddrBuffer;
+    struct sockaddr_in *buffer;
 
     char ipAddress[INET_ADDRSTRLEN];
     char maskAddress[INET_ADDRSTRLEN];
@@ -46,13 +46,13 @@ void getInterfaceInfo(char *interfaceName, unsigned int ipAddr[], unsigned int i
 
         if (ifa->ifa_addr->sa_family == AF_INET)
         {
-            // Get IP address
-            sockAddrBuffer = (struct sockaddr_in *)ifa->ifa_addr;
-            inet_ntop(AF_INET, &(sockAddrBuffer->sin_addr), ipAddress, INET_ADDRSTRLEN);
+            // Getting IP address of interface
+            buffer = (struct sockaddr_in *)ifa->ifa_addr;
+            inet_ntop(AF_INET, &(buffer->sin_addr), ipAddress, INET_ADDRSTRLEN);
 
-            // Get Mask
-            sockAddrBuffer = (struct sockaddr_in *)ifa->ifa_netmask;
-            inet_ntop(AF_INET, &(sockAddrBuffer->sin_addr), maskAddress, INET_ADDRSTRLEN);
+            // Getting subnet mask of interface
+            buffer = (struct sockaddr_in *)ifa->ifa_netmask;
+            inet_ntop(AF_INET, &(buffer->sin_addr), maskAddress, INET_ADDRSTRLEN);
 
             if (!strcmp(interfaceName, ifa->ifa_name))
             {
@@ -155,7 +155,8 @@ void getGatewayAddr(unsigned int ipGatewayAddr[], char *interfaceName)
 
     snprintf(command,
              sizeof(command),
-             "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\" {gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, \"\", $3); print $3}' /proc/net/route",
+             "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\" {gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, \"\", $3); print $3}' "
+             "/proc/net/route",
              interfaceName);
 
     getCommandResult(cmdResult, command);

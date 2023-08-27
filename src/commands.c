@@ -1,5 +1,6 @@
 #include "headers/commands.h"
 
+// -------------------------------------------------------------
 int isCommandAvailable(const char *command)
 {
     char checkCmd[512];
@@ -9,10 +10,7 @@ int isCommandAvailable(const char *command)
 
     FILE *fp = popen(command, "r");
     if (fp == NULL)
-    {
-        perror("Błąd polecenia 'popen'");
         boolResult = 0; // FALSE
-    }
     else
         boolResult = 1; // TRUE
 
@@ -20,6 +18,7 @@ int isCommandAvailable(const char *command)
     return boolResult;
 }
 
+// -------------------------------------------------------------
 void getCommandResult(char resultOutput[], char *inputCommand)
 {
     FILE *cmd_output;
