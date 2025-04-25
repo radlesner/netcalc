@@ -76,6 +76,13 @@ install(TARGETS netcalc RUNTIME DESTINATION bin)
 install(FILES resources/netcalc.desktop DESTINATION ${APPLICATIONS_DIR})
 install(FILES resources/netcalc-128x128.png DESTINATION ${ICON_DIR}/128x128/apps/)
 
+# INSTALL FONT (Source Code Pro)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/resources/adobe-source-code-pro/
+        DESTINATION /usr/share/fonts/adobe-source-code-pro
+        FILES_MATCHING PATTERN "*.ttf")
+
+install(CODE "execute_process(COMMAND fc-cache -fv)")
+
 # UNINSTALL TARGET
 configure_file(
     "install_manifest.txt.in"
