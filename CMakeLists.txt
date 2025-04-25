@@ -72,6 +72,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "BSD")
 endif()
 
 # INSTALL TARGET
+cmake_policy(SET CMP0177 NEW)
 install(TARGETS netcalc RUNTIME DESTINATION bin)
 install(FILES resources/netcalc.desktop DESTINATION ${APPLICATIONS_DIR})
 install(FILES resources/netcalc-128x128.png DESTINATION ${ICON_DIR}/128x128/apps/)
