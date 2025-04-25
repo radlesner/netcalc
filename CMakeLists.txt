@@ -9,6 +9,20 @@ file(GLOB SOURCES src/*.c src/gtk/*.c)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
+find_file(SCP_FONT_FOUND
+    NAMES "SourceCodePro-Regular.ttf"
+    PATHS
+        /usr/share/fonts/adobe-source-code-pro
+        /usr/share/fonts/TTF
+        /usr/local/share/fonts
+)
+
+if(NOT SCP_FONT_FOUND)
+    message(FATAL_ERROR "Source Code Pro font not found! Please install the 'adobe-source-code-pro-fonts' package.")
+else()
+    message(STATUS "Found Source Code Pro font at: ${SCP_FONT_FOUND}")
+endif()
+
 # LIBS FOR BSD SYSTEMS
 set(EXTRA_LIBS
     -L/usr/local/lib
@@ -75,12 +89,6 @@ endif()
 install(TARGETS netcalc RUNTIME DESTINATION bin)
 install(FILES resources/netcalc.desktop DESTINATION ${APPLICATIONS_DIR})
 install(FILES resources/netcalc-128x128.png DESTINATION ${ICON_DIR}/128x128/apps/)
-
-# INSTALL FONT (Source Code Pro)
-file(GLOB FONT_FILES "${CMAKE_SOURCE_DIR}/resources/adobe-source-code-pro/*.ttf")
-install(FILES ${FONT_FILES} DESTINATION /usr/share/fonts/adobe-source-code-pro)
-
-install(CODE "execute_process(COMMAND fc-cache -fv)")
 
 # UNINSTALL TARGET
 configure_file(
