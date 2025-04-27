@@ -111,7 +111,7 @@ void additionalInterfaceOutput(char *interfaceName)
 }
 
 // -------------------------------------------------------------
-void helpOutput(void)
+_Noreturn void helpOutput(void)
 {
     printf("Usage: netcalc [ip_v4_address] [prefix_netmask]\n");
     printf("Netcalc with no arguments will launch a GTK window\n\n");
@@ -120,6 +120,8 @@ void helpOutput(void)
     printf("    -i    --inteface      Calculates values from interface\n");
     printf("    -v    --version       Version program\n");
     printf("    -h    --help          Help panel\n");
+
+    exit(0);
 }
 
 _Noreturn void invalidArgumentsOutput(int argc, char *argv[])
@@ -148,5 +150,5 @@ _Noreturn void invalidArgumentsOutput(int argc, char *argv[])
         }
     }
 
-    exit(1);
+    exit(0);
 }
