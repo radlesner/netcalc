@@ -155,7 +155,8 @@ void getGatewayAddr(unsigned int *ipGatewayAddr, char *interfaceName)
 
     snprintf(command,
              sizeof(command),
-             "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\" {gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", $3); gsub(/0x/, \"\", $3); print $3}' "
+             "awk -v interface=\"%s\" '$1 == interface && $2 == \"00000000\" {gsub(/../, \"0x&\",$3); sub(/^0x/, \"\", "
+             "$3); gsub(/0x/, \"\", $3); print $3}' "
              "/proc/net/route",
              interfaceName);
 

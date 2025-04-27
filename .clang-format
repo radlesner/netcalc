@@ -10,15 +10,22 @@ KeepEmptyLinesAtTheStartOfBlocks: false
 Language: Cpp
 ObjCSpaceAfterProperty: true
 ObjCSpaceBeforeProtocolList: true
-PointerBindsToType: false
+PointerAlignment: Left
 SortIncludes: true
 SpacesBeforeTrailingComments: 1
 UseTab: Never
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
 
 AlignConsecutiveMacros:
   Enabled: true
   AcrossEmptyLines: true
   AcrossComments: false
+
 AlignConsecutiveAssignments: Consecutive
+EmptyLineAfterAccessModifier: Always
+IndentCaseLabels: true
+BreakConstructorInitializers: BeforeComma
+SpacesInParentheses: false
+SpaceBeforeParens: ControlStatements
