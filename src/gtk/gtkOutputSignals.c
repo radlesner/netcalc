@@ -255,16 +255,7 @@ void calcButtonClick(void)
     }
     else
     {
-        sprintf(result_text,
-                "IP address:        BAD IP ADDRESS OR MASK PREFIX\n"
-                "Mask address:\n"
-                "Wildcard address:\n"
-                "Network address:\n"
-                "Broadcast address:\n"
-                "First address:\n"
-                "Last address:\n"
-                "Number of hosts:");
-
+        sprintf(result_text, "BAD IP ADDRESS OR MASK PREFIX\n\n\n\n\n\n\n");
         gtk_label_set_text(GTK_LABEL(labelFrameBox1), result_text);
     }
 

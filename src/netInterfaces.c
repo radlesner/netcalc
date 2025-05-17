@@ -108,12 +108,13 @@ bool isExistInterface(char *interfaceName)
         {
             if (!strcmp(interfaceName, ifa->ifa_name))
             {
+                freeifaddrs(ifaddr);
                 return true;
-                break;
             }
         }
     }
 
+    freeifaddrs(ifaddr);
     return false;
 }
 

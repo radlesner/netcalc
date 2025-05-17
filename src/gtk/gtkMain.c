@@ -2,7 +2,7 @@
 #include "headers/gtkOutputSignals.h"
 
 #define WINDOW_RESIZABLE          FALSE
-#define GTK_WINDOW_WIDTH          100
+#define GTK_WINDOW_WIDTH          500
 #define GTK_WINDOW_HEIGHT         100
 #define BOX_MARGIN                10
 #define FONT_STYLE                "Source Code Pro Light"
@@ -158,13 +158,14 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_entry_set_alignment(GTK_ENTRY(entryIpAddress), 0.0);
     g_signal_connect(entryIpAddress, "activate", G_CALLBACK(calcButtonClick), NULL);
 
-    // Making label "Subnet mask"
+    // Making label "Subnet mask prefix"
     GtkWidget *labelPrefixBox1 = gtk_label_new("  /  ");
     gtk_box_pack_start(GTK_BOX(fieldTextBox1), labelPrefixBox1, FALSE, FALSE, 0);
 
-    // Making textbox "Subnet mask"
+    // Making textbox "Subnet mask prefix"
     entryMaskPrefix = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entryMaskPrefix), "Enter mask prefix");
+    gtk_entry_set_width_chars(GTK_ENTRY(entryMaskPrefix), 2);
+    gtk_entry_set_placeholder_text(GTK_ENTRY(entryMaskPrefix), "24");
     gtk_box_pack_start(GTK_BOX(fieldTextBox1), entryMaskPrefix, FALSE, FALSE, 0);
     gtk_entry_set_alignment(GTK_ENTRY(entryMaskPrefix), 0.0);
     g_signal_connect(entryMaskPrefix, "activate", G_CALLBACK(calcButtonClick), NULL);

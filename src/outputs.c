@@ -113,11 +113,12 @@ void additionalInterfaceOutput(char *interfaceName)
 // -------------------------------------------------------------
 _Noreturn void helpOutput(void)
 {
-    printf("Usage: netcalc [ip_v4_address] [prefix_netmask]\n");
+    printf("Usage example: netcalc -c 192.168.0.1 24\n");
     printf("Netcalc with no arguments will launch a GTK window\n\n");
 
     printf("Options:\n");
-    printf("    -i    --inteface      Calculates values from interface\n");
+    printf("    -c    --calculator    Calculates values from command arguments\n");
+    printf("    -i    --inteface      Calculates values from network interface\n");
     printf("    -v    --version       Version program\n");
     printf("    -h    --help          Help panel\n");
 
