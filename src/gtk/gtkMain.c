@@ -1,9 +1,9 @@
 #include "headers/gtkMain.h"
 #include "headers/gtkOutputSignals.h"
 
-#define WINDOW_RESIZABLE          FALSE
-#define GTK_WINDOW_WIDTH          500
-#define GTK_WINDOW_HEIGHT         100
+#define WINDOW_RESIZABLE          TRUE
+#define GTK_WINDOW_WIDTH          776
+#define GTK_WINDOW_HEIGHT         489
 #define BOX_MARGIN                10
 #define FONT_STYLE                "Source Code Pro Light"
 #define FONT_OUTPUT_SIZE          13
@@ -165,15 +165,21 @@ void gtkWindowInit(int argc, char *argv[])
     // Making textbox "Subnet mask prefix"
     entryMaskPrefix = gtk_entry_new();
     gtk_entry_set_width_chars(GTK_ENTRY(entryMaskPrefix), 2);
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entryMaskPrefix), "24");
+    // gtk_entry_set_placeholder_text(GTK_ENTRY(entryMaskPrefix), "");
     gtk_box_pack_start(GTK_BOX(fieldTextBox1), entryMaskPrefix, FALSE, FALSE, 0);
     gtk_entry_set_alignment(GTK_ENTRY(entryMaskPrefix), 0.0);
     g_signal_connect(entryMaskPrefix, "activate", G_CALLBACK(calcButtonClick), NULL);
 
+    // Making button "Calculate"
+    GtkWidget *calcButton = gtk_button_new_with_label("Calculate");
+    gtk_container_set_border_width(GTK_CONTAINER(calcButton), 0);
+    gtk_box_pack_start(GTK_BOX(fieldTextBox1), calcButton, TRUE, TRUE, 0);
+    gtk_widget_set_margin_start(calcButton, 10);
+    g_signal_connect(calcButton, "clicked", G_CALLBACK(calcButtonClick), NULL);
+
     // Frame "address address"
     GtkWidget *frameAddressOutput = gtk_frame_new("Network properties");
     gtk_box_pack_start(GTK_BOX(box1), frameAddressOutput, TRUE, TRUE, 0);
-
     gtk_widget_set_margin_start(frameAddressOutput, 10);
     gtk_widget_set_margin_end(frameAddressOutput, 10);
     gtk_widget_set_margin_top(frameAddressOutput, 0);
@@ -183,31 +189,17 @@ void gtkWindowInit(int argc, char *argv[])
     labelFrameBox1 = gtk_label_new(blankOutput);
     gtk_label_set_xalign(GTK_LABEL(labelFrameBox1), 0.0);
     gtk_container_add(GTK_CONTAINER(frameAddressOutput), labelFrameBox1);
+    gtk_label_set_yalign(GTK_LABEL(labelFrameBox1), 0.0);
 
     gtk_widget_set_margin_start(labelFrameBox1, FRAME_LABEL_MARGIN_START);
     gtk_widget_set_margin_end(labelFrameBox1, FRAME_LABEL_MARGIN_END);
     gtk_widget_set_margin_top(labelFrameBox1, FRAME_LABEL_MARGIN_TOP);
     gtk_widget_set_margin_bottom(labelFrameBox1, FRAME_LABEL_MARGIN_BOTTOM);
 
-    // Making container for a button
-    GtkWidget *boxCalcButton = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    gtk_box_pack_start(GTK_BOX(box1), boxCalcButton, FALSE, FALSE, 0);
-
-    gtk_widget_set_margin_start(boxCalcButton, 50);
-    gtk_widget_set_margin_end(boxCalcButton, 50);
-    gtk_widget_set_margin_top(boxCalcButton, 0);
-    gtk_widget_set_margin_bottom(boxCalcButton, 0);
-
-    // Making button "Calculate"
-    GtkWidget *calcButton = gtk_button_new_with_label("Calculate");
-    gtk_container_set_border_width(GTK_CONTAINER(calcButton), 0);
-    gtk_box_pack_start(GTK_BOX(boxCalcButton), calcButton, FALSE, FALSE, 0);
-    g_signal_connect(calcButton, "clicked", G_CALLBACK(calcButtonClick), NULL);
-
     // Program version output
     GtkWidget *fillBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_pack_start(GTK_BOX(box1), fillBox, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(GTK_WIDGET(fillBox), -1, 171);
+    gtk_widget_set_size_request(GTK_WIDGET(fillBox), -1, 212);
 
     printVersion(box1);
 
@@ -254,6 +246,7 @@ void gtkWindowInit(int argc, char *argv[])
     labelFrameBox2 = gtk_label_new(blankOutput);
     gtk_label_set_xalign(GTK_LABEL(labelFrameBox2), 0.0);
     gtk_container_add(GTK_CONTAINER(frameInterfaceOutput), labelFrameBox2);
+    gtk_label_set_yalign(GTK_LABEL(labelFrameBox2), 0.0);
 
     gtk_widget_set_margin_start(labelFrameBox2, FRAME_LABEL_MARGIN_START);
     gtk_widget_set_margin_end(labelFrameBox2, FRAME_LABEL_MARGIN_END);
@@ -269,10 +262,11 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_top(frameInterfaceConfigOutput, 0);
     gtk_widget_set_margin_bottom(frameInterfaceConfigOutput, 0);
 
-    // Label for additional output for interface
+    // Label for "Interface config"
     labelFrameInterfaceConfigOutput = gtk_label_new(blankOutputInterface);
     gtk_label_set_xalign(GTK_LABEL(labelFrameInterfaceConfigOutput), 0.0);
     gtk_container_add(GTK_CONTAINER(frameInterfaceConfigOutput), labelFrameInterfaceConfigOutput);
+    gtk_label_set_yalign(GTK_LABEL(labelFrameInterfaceConfigOutput), 0.0);
 
     gtk_widget_set_margin_start(labelFrameInterfaceConfigOutput, FRAME_LABEL_MARGIN_START);
     gtk_widget_set_margin_end(labelFrameInterfaceConfigOutput, FRAME_LABEL_MARGIN_END);
@@ -288,9 +282,11 @@ void gtkWindowInit(int argc, char *argv[])
     gtk_widget_set_margin_top(frameFrameDnsConfig, 0);
     gtk_widget_set_margin_bottom(frameFrameDnsConfig, 10);
 
+    // Label for frame "DNS config"
     labelFrameDnsConfig = gtk_label_new(blankOutputDnsConfig);
     gtk_label_set_xalign(GTK_LABEL(labelFrameDnsConfig), 0.0);
     gtk_container_add(GTK_CONTAINER(frameFrameDnsConfig), labelFrameDnsConfig);
+    gtk_label_set_yalign(GTK_LABEL(labelFrameDnsConfig), 0.0);
 
     gtk_widget_set_margin_start(labelFrameDnsConfig, FRAME_LABEL_MARGIN_START);
     gtk_widget_set_margin_top(labelFrameDnsConfig, FRAME_LABEL_MARGIN_TOP);
